@@ -6,14 +6,14 @@ systemF : (subtype)*  judgment;
 
 subtype : SubBase '(' Identifier ',' Identifier ')' ';' ; 
 
-judgment : typingContext Turnstile term ';' ;
+judgment : typingContext Turnstile term ':' type ';' ;
 
 typingContext : EmptyContext |  (Identifier ':' type) (',' Identifier ':' type)* ;
 
 type : Identifier | type Arrow type | ForAll Identifier '.' type ;
 
 term: Identifier
-	| term term
+	| '(' term term ')' '[' type ']'
 	| Lambda '.' term	
 	;
 
