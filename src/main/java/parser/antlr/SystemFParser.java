@@ -365,13 +365,13 @@ public class SystemFParser extends Parser {
 
 	public static class TypeContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(SystemFParser.Identifier, 0); }
-		public TerminalNode ForAll() { return getToken(SystemFParser.ForAll, 0); }
 		public List<TypeContext> type() {
 			return getRuleContexts(TypeContext.class);
 		}
 		public TypeContext type(int i) {
 			return getRuleContext(TypeContext.class,i);
 		}
+		public TerminalNode ForAll() { return getToken(SystemFParser.ForAll, 0); }
 		public TerminalNode Arrow() { return getToken(SystemFParser.Arrow, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -407,7 +407,7 @@ public class SystemFParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(57);
+			setState(61);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Identifier:
@@ -416,15 +416,25 @@ public class SystemFParser extends Parser {
 				match(Identifier);
 				}
 				break;
-			case ForAll:
+			case T__0:
 				{
 				setState(53);
-				match(ForAll);
+				match(T__0);
 				setState(54);
-				match(Identifier);
+				type(0);
 				setState(55);
+				match(T__2);
+				}
+				break;
+			case ForAll:
+				{
+				setState(57);
+				match(ForAll);
+				setState(58);
+				match(Identifier);
+				setState(59);
 				match(EmptyContext);
-				setState(56);
+				setState(60);
 				type(1);
 				}
 				break;
@@ -432,7 +442,7 @@ public class SystemFParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(64);
+			setState(68);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -443,16 +453,16 @@ public class SystemFParser extends Parser {
 					{
 					_localctx = new TypeContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_type);
-					setState(59);
-					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(60);
+					setState(63);
+					if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+					setState(64);
 					match(Arrow);
-					setState(61);
-					type(3);
+					setState(65);
+					type(4);
 					}
 					} 
 				}
-				setState(66);
+				setState(70);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			}
@@ -504,43 +514,43 @@ public class SystemFParser extends Parser {
 		TermContext _localctx = new TermContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_term);
 		try {
-			setState(79);
+			setState(83);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Identifier:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(67);
+				setState(71);
 				match(Identifier);
 				}
 				break;
 			case T__0:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(68);
-				match(T__0);
-				setState(69);
-				term();
-				setState(70);
-				term();
-				setState(71);
-				match(T__2);
 				setState(72);
-				match(T__5);
+				match(T__0);
 				setState(73);
-				type(0);
+				term();
 				setState(74);
+				term();
+				setState(75);
+				match(T__2);
+				setState(76);
+				match(T__5);
+				setState(77);
+				type(0);
+				setState(78);
 				match(T__6);
 				}
 				break;
 			case Lambda:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(76);
+				setState(80);
 				match(Lambda);
-				setState(77);
+				setState(81);
 				match(EmptyContext);
-				setState(78);
+				setState(82);
 				term();
 				}
 				break;
@@ -569,33 +579,34 @@ public class SystemFParser extends Parser {
 	private boolean type_sempred(TypeContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 3);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\25T\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\25X\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2\7\2\20\n\2\f\2\16\2\23\13\2\3\2"+
 		"\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3"+
 		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5/\n\5\f\5\16\5\62\13\5\5\5\64\n\5\3"+
-		"\6\3\6\3\6\3\6\3\6\3\6\5\6<\n\6\3\6\3\6\3\6\7\6A\n\6\f\6\16\6D\13\6\3"+
-		"\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7R\n\7\3\7\2\3\n\b\2"+
-		"\4\6\b\n\f\2\2\2T\2\21\3\2\2\2\4\26\3\2\2\2\6\36\3\2\2\2\b\63\3\2\2\2"+
-		"\n;\3\2\2\2\fQ\3\2\2\2\16\20\5\4\3\2\17\16\3\2\2\2\20\23\3\2\2\2\21\17"+
-		"\3\2\2\2\21\22\3\2\2\2\22\24\3\2\2\2\23\21\3\2\2\2\24\25\5\6\4\2\25\3"+
-		"\3\2\2\2\26\27\7\n\2\2\27\30\7\3\2\2\30\31\7\20\2\2\31\32\7\4\2\2\32\33"+
-		"\7\20\2\2\33\34\7\5\2\2\34\35\7\6\2\2\35\5\3\2\2\2\36\37\5\b\5\2\37 \7"+
-		"\13\2\2 !\5\f\7\2!\"\7\7\2\2\"#\5\n\6\2#$\7\6\2\2$\7\3\2\2\2%\64\7\f\2"+
-		"\2&\'\7\20\2\2\'(\7\7\2\2()\5\n\6\2)\60\3\2\2\2*+\7\4\2\2+,\7\20\2\2,"+
-		"-\7\7\2\2-/\5\n\6\2.*\3\2\2\2/\62\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\61"+
-		"\64\3\2\2\2\62\60\3\2\2\2\63%\3\2\2\2\63&\3\2\2\2\64\t\3\2\2\2\65\66\b"+
-		"\6\1\2\66<\7\20\2\2\678\7\r\2\289\7\20\2\29:\7\f\2\2:<\5\n\6\3;\65\3\2"+
-		"\2\2;\67\3\2\2\2<B\3\2\2\2=>\f\4\2\2>?\7\16\2\2?A\5\n\6\5@=\3\2\2\2AD"+
-		"\3\2\2\2B@\3\2\2\2BC\3\2\2\2C\13\3\2\2\2DB\3\2\2\2ER\7\20\2\2FG\7\3\2"+
-		"\2GH\5\f\7\2HI\5\f\7\2IJ\7\5\2\2JK\7\b\2\2KL\5\n\6\2LM\7\t\2\2MR\3\2\2"+
-		"\2NO\7\17\2\2OP\7\f\2\2PR\5\f\7\2QE\3\2\2\2QF\3\2\2\2QN\3\2\2\2R\r\3\2"+
-		"\2\2\b\21\60\63;BQ";
+		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6@\n\6\3\6\3\6\3\6\7\6E\n\6\f"+
+		"\6\16\6H\13\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7V\n\7"+
+		"\3\7\2\3\n\b\2\4\6\b\n\f\2\2\2Y\2\21\3\2\2\2\4\26\3\2\2\2\6\36\3\2\2\2"+
+		"\b\63\3\2\2\2\n?\3\2\2\2\fU\3\2\2\2\16\20\5\4\3\2\17\16\3\2\2\2\20\23"+
+		"\3\2\2\2\21\17\3\2\2\2\21\22\3\2\2\2\22\24\3\2\2\2\23\21\3\2\2\2\24\25"+
+		"\5\6\4\2\25\3\3\2\2\2\26\27\7\n\2\2\27\30\7\3\2\2\30\31\7\20\2\2\31\32"+
+		"\7\4\2\2\32\33\7\20\2\2\33\34\7\5\2\2\34\35\7\6\2\2\35\5\3\2\2\2\36\37"+
+		"\5\b\5\2\37 \7\13\2\2 !\5\f\7\2!\"\7\7\2\2\"#\5\n\6\2#$\7\6\2\2$\7\3\2"+
+		"\2\2%\64\7\f\2\2&\'\7\20\2\2\'(\7\7\2\2()\5\n\6\2)\60\3\2\2\2*+\7\4\2"+
+		"\2+,\7\20\2\2,-\7\7\2\2-/\5\n\6\2.*\3\2\2\2/\62\3\2\2\2\60.\3\2\2\2\60"+
+		"\61\3\2\2\2\61\64\3\2\2\2\62\60\3\2\2\2\63%\3\2\2\2\63&\3\2\2\2\64\t\3"+
+		"\2\2\2\65\66\b\6\1\2\66@\7\20\2\2\678\7\3\2\289\5\n\6\29:\7\5\2\2:@\3"+
+		"\2\2\2;<\7\r\2\2<=\7\20\2\2=>\7\f\2\2>@\5\n\6\3?\65\3\2\2\2?\67\3\2\2"+
+		"\2?;\3\2\2\2@F\3\2\2\2AB\f\5\2\2BC\7\16\2\2CE\5\n\6\6DA\3\2\2\2EH\3\2"+
+		"\2\2FD\3\2\2\2FG\3\2\2\2G\13\3\2\2\2HF\3\2\2\2IV\7\20\2\2JK\7\3\2\2KL"+
+		"\5\f\7\2LM\5\f\7\2MN\7\5\2\2NO\7\b\2\2OP\5\n\6\2PQ\7\t\2\2QV\3\2\2\2R"+
+		"S\7\17\2\2ST\7\f\2\2TV\5\f\7\2UI\3\2\2\2UJ\3\2\2\2UR\3\2\2\2V\r\3\2\2"+
+		"\2\b\21\60\63?FU";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

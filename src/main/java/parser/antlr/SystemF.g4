@@ -10,7 +10,10 @@ judgment : typingContext Turnstile term ':' type ';' ;
 
 typingContext : EmptyContext |  (Identifier ':' type) (',' Identifier ':' type)* ;
 
-type : Identifier | type Arrow type | ForAll Identifier '.' type ;
+type :  Identifier
+        | type Arrow type
+        | '(' type ')'
+        | ForAll Identifier '.' type ;
 
 term: Identifier
 	| '(' term term ')' '[' type ']'
