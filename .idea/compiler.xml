@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="TypeChecker" target="1.7" />
+      <module name="TypeChecker" target="1.9" />
     </bytecodeTargetLevel>
   </component>
 </project>
