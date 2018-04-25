@@ -58,6 +58,36 @@ public interface SystemFListener extends ParseTreeListener {
 	 */
 	void exitType(SystemFParser.TypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SystemFParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void enterBaseType(SystemFParser.BaseTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SystemFParser#baseType}.
+	 * @param ctx the parse tree
+	 */
+	void exitBaseType(SystemFParser.BaseTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SystemFParser#forAllType}.
+	 * @param ctx the parse tree
+	 */
+	void enterForAllType(SystemFParser.ForAllTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SystemFParser#forAllType}.
+	 * @param ctx the parse tree
+	 */
+	void exitForAllType(SystemFParser.ForAllTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SystemFParser#arrowType}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrowType(SystemFParser.ArrowTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SystemFParser#arrowType}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrowType(SystemFParser.ArrowTypeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SystemFParser#term}.
 	 * @param ctx the parse tree
 	 */
@@ -67,4 +97,34 @@ public interface SystemFListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTerm(SystemFParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SystemFParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariable(SystemFParser.VariableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SystemFParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariable(SystemFParser.VariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SystemFParser#application}.
+	 * @param ctx the parse tree
+	 */
+	void enterApplication(SystemFParser.ApplicationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SystemFParser#application}.
+	 * @param ctx the parse tree
+	 */
+	void exitApplication(SystemFParser.ApplicationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SystemFParser#lambda}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambda(SystemFParser.LambdaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SystemFParser#lambda}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambda(SystemFParser.LambdaContext ctx);
 }

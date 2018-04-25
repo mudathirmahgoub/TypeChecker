@@ -41,9 +41,45 @@ public interface SystemFVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(SystemFParser.TypeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SystemFParser#baseType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBaseType(SystemFParser.BaseTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SystemFParser#forAllType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForAllType(SystemFParser.ForAllTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SystemFParser#arrowType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrowType(SystemFParser.ArrowTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SystemFParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTerm(SystemFParser.TermContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SystemFParser#variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable(SystemFParser.VariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SystemFParser#application}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitApplication(SystemFParser.ApplicationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SystemFParser#lambda}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLambda(SystemFParser.LambdaContext ctx);
 }

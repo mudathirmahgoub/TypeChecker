@@ -10,10 +10,18 @@ judgment : typingContext Turnstile term ':' type ';' ;
 
 typingContext : EmptyContext |  (Identifier ':' type) (',' Identifier ':' type)* ;
 
-type :  Identifier
-        | type Arrow type
-        | '(' type ')'
-        | ForAll Identifier '.' type ;
+type :  baseType
+        | baseType arrowType
+        | forAllType
+        | forAllType arrowType
+        | '(' type ')';
+
+
+baseType : Identifier;
+
+forAllType : ForAll Identifier '.' type;
+
+arrowType : Arrow type;
 
 term : variable
 	| application

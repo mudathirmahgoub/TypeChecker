@@ -64,6 +64,46 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
+    public SystemFSyntaxTree visitType(SystemFParser.TypeContext ctx)
+    {
+        Type type = null;
+
+        if(ctx.baseType() != null)
+        {
+            type = (Type) this.visitBaseType(ctx.baseType());
+        }
+
+        if(ctx.forAllType() != null)
+        {
+            type = (Type) this.visitForAllType(ctx.forAllType());
+        }
+
+        if(ctx.arrowType() != null)
+        {
+            ArrowType arrowType = (ArrowType) this.visitArrowType(ctx.arrowType());
+            arrowType.domain = type;
+            type = (Type) arrowType;
+        }
+        return type;
+    }
+
+    @Override public SystemFSyntaxTree visitBaseType(SystemFParser.BaseTypeContext ctx)
+    {
+        BaseType baseType = new BaseType();
+        baseType.name = ctx.Identifier().getText();
+        return baseType;
+    }
+
+    @Override
+    public SystemFSyntaxTree visitArrowType(SystemFParser.ArrowTypeContext ctx)
+    {
+        Type type = (Type) this.visitType(ctx.type());
+        ArrowType arrowType = new ArrowType();
+        arrowType.range = type;
+        return arrowType;
+    }
+
+    @Override
     public SystemFSyntaxTree visitTerm(SystemFParser.TermContext ctx)
     {
         return super.visitTerm(ctx);
@@ -72,7 +112,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     @Override
     public SystemFSyntaxTree visitVariable(SystemFParser.VariableContext ctx)
     {
-        Variable variable = new Variable(ctx.getChild(0).getText());
+        Variable variable = new Variable(ctx.Identifier().getText());
         return variable;
     }
 }
