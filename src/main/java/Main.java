@@ -45,6 +45,7 @@ public class Main
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "java -jar TypeChecker.jar ", options );
         }
+
         catch (Exception exception)
         {
             exception.printStackTrace();
