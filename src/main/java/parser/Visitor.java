@@ -1,19 +1,19 @@
 package parser;
 
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.antlr.SystemFBaseVisitor;
 import parser.antlr.SystemFParser;
+import parser.syntaxtree.SystemFSyntaxTree;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Visitor extends SystemFBaseVisitor<Object>
+public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
 {
     @Override
-    public Object visitSystemF(SystemFParser.SystemFContext ctx) {
+    public SystemFSyntaxTree visitSystemF(SystemFParser.SystemFContext ctx) {
         super.visitSystemF(ctx);
         return null;
+    }
+
+    @Override
+    public SystemFSyntaxTree visitJudgment(SystemFParser.JudgmentContext ctx) {
+        return super.visitJudgment(ctx);
     }
 }

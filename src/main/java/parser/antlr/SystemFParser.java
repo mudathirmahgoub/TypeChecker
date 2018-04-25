@@ -29,7 +29,7 @@ public class SystemFParser extends Parser {
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'('", "','", "')'", "';'", "':'", "'['", "']'", "'SubBase'", null, 
-		"'.'", "'\\forall'", null, "'\\lambda'"
+		"'.'", "'\\forall'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, null, null, null, null, null, "SubBase", "Turnstile", 

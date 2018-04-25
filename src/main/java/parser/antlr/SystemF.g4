@@ -24,15 +24,15 @@ term: Identifier
 
 SubBase : 'SubBase' ;
 
-Turnstile : '|-' | '\\vdash' ;
+Turnstile : '⊢' | '|-' | '\\vdash' ;
 
 EmptyContext : '.'; 
 
 ForAll : '\\forall' ;
 
-Arrow : '->' | '\\rightarrow';
+Arrow : '→' | '->' | '\\rightarrow';
 
-Lambda : '\\lambda' ; 
+Lambda : 'λ' | '\\lambda' ;
 
 Identifier : IdentifierLetter (IdentifierLetter | Digit)* ;
 
