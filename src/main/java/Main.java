@@ -10,6 +10,7 @@ import parser.antlr.SystemFLexer;
 import parser.antlr.SystemFParser;
 import parser.syntaxtree.SystemFSyntaxTree;
 
+import java.io.File;
 import java.nio.charset.Charset;
 
 public class Main
@@ -29,17 +30,8 @@ public class Main
             if (command.hasOption("i"))
             {
                 String inputFile  = command.getOptionValue("i");
-
-                CharStream charStream = CharStreams.fromFileName(inputFile, Charset.forName("windows-1252"));
-                SystemFLexer lexer = new SystemFLexer(charStream);
-                CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-                SystemFParser parser = new SystemFParser(tokenStream);
-
-                ParseTree tree =  parser.systemF();
-                System.out.println(tree);
-                Visitor visitor = new Visitor();
-                SystemFSyntaxTree syntaxTree =  visitor.visit(tree);
-                TypeChecker typeChecker = new TypeChecker(syntaxTree);
+                File file = new File(inputFile);
+                TypeChecker typeChecker = new TypeChecker(file);
                 Answer answer = typeChecker.check();
                 System.out.println(answer);
             }
