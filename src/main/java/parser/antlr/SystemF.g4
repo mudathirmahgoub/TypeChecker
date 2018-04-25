@@ -15,10 +15,16 @@ type :  Identifier
         | '(' type ')'
         | ForAll Identifier '.' type ;
 
-term: Identifier
-	| '(' term term ')' '[' type ']'
-	| Lambda '.' term	
+term : variable
+	| application
+	| lambda
 	;
+
+variable : Identifier ;
+
+application : '(' term term ')' '[' type ']';
+
+lambda : Lambda '.' term;
 
 // lexer rules
 

@@ -45,4 +45,9 @@ public class TypeChecker
         Answer answer = new Answer();
         return answer;
     }
+
+    public SystemFSyntaxTree getSyntaxTree()
+    {
+        return syntaxTree;
+    }
 }
