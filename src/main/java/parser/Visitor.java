@@ -34,6 +34,14 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
+    public SystemFSyntaxTree visitSubtype(SystemFParser.SubtypeContext ctx) {
+        SubBase subBase = new SubBase();
+        subBase.subType = ctx.Identifier().get(0).getText();
+        subBase.superType = ctx.Identifier().get(1).getText();
+        return subBase;
+    }
+
+    @Override
     public SystemFSyntaxTree visitJudgment(SystemFParser.JudgmentContext ctx)
     {
        Judgment judgment = new Judgment();

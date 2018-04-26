@@ -196,4 +196,34 @@ class SystemFSyntaxTreeTest
         assertEquals(BaseType.class, program.judgment.type.getClass());
         assertEquals("T2", ((BaseType)program.judgment.type).name);
     }
+
+    @Test
+    public void subBaseEmptyContextVariableBaseType()
+    {
+        String input = "SubBase(bool, int);  . |- x : T;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = (Program) typeChecker.getSyntaxTree();
+        assertEquals(1, program.subBases.size());
+
+        SubBase subBase1 = program.subBases.get(0);
+        assertEquals("bool", subBase1.subType);
+        assertEquals("int", subBase1.superType);
+    }
+
+    @Test
+    public void subBasesEmptyContextVariableBaseType()
+    {
+        String input = "SubBase(bool, int); SubBase(int, bool); . |- x : T;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = (Program) typeChecker.getSyntaxTree();
+        assertEquals(2, program.subBases.size());
+
+        SubBase subBase1 = program.subBases.get(0);
+        assertEquals("bool", subBase1.subType);
+        assertEquals("int", subBase1.superType);
+
+        SubBase subBase2 = program.subBases.get(1);
+        assertEquals("int", subBase2.subType);
+        assertEquals("bool", subBase2.superType);
+    }
 }
