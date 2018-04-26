@@ -30,8 +30,8 @@ public class Variable extends Term
             return new Answer(false);
         }
 
-        DerivationRule node = new VariableRule(typingContext, this , type);
-
+        Judgment judgment = new Judgment(typingContext, this, type);
+        DerivationRule node = new VariableRule(judgment);
         return new Answer(true, node);
     }
 }
