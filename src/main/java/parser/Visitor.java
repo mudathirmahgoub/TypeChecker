@@ -78,11 +78,17 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
             type = (Type) this.visitForAllType(ctx.forAllType());
         }
 
+        // handle the parenthesis case
+        if(ctx.type() != null)
+        {
+            type = (Type) this.visitType(ctx.type());
+        }
+
         if(ctx.arrowType() != null)
         {
             ArrowType arrowType = (ArrowType) this.visitArrowType(ctx.arrowType());
             arrowType.domain = type;
-            type = (Type) arrowType;
+            type = arrowType;
         }
         return type;
     }

@@ -87,4 +87,31 @@ class SystemFSyntaxTreeTest
         assertEquals(BaseType.class, arrowType2.range.getClass());
         assertEquals("T3", ((BaseType) arrowType2.range).name);
     }
+
+    @Test
+    public void emptyContextArrowTypeArrowTypeParenthesis()
+    {
+        String input = ". |- x : (T1 -> T2) -> T3 ;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = (Program) typeChecker.getSyntaxTree();
+        assertEquals(0, program.subBases.size());
+        assertEquals(0, program.judgment.typingContext.context.size());
+        assertEquals(Variable.class, program.judgment.term.getClass());
+        assertEquals("x", ((Variable) program.judgment.term).name);
+        assertEquals(ArrowType.class, program.judgment.type.getClass());
+
+        ArrowType arrowType1 = (ArrowType)  program.judgment.type;
+
+        assertEquals(ArrowType.class, arrowType1.domain.getClass());
+        ArrowType arrowType2 = (ArrowType)  arrowType1.domain;
+
+        assertEquals(BaseType.class, arrowType2.domain.getClass());
+        assertEquals("T1", ((BaseType) arrowType2.domain).name);
+        assertEquals(BaseType.class, arrowType2.range.getClass());
+        assertEquals("T2", ((BaseType) arrowType2.range).name);
+
+        assertEquals(BaseType.class, arrowType1.range.getClass());
+        assertEquals("T3", ((BaseType) arrowType1.range).name);
+
+    }
 }

@@ -14,7 +14,8 @@ type :  baseType
         | baseType arrowType
         | forAllType
         | forAllType arrowType
-        | '(' type ')';
+        | '(' type ')'
+        | '(' type ')' arrowType;
 
 
 baseType : Identifier;
