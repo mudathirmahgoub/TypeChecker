@@ -110,6 +110,15 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
+    public SystemFSyntaxTree visitForAllType(SystemFParser.ForAllTypeContext ctx)
+    {
+        ForAllType forAllType = new ForAllType();
+        forAllType.typeVariable = ctx.Identifier().getText();
+        forAllType.type = (Type) this.visitType(ctx.type());
+        return forAllType;
+    }
+
+    @Override
     public SystemFSyntaxTree visitTerm(SystemFParser.TermContext ctx)
     {
         return super.visitTerm(ctx);

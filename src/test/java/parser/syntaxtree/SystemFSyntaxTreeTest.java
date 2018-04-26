@@ -48,10 +48,7 @@ class SystemFSyntaxTreeTest
         String input = ". |- x : T1 -> T2 ;";
         TypeChecker typeChecker = new TypeChecker(input);
         Program program = (Program) typeChecker.getSyntaxTree();
-        assertEquals(0, program.subBases.size());
-        assertEquals(0, program.judgment.typingContext.context.size());
-        assertEquals(Variable.class, program.judgment.term.getClass());
-        assertEquals("x", ((Variable) program.judgment.term).name);
+
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
         ArrowType arrowType = (ArrowType)  program.judgment.type;
@@ -68,10 +65,7 @@ class SystemFSyntaxTreeTest
         String input = ". |- x : T1 -> T2 -> T3 ;";
         TypeChecker typeChecker = new TypeChecker(input);
         Program program = (Program) typeChecker.getSyntaxTree();
-        assertEquals(0, program.subBases.size());
-        assertEquals(0, program.judgment.typingContext.context.size());
-        assertEquals(Variable.class, program.judgment.term.getClass());
-        assertEquals("x", ((Variable) program.judgment.term).name);
+
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
         ArrowType arrowType1 = (ArrowType)  program.judgment.type;
@@ -94,10 +88,7 @@ class SystemFSyntaxTreeTest
         String input = ". |- x : (T1 -> T2) -> T3 ;";
         TypeChecker typeChecker = new TypeChecker(input);
         Program program = (Program) typeChecker.getSyntaxTree();
-        assertEquals(0, program.subBases.size());
-        assertEquals(0, program.judgment.typingContext.context.size());
-        assertEquals(Variable.class, program.judgment.term.getClass());
-        assertEquals("x", ((Variable) program.judgment.term).name);
+
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
         ArrowType arrowType1 = (ArrowType)  program.judgment.type;
@@ -112,6 +103,21 @@ class SystemFSyntaxTreeTest
 
         assertEquals(BaseType.class, arrowType1.range.getClass());
         assertEquals("T3", ((BaseType) arrowType1.range).name);
+    }
 
+    @Test
+    public void emptyContextForAllType()
+    {
+        String input = ". |- x : \\forall X. T ;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = (Program) typeChecker.getSyntaxTree();
+
+        assertEquals(ForAllType.class, program.judgment.type.getClass());
+
+        ForAllType forAllType = (ForAllType)  program.judgment.type;
+
+        assertEquals("X", forAllType.typeVariable);
+        assertEquals(BaseType.class, ((BaseType)forAllType.type).getClass());
+        assertEquals("T", ((BaseType)forAllType.type).name);
     }
 }
