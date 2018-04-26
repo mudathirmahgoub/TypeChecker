@@ -13,6 +13,7 @@ class TypeCheckerTest
         TypeChecker typeChecker = new TypeChecker(program);
         Answer answer= typeChecker.check();
         assertFalse(answer.isDerivable);
+        assertNull(answer.rule);
     }
 
     @Test
@@ -22,5 +23,7 @@ class TypeCheckerTest
         TypeChecker typeChecker = new TypeChecker(program);
         Answer answer= typeChecker.check();
         assertTrue(answer.isDerivable);
+        assertNotNull(answer.rule);
+        assertEquals(VariableRule.class, answer.rule.getClass());
     }
 }

@@ -1,7 +1,7 @@
 package parser.syntaxtree;
 
 import typechecker.Answer;
-import typechecker.DerivationTreeNode;
+import typechecker.DerivationRule;
 import typechecker.VariableRule;
 
 public class Variable extends Term
@@ -30,7 +30,7 @@ public class Variable extends Term
             return new Answer(false);
         }
 
-        DerivationTreeNode node = new VariableRule(typingContext, this , type);
+        DerivationRule node = new VariableRule(typingContext, this , type);
 
         return new Answer(true, node);
     }
