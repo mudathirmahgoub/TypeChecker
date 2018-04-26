@@ -26,12 +26,12 @@ public class TypingContext extends SystemFNode
 
             for(Map.Entry<String, Type> entry : context.entrySet())
             {
-                builder.append(entry.getKey() + ":" + entry.getValue() + ",");
+                builder.append(entry.getKey() + ": " + entry.getValue() + ", ");
             }
 
             String contextString = builder.toString();
             // remove the last comma
-            contextString = contextString.substring(0, contextString.length() - 1);
+            contextString = contextString.substring(0, contextString.length() - 2);
 
             return contextString;
         }

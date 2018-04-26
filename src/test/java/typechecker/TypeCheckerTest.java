@@ -136,5 +136,7 @@ class TypeCheckerTest
         assertTrue(answer.isDerivable);
 
         System.out.println(answer.rule);
+
+        System.out.println(((LambdaRule)answer.rule).premiseAnswer.rule);
     }
 }
