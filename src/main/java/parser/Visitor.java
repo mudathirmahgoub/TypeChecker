@@ -130,4 +130,13 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
         Variable variable = new Variable(ctx.Identifier().getText());
         return variable;
     }
+
+    @Override
+    public SystemFSyntaxTree visitLambda(SystemFParser.LambdaContext ctx)
+    {
+        Lambda lambda = new Lambda();
+        lambda.variable = ctx.Identifier().getText();
+        lambda.term = (Term) this.visitTerm(ctx.term());
+        return lambda;
+    }
 }

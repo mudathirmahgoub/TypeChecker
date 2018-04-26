@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SystemFSyntaxTreeTest
 {
     @Test
-    public void emptyContextBaseType()
+    public void emptyContextVariableBaseType()
     {
         String input = ". |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
@@ -22,7 +22,7 @@ class SystemFSyntaxTreeTest
     }
 
     @Test
-    public void nonEmptyContextBaseType()
+    public void nonEmptyContextVariableBaseType()
     {
         String input = "x : T |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
@@ -42,8 +42,9 @@ class SystemFSyntaxTreeTest
         assertEquals("T", ((BaseType)program.judgment.type).name);
     }
 
+    
     @Test
-    public void emptyContextArrowType()
+    public void emptyContextVariableArrowType()
     {
         String input = ". |- x : T1 -> T2 ;";
         TypeChecker typeChecker = new TypeChecker(input);
@@ -60,7 +61,7 @@ class SystemFSyntaxTreeTest
     }
 
     @Test
-    public void emptyContextArrowTypeArrowType()
+    public void emptyContextVariableArrowTypeArrowType()
     {
         String input = ". |- x : T1 -> T2 -> T3 ;";
         TypeChecker typeChecker = new TypeChecker(input);
@@ -83,7 +84,7 @@ class SystemFSyntaxTreeTest
     }
 
     @Test
-    public void emptyContextArrowTypeArrowTypeParenthesis()
+    public void emptyContextVariableArrowTypeArrowTypeParenthesis()
     {
         String input = ". |- x : (T1 -> T2) -> T3 ;";
         TypeChecker typeChecker = new TypeChecker(input);
@@ -106,7 +107,7 @@ class SystemFSyntaxTreeTest
     }
 
     @Test
-    public void emptyContextForAllType()
+    public void emptyContextVariableForAllSimpleType()
     {
         String input = ". |- x : \\forall X. T ;";
         TypeChecker typeChecker = new TypeChecker(input);
@@ -119,5 +120,58 @@ class SystemFSyntaxTreeTest
         assertEquals("X", forAllType.typeVariable);
         assertEquals(BaseType.class, ((BaseType)forAllType.type).getClass());
         assertEquals("T", ((BaseType)forAllType.type).name);
+    }
+
+    @Test
+    public void emptyContextVariableForAlArrowType()
+    {
+        String input = ". |- x : \\forall X. T1 -> T2 ;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = (Program) typeChecker.getSyntaxTree();
+
+        assertEquals(ForAllType.class, program.judgment.type.getClass());
+
+        ForAllType forAllType = (ForAllType)  program.judgment.type;
+
+        assertEquals("X", forAllType.typeVariable);
+        assertEquals(ArrowType.class, forAllType.type.getClass());
+
+        ArrowType arrowType = (ArrowType) forAllType.type;
+
+        assertEquals(BaseType.class, arrowType.domain.getClass());
+        assertEquals("T1", ((BaseType) arrowType.domain).name);
+        assertEquals(BaseType.class, arrowType.range.getClass());
+        assertEquals("T2", ((BaseType) arrowType.range).name);
+    }
+
+    @Test
+    public void emptyContextLambda()
+    {
+        String input = ". |- \\lambda x.x : T1 -> T2;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = (Program) typeChecker.getSyntaxTree();
+        assertEquals(Lambda.class, program.judgment.term.getClass());
+        Lambda lambda = (Lambda) program.judgment.term;
+        assertEquals("x", lambda.variable);
+        assertEquals(Variable.class, lambda.term.getClass());
+        assertEquals("x", ((Variable)lambda.term).name);
+    }
+
+    @Test
+    public void emptyContextLambdaLambda()
+    {
+        String input = ". |- \\lambda x. \\lambda y . x : T1 -> T2 -> T1;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = (Program) typeChecker.getSyntaxTree();
+        assertEquals(Lambda.class, program.judgment.term.getClass());
+
+        Lambda lambda1 = (Lambda) program.judgment.term;
+        assertEquals("x", lambda1.variable);
+        assertEquals(Lambda.class, lambda1.term.getClass());
+
+        Lambda lambda2 = (Lambda) lambda1.term;
+        assertEquals("y", lambda2.variable);
+        assertEquals(Variable.class, lambda2.term.getClass());
+        assertEquals("x", ((Variable)lambda2.term).name);
     }
 }

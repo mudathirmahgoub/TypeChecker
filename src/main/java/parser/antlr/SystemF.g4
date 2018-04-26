@@ -33,7 +33,7 @@ variable : Identifier ;
 
 application : '(' term term ')' '[' type ']';
 
-lambda : Lambda '.' term;
+lambda : Lambda Identifier '.' term;
 
 // lexer rules
 
