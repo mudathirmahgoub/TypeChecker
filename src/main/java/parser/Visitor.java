@@ -8,10 +8,10 @@ import parser.syntaxtree.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
+public class Visitor extends SystemFBaseVisitor<SystemFNode>
 {
     @Override
-    public SystemFSyntaxTree visitSystemF(SystemFParser.SystemFContext ctx)
+    public SystemFNode visitSystemF(SystemFParser.SystemFContext ctx)
     {
         Program program = new Program();
 
@@ -34,7 +34,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
-    public SystemFSyntaxTree visitSubtype(SystemFParser.SubtypeContext ctx) {
+    public SystemFNode visitSubtype(SystemFParser.SubtypeContext ctx) {
         SubBase subBase = new SubBase();
         subBase.subType = ctx.Identifier().get(0).getText();
         subBase.superType = ctx.Identifier().get(1).getText();
@@ -42,19 +42,18 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
-    public SystemFSyntaxTree visitJudgment(SystemFParser.JudgmentContext ctx)
+    public SystemFNode visitJudgment(SystemFParser.JudgmentContext ctx)
     {
-       Judgment judgment = new Judgment();
-       judgment.typingContext = (TypingContext)
+       TypingContext typingContext = (TypingContext)
                this.visitTypingContext(ctx.typingContext());
-       judgment.term = (Term) this.visitTerm(ctx.term());
-       judgment.type = (Type) this.visitType(ctx.type());
+       Term term = (Term) this.visitTerm(ctx.term());
+       Type type = (Type) this.visitType(ctx.type());
 
-       return judgment;
+       return new Judgment(typingContext, term, type);
     }
 
     @Override
-    public SystemFSyntaxTree visitTypingContext(SystemFParser.TypingContextContext ctx)
+    public SystemFNode visitTypingContext(SystemFParser.TypingContextContext ctx)
     {
         TypingContext typingContext = new TypingContext();
 
@@ -72,7 +71,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
-    public SystemFSyntaxTree visitType(SystemFParser.TypeContext ctx)
+    public SystemFNode visitType(SystemFParser.TypeContext ctx)
     {
         Type type = null;
 
@@ -101,7 +100,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
         return type;
     }
 
-    @Override public SystemFSyntaxTree visitBaseType(SystemFParser.BaseTypeContext ctx)
+    @Override public SystemFNode visitBaseType(SystemFParser.BaseTypeContext ctx)
     {
         BaseType baseType = new BaseType();
         baseType.name = ctx.Identifier().getText();
@@ -109,7 +108,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
-    public SystemFSyntaxTree visitArrowType(SystemFParser.ArrowTypeContext ctx)
+    public SystemFNode visitArrowType(SystemFParser.ArrowTypeContext ctx)
     {
         Type type = (Type) this.visitType(ctx.type());
         ArrowType arrowType = new ArrowType();
@@ -118,7 +117,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
-    public SystemFSyntaxTree visitForAllType(SystemFParser.ForAllTypeContext ctx)
+    public SystemFNode visitForAllType(SystemFParser.ForAllTypeContext ctx)
     {
         ForAllType forAllType = new ForAllType();
         forAllType.typeVariable = ctx.Identifier().getText();
@@ -127,20 +126,20 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
-    public SystemFSyntaxTree visitTerm(SystemFParser.TermContext ctx)
+    public SystemFNode visitTerm(SystemFParser.TermContext ctx)
     {
         return super.visitTerm(ctx);
     }
 
     @Override
-    public SystemFSyntaxTree visitVariable(SystemFParser.VariableContext ctx)
+    public SystemFNode visitVariable(SystemFParser.VariableContext ctx)
     {
         Variable variable = new Variable(ctx.Identifier().getText());
         return variable;
     }
 
     @Override
-    public SystemFSyntaxTree visitLambda(SystemFParser.LambdaContext ctx)
+    public SystemFNode visitLambda(SystemFParser.LambdaContext ctx)
     {
         Lambda lambda = new Lambda();
         lambda.variable = ctx.Identifier().getText();
@@ -149,7 +148,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
     }
 
     @Override
-    public SystemFSyntaxTree visitApplication(SystemFParser.ApplicationContext ctx)
+    public SystemFNode visitApplication(SystemFParser.ApplicationContext ctx)
     {
         Application application = new Application();
         application.function = (Term) this.visitTerm(ctx.term().get(0));

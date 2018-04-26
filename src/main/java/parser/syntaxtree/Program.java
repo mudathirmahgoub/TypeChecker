@@ -1,11 +1,17 @@
 package parser.syntaxtree;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import typechecker.Answer;
 
-public class Program extends SystemFSyntaxTree
+import java.util.List;
+
+public class Program extends SystemFNode
 {
     public List<SubBase> subBases;
     public Judgment judgment;
+
+
+    public Answer check()
+    {
+        return judgment.check();
+    }
 }

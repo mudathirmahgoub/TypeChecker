@@ -7,7 +7,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import parser.Visitor;
 import parser.antlr.SystemFLexer;
 import parser.antlr.SystemFParser;
-import parser.syntaxtree.SystemFSyntaxTree;
+import parser.syntaxtree.Program;
+import parser.syntaxtree.SystemFNode;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.nio.charset.Charset;
 
 public class TypeChecker
 {
-    private SystemFSyntaxTree syntaxTree;
+    private Program program;
     public TypeChecker(File file) throws IOException
     {
         CharStream charStream = CharStreams.fromFileName(file.getAbsolutePath(),
@@ -37,17 +38,16 @@ public class TypeChecker
 
         ParseTree tree =  parser.systemF();
         Visitor visitor = new Visitor();
-        this.syntaxTree =  visitor.visit(tree);
+        this.program = (Program) visitor.visit(tree);
     }
 
     public Answer check()
     {
-        Answer answer = new Answer();
-        return answer;
+        return this.program.check();
     }
 
-    public SystemFSyntaxTree getSyntaxTree()
+    public SystemFNode getProgram()
     {
-        return syntaxTree;
+        return program;
     }
 }

@@ -5,14 +5,14 @@ import typechecker.TypeChecker;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SystemFSyntaxTreeTest
+class SystemFNodeTest
 {
     @Test
     public void emptyContextVariableBaseType()
     {
         String input = ". |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
         assertEquals(0, program.subBases.size());
         assertEquals(0, program.judgment.typingContext.context.size());
         assertEquals(Variable.class, program.judgment.term.getClass());
@@ -26,7 +26,7 @@ class SystemFSyntaxTreeTest
     {
         String input = "x : T |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
         assertEquals(0, program.subBases.size());
         assertEquals(1, program.judgment.typingContext.context.size());
 
@@ -48,7 +48,7 @@ class SystemFSyntaxTreeTest
     {
         String input = ". |- x : T1 -> T2 ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
 
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
@@ -65,7 +65,7 @@ class SystemFSyntaxTreeTest
     {
         String input = ". |- x : T1 -> T2 -> T3 ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
 
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
@@ -88,7 +88,7 @@ class SystemFSyntaxTreeTest
     {
         String input = ". |- x : (T1 -> T2) -> T3 ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
 
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
@@ -111,7 +111,7 @@ class SystemFSyntaxTreeTest
     {
         String input = ". |- x : \\forall X. T ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
 
         assertEquals(ForAllType.class, program.judgment.type.getClass());
 
@@ -127,7 +127,7 @@ class SystemFSyntaxTreeTest
     {
         String input = ". |- x : \\forall X. T1 -> T2 ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
 
         assertEquals(ForAllType.class, program.judgment.type.getClass());
 
@@ -149,7 +149,7 @@ class SystemFSyntaxTreeTest
     {
         String input = ". |- \\lambda x.x : T1 -> T2;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
         assertEquals(Lambda.class, program.judgment.term.getClass());
         Lambda lambda = (Lambda) program.judgment.term;
         assertEquals("x", lambda.variable);
@@ -162,7 +162,7 @@ class SystemFSyntaxTreeTest
     {
         String input = ". |- \\lambda x. \\lambda y . x : T1 -> T2 -> T1;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
         assertEquals(Lambda.class, program.judgment.term.getClass());
 
         Lambda lambda1 = (Lambda) program.judgment.term;
@@ -180,7 +180,7 @@ class SystemFSyntaxTreeTest
     {
         String input = ". |- (t1 t2) [T1]: T2;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
         assertEquals(Application.class, program.judgment.term.getClass());
         Application application = (Application) program.judgment.term;
 
@@ -202,7 +202,7 @@ class SystemFSyntaxTreeTest
     {
         String input = "SubBase(bool, int);  . |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
         assertEquals(1, program.subBases.size());
 
         SubBase subBase1 = program.subBases.get(0);
@@ -215,7 +215,7 @@ class SystemFSyntaxTreeTest
     {
         String input = "SubBase(bool, int); SubBase(int, bool); . |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getSyntaxTree();
+        Program program = (Program) typeChecker.getProgram();
         assertEquals(2, program.subBases.size());
 
         SubBase subBase1 = program.subBases.get(0);

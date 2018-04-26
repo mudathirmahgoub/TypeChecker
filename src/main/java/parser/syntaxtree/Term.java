@@ -1,5 +1,8 @@
 package parser.syntaxtree;
 
-abstract public class Term extends SystemFSyntaxTree
+import typechecker.Answer;
+
+abstract public class Term extends SystemFNode
 {
+    public abstract Answer check(Type type, TypingContext typingContext);
 }

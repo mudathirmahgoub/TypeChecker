@@ -1,17 +1,8 @@
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.*;
-import parser.Visitor;
 import typechecker.Answer;
 import typechecker.TypeChecker;
-import parser.antlr.SystemFLexer;
-import parser.antlr.SystemFParser;
-import parser.syntaxtree.SystemFSyntaxTree;
 
 import java.io.File;
-import java.nio.charset.Charset;
 
 public class Main
 {
