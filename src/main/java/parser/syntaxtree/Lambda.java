@@ -28,7 +28,7 @@ public class Lambda extends Term
         // add the variable and the domain type to context
         premiseTypingContext.context.put(variable, arrowType.domain);
 
-        // check the premiseAnswer rule
+        // check the premise rule
         Answer premiseAnswer = term.check(arrowType.range, premiseTypingContext);
 
         Judgment judgment = new Judgment(typingContext, this, type);
