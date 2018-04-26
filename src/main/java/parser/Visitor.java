@@ -139,4 +139,15 @@ public class Visitor extends SystemFBaseVisitor<SystemFSyntaxTree>
         lambda.term = (Term) this.visitTerm(ctx.term());
         return lambda;
     }
+
+    @Override
+    public SystemFSyntaxTree visitApplication(SystemFParser.ApplicationContext ctx)
+    {
+        Application application = new Application();
+        application.function = (Term) this.visitTerm(ctx.term().get(0));
+        application.argument = (Term) this.visitTerm(ctx.term().get(1));
+        application.annotation = (Type) this.visitType(ctx.type());
+
+        return application;
+    }
 }

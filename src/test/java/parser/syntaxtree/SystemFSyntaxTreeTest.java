@@ -174,4 +174,26 @@ class SystemFSyntaxTreeTest
         assertEquals(Variable.class, lambda2.term.getClass());
         assertEquals("x", ((Variable)lambda2.term).name);
     }
+
+    @Test
+    public void emptyContextApplication()
+    {
+        String input = ". |- (t1 t2) [T1]: T2;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = (Program) typeChecker.getSyntaxTree();
+        assertEquals(Application.class, program.judgment.term.getClass());
+        Application application = (Application) program.judgment.term;
+
+        assertEquals(Variable.class, application.function.getClass());
+        assertEquals("t1", ((Variable)application.function).name);
+
+        assertEquals(Variable.class, application.argument.getClass());
+        assertEquals("t2", ((Variable)application.argument).name);
+
+        assertEquals(BaseType.class, application.annotation.getClass());
+        assertEquals("T1", ((BaseType)application.annotation).name);
+
+        assertEquals(BaseType.class, program.judgment.type.getClass());
+        assertEquals("T2", ((BaseType)program.judgment.type).name);
+    }
 }
