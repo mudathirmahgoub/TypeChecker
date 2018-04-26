@@ -19,4 +19,10 @@ public class Judgment extends SystemFNode
     {
         return term.check(type, typingContext);
     }
+
+    @Override
+    public String toString()
+    {
+        return  typingContext + " ⊢ " + term + " : " + type;
+    }
 }

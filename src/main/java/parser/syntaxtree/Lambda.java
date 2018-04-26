@@ -36,4 +36,10 @@ public class Lambda extends Term
         Answer answer = new Answer(premiseAnswer.isDerivable, rule);
         return answer;
     }
+
+    @Override
+    public String toString()
+    {
+        return  "λ" + variable + ". " + term;
+    }
 }

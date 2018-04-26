@@ -12,4 +12,28 @@ public class TypingContext extends SystemFNode
     {
         this.context = new HashMap<>(typingContext.context);
     }
+
+    @Override
+    public String toString()
+    {
+        if(context.size() == 0)
+        {
+            return "·";
+        }
+        else 
+        {
+            StringBuilder builder  = new StringBuilder();
+
+            for(Map.Entry<String, Type> entry : context.entrySet())
+            {
+                builder.append(entry.getKey() + ":" + entry.getValue() + ",");
+            }
+
+            String contextString = builder.toString();
+            // remove the last comma
+            contextString = contextString.substring(0, contextString.length() - 1);
+
+            return contextString;
+        }
+    }
 }

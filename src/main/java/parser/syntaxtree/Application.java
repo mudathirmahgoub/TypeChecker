@@ -27,4 +27,10 @@ public class Application extends Term
         Answer answer = new Answer(premise1Answer.isDerivable && premise2Answer.isDerivable, rule);
         return answer;
     }
+
+    @Override
+    public String toString()
+    {
+        return "(" + function + " "  + argument + ") [" + annotation + "]";
+    }
 }

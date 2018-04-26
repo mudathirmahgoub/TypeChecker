@@ -123,4 +123,18 @@ class TypeCheckerTest
         assertEquals("y", ((Variable) judgment2.term).name);
         assertEquals("T1", yPremiseType.name);
     }
+
+
+    @Test
+    public void testLambdaRuleApplicationRule()
+    {
+        String program = ". |- \\lambda x. \\lambda y. (x y)[T1]: (T1 ->T2 ) -> (T1 -> T2);";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        Answer answer= typeChecker.check();
+
+        assertTrue(answer.isDerivable);
+
+        System.out.println(answer.rule);
+    }
 }

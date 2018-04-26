@@ -17,4 +17,10 @@ public class ArrowType extends Type
         return type.domain.equals(this.domain) &&
                 type.range.equals(this.range) ;
     }
+
+    @Override
+    public String toString()
+    {
+        return "(" + domain + " → "  + range + ")";
+    }
 }

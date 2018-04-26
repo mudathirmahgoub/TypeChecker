@@ -34,4 +34,10 @@ public class Variable extends Term
         DerivationRule node = new VariableRule(judgment);
         return new Answer(true, node);
     }
+
+    @Override
+    public String toString()
+    {
+        return  name;
+    }
 }

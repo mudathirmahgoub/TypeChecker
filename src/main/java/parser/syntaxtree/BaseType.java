@@ -15,4 +15,10 @@ public class BaseType extends Type
 
         return type.name.equals(this.name);
     }
+
+    @Override
+    public String toString()
+    {
+        return name;
+    }
 }
