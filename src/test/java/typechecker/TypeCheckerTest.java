@@ -134,7 +134,10 @@ class TypeCheckerTest
 
         assertTrue(rule.isDerivable);
 
-        LatexPrinter printer = new LatexPrinter();
-        System.out.println(printer.print(rule));
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 }

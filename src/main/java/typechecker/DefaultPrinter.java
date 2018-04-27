@@ -2,77 +2,120 @@ package typechecker;
 
 import parser.syntaxtree.*;
 
-import java.util.Map;
+import java.util.*;
 
-public class DefaultPrinter
+
+public class DefaultPrinter extends AbstractPrinter
 {
-    String print(DerivationRule rule)
+    private class StringNode
     {
-        return visit(rule);
+        int level;
+        String string;
+        List<StringNode> children;
+        StringNode(int level, String string, List<StringNode> children )
+        {
+            this.level = level;
+            this.string = string;
+            this.children = children;
+        }
     }
 
-    private String visit(DerivationRule rule)
+    @Override
+    public String print(DerivationRule rule)
+    {
+        StringNode root =  visit(rule, 0);
+        LinkedList<StringNode> queue = new LinkedList<>();
+
+        String string = "";
+        StringBuilder builder = new StringBuilder();
+
+        queue.add(root);
+        int level = 0;
+        // bfs
+        while(! queue.isEmpty())
+        {
+            StringNode node = queue.poll();
+            if(node.level < level)
+            {
+                string = "\n" + string;
+                level = node.level;
+            }
+            string =  node.string + string;
+            queue.addAll(node.children);
+        }
+        return string;
+    }
+
+    private StringNode visit(DerivationRule rule, int level)
     {
         if(rule instanceof  VariableRule)
         {
-            return visit((VariableRule)rule);
+            return visit((VariableRule)rule, level);
         }
 
         if(rule instanceof  ApplicationRule)
         {
-            return visit((ApplicationRule)rule);
+            return visit((ApplicationRule)rule, level);
         }
 
         if(rule instanceof  LambdaRule)
         {
-            return visit((LambdaRule)rule);
+            return visit((LambdaRule)rule, level);
         }
 
         return null;
     }
 
-    private String visit(VariableRule rule)
+    private StringNode visit(VariableRule rule, int level)
     {
-        String conclusionString = visit(rule.judgment);
+        String conclusionString = visit(rule.judgment) + "\t";
 
-        String line = new String(new char[conclusionString.length()]).replace('\0', '-');
+        String line = new String(new char[conclusionString.length()]).replace('\0', '-') + "(var)\t";
 
-        return line + "(var)" + "\n" + conclusionString;
+        StringNode child = new StringNode(level-1, line, new ArrayList<>());
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(child));
+        return  node;
     }
 
-    private String visit(ApplicationRule rule)
+    private StringNode visit(ApplicationRule rule, int level)
     {
-        String premise1String =  visit(rule.premise1Rule);
+        StringNode premise1Node =  visit(rule.premise1Rule, level - 2);
 
-        String premise2String =  visit(rule.premise2Rule);
+        StringNode premise2Node =  visit(rule.premise2Rule, level - 2);
 
         String conclusionString = rule.judgment.toString();
 
         int minSpaceLength = 4;
 
-        int lineLength = Math.max(premise1String.length() + premise1String.length() + minSpaceLength,
+        int lineLength = Math.max(premise1Node.string.length() +
+                        premise2Node.string.length() + minSpaceLength,
                 conclusionString.length());
 
-        int spaceLength = Math.max(minSpaceLength,
-                lineLength - (premise1String.length() + premise1String.length()));
+        String line = new String(new char[lineLength + 4]).replace('\0', '-');
 
-        String line = new String(new char[lineLength]).replace('\0', '-');
-        String space= new String(new char[spaceLength]).replace('\0', ' ');
+        premise1Node.string += "\t\t";
+        StringNode lineNode = new StringNode(level-1, line + "(app)",
+                Arrays.asList(premise2Node, premise1Node));
 
-        return premise1String + space + premise2String + "\n" + line + "(app)" +"\n" + conclusionString;
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
     }
 
-    private String visit(LambdaRule rule)
+    private StringNode visit(LambdaRule rule, int level)
     {
-        String premiseString =  visit(rule.premiseRule);
+        StringNode premiseNode =  visit(rule.premiseRule, level - 2);
 
         String conclusionString = rule.judgment.toString();
 
-        int lineLength = Math.max(premiseString.length(), conclusionString.length());
+        int lineLength = Math.max(premiseNode.string.length(), conclusionString.length());
 
         String line = new String(new char[lineLength]).replace('\0', '-');
 
-        return premiseString + "\n" + line +"(λ)"+ "\n" + conclusionString;
+        StringNode lineNode = new StringNode(level-1, line +"(λ)",
+                Arrays.asList(premiseNode));
+
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
     }
 
     private String visit(Judgment judgment)

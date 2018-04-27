@@ -4,12 +4,13 @@ import parser.syntaxtree.*;
 
 import java.util.Map;
 
-public class LatexPrinter
+public class LatexPrinter extends AbstractPrinter
 {
 
     private StringBuilder stringBuilder = new StringBuilder();
 
-    String print(DerivationRule rule)
+    @Override
+    public String print(DerivationRule rule)
     {
         visit(rule);
         return "\\begin{prooftree}\n" +   stringBuilder + "\\end{prooftree}";

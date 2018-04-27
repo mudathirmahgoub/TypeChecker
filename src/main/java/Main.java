@@ -1,5 +1,7 @@
 import org.apache.commons.cli.*;
+import typechecker.DefaultPrinter;
 import typechecker.DerivationRule;
+import typechecker.LatexPrinter;
 import typechecker.TypeChecker;
 
 import java.io.File;
@@ -26,7 +28,16 @@ public class Main
                 File file = new File(inputFile);
                 TypeChecker typeChecker = new TypeChecker(file);
                 DerivationRule derivationRule = typeChecker.check();
-                System.out.println(derivationRule);
+                if(command.hasOption("l"))
+                {
+                    LatexPrinter printer = new LatexPrinter();
+                    System.out.println(printer.print(derivationRule));
+                }
+                else
+                {
+                    DefaultPrinter printer = new DefaultPrinter();
+                    System.out.println(printer.print(derivationRule));
+                }
             }
             else
             {
