@@ -1,6 +1,6 @@
 package parser.syntaxtree;
 
-import typechecker.Answer;
+import typechecker.DerivationRule;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class Program extends SystemFNode
     public Judgment judgment;
 
 
-    public Answer check()
+    public DerivationRule check()
     {
         return judgment.check();
     }

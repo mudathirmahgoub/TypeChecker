@@ -41,7 +41,7 @@ public class TypeChecker
         this.program = (Program) visitor.visit(tree);
     }
 
-    public Answer check()
+    public DerivationRule check()
     {
         return this.program.check();
     }

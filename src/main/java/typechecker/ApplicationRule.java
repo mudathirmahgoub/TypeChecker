@@ -4,22 +4,23 @@ import parser.syntaxtree.Judgment;
 
 public class ApplicationRule extends DerivationRule
 {
-    public Answer premise1Answer;
-    public Answer premise2Answer;
+    public DerivationRule premise1Rule;
+    public DerivationRule premise2Rule;
 
-    public ApplicationRule(Judgment judgment, Answer premise1Answer, Answer premise2Answer)
+    public ApplicationRule(Judgment judgment, boolean isDerivable, DerivationRule premise1Rule, DerivationRule premise2Rule)
     {
         this.judgment = judgment;
-        this.premise1Answer = premise1Answer;
-        this.premise2Answer = premise2Answer;
+        this.premise1Rule = premise1Rule;
+        this.premise2Rule = premise2Rule;
+        this.isDerivable = isDerivable;
     }
 
     @Override
     public String toString()
     {
-        String premise1String =  premise1Answer.rule.judgment.toString();
+        String premise1String =  premise1Rule.judgment.toString();
 
-        String premise2String =  premise2Answer.rule.judgment.toString();
+        String premise2String =  premise2Rule.judgment.toString();
 
         String conclusionString = judgment.toString();
 

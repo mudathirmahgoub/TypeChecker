@@ -1,6 +1,5 @@
 package parser.syntaxtree;
 
-import typechecker.Answer;
 import typechecker.DerivationRule;
 import typechecker.VariableRule;
 
@@ -13,26 +12,25 @@ public class Variable extends Term
     }
 
     @Override
-    public Answer check(Type type, TypingContext typingContext)
+    public DerivationRule check(Type type, TypingContext typingContext)
     {
         Type contextType = typingContext.context.get(name);
+        Judgment judgment = new Judgment(typingContext, this, type);
 
         // the variable is not declared in the context
         if(contextType == null)
         {
-            return new Answer(false);
+            return new VariableRule(judgment, false);
         }
 
         // check if the type matches the context type
         boolean isDerivable = contextType.equals(type);
         if(! isDerivable)
         {
-            return new Answer(false);
+            return new VariableRule(judgment, false);
         }
 
-        Judgment judgment = new Judgment(typingContext, this, type);
-        DerivationRule node = new VariableRule(judgment);
-        return new Answer(true, node);
+        return new VariableRule(judgment, true);
     }
 
     @Override

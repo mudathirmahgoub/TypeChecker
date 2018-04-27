@@ -1,10 +1,7 @@
 package parser.syntaxtree;
 
-import typechecker.Answer;
 import typechecker.DerivationRule;
 import typechecker.LambdaRule;
-
-import java.util.HashMap;
 
 public class Lambda extends Term
 {
@@ -12,13 +9,15 @@ public class Lambda extends Term
     public Term term;
 
     @Override
-    public Answer check(Type type, TypingContext typingContext)
+    public DerivationRule check(Type type, TypingContext typingContext)
     {
+
+        Judgment judgment = new Judgment(typingContext, this, type);
 
         // for a lambda term, the type should be an arrow type
         if(ArrowType.class != type.getClass())
         {
-            return new Answer(false);
+            return new LambdaRule(judgment,false, null);
         }
 
         ArrowType arrowType = (ArrowType) type;
@@ -29,12 +28,11 @@ public class Lambda extends Term
         premiseTypingContext.context.put(variable, arrowType.domain);
 
         // check the premise rule
-        Answer premiseAnswer = term.check(arrowType.range, premiseTypingContext);
+        DerivationRule premiseAnswer = term.check(arrowType.range, premiseTypingContext);
 
-        Judgment judgment = new Judgment(typingContext, this, type);
-        LambdaRule rule = new LambdaRule(judgment, premiseAnswer);
-        Answer answer = new Answer(premiseAnswer.isDerivable, rule);
-        return answer;
+
+        LambdaRule rule = new LambdaRule(judgment, premiseAnswer.isDerivable, premiseAnswer);
+        return rule;
     }
 
     @Override

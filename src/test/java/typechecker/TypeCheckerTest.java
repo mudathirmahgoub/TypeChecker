@@ -12,9 +12,8 @@ class TypeCheckerTest
     {
         String program = ". |- x : T;";
         TypeChecker typeChecker = new TypeChecker(program);
-        Answer answer= typeChecker.check();
-        assertFalse(answer.isDerivable);
-        assertNull(answer.rule);
+        DerivationRule rule= typeChecker.check();
+        assertFalse(rule.isDerivable);
     }
 
     @Test
@@ -22,12 +21,12 @@ class TypeCheckerTest
     {
         String program = "x : T |- x : T;";
         TypeChecker typeChecker = new TypeChecker(program);
-        Answer answer= typeChecker.check();
-        assertTrue(answer.isDerivable);
-        assertNotNull(answer.rule);
-        assertEquals(VariableRule.class, answer.rule.getClass());
+        DerivationRule rule= typeChecker.check();
+        assertTrue(rule.isDerivable);
+        
+        assertEquals(VariableRule.class, rule.getClass());
 
-        Judgment judgment = ((VariableRule) answer.rule).judgment;
+        Judgment judgment = ((VariableRule) rule).judgment;
 
         assertTrue(judgment.typingContext.context.containsKey("x"));
         BaseType contextType = (BaseType) judgment.typingContext.context.get("x");
@@ -41,12 +40,12 @@ class TypeCheckerTest
     {
         String program = "x : T |- \\lambda x. x : T -> T;";
         TypeChecker typeChecker = new TypeChecker(program);
-        Answer answer= typeChecker.check();
-        assertTrue(answer.isDerivable);
-        assertNotNull(answer.rule);
-        assertEquals(LambdaRule.class, answer.rule.getClass());
+        DerivationRule rule= typeChecker.check();
+        assertTrue(rule.isDerivable);
+        assertNotNull(rule);
+        assertEquals(LambdaRule.class, rule.getClass());
 
-        Judgment lambdaJudgment = ((LambdaRule) answer.rule).judgment;
+        Judgment lambdaJudgment = ((LambdaRule) rule).judgment;
 
         assertTrue(lambdaJudgment.typingContext.context.containsKey("x"));
         BaseType contextType1 = (BaseType) lambdaJudgment.typingContext.context.get("x");
@@ -60,9 +59,9 @@ class TypeCheckerTest
         assertEquals("T",((BaseType)arrowType.domain).name);
         assertEquals("T",((BaseType)arrowType.range).name);
 
-        Answer premiseAnswer = ((LambdaRule) answer.rule).premiseAnswer;
-        assertTrue(premiseAnswer.isDerivable);
-        Judgment judgment = ((VariableRule) premiseAnswer.rule).judgment;
+        DerivationRule premiseRule = ((LambdaRule) rule).premiseRule;
+        assertTrue(premiseRule.isDerivable);
+        Judgment judgment = ((VariableRule) premiseRule).judgment;
         assertTrue(judgment.typingContext.context.containsKey("x"));
         BaseType contextType2 = (BaseType) judgment.typingContext.context.get("x");
         assertEquals("T", contextType2.name);
@@ -76,13 +75,13 @@ class TypeCheckerTest
         String program = "x : T1 -> T2, y: T1 |- (x y)[T1]: T2;";
 
         TypeChecker typeChecker = new TypeChecker(program);
-        Answer answer= typeChecker.check();
+        DerivationRule rule= typeChecker.check();
 
-        assertTrue(answer.isDerivable);
-        assertNotNull(answer.rule);
-        assertEquals(ApplicationRule.class, answer.rule.getClass());
+        assertTrue(rule.isDerivable);
+        assertNotNull(rule);
+        assertEquals(ApplicationRule.class, rule.getClass());
 
-        Judgment applicationJudgment = ((ApplicationRule) answer.rule).judgment;
+        Judgment applicationJudgment = ((ApplicationRule) rule).judgment;
 
         assertTrue(applicationJudgment.typingContext.context.containsKey("x"));
         assertTrue(applicationJudgment.typingContext.context.containsKey("y"));
@@ -101,9 +100,9 @@ class TypeCheckerTest
 
         assertEquals("T2",baseType.name);
 
-        Answer premise1Answer = ((ApplicationRule) answer.rule).premise1Answer;
-        assertTrue(premise1Answer.isDerivable);
-        Judgment judgment1 = ((VariableRule) premise1Answer.rule).judgment;
+        DerivationRule premise1Rule = ((ApplicationRule) rule).premise1Rule;
+        assertTrue(premise1Rule.isDerivable);
+        Judgment judgment1 = ((VariableRule) premise1Rule).judgment;
         assertTrue(judgment1.typingContext.context.containsKey("x"));
 
         ArrowType xPremiseTypingContext = (ArrowType) judgment1.typingContext.context.get("x");
@@ -114,8 +113,8 @@ class TypeCheckerTest
         assertEquals("T1", ((BaseType)xPremiseType.domain).name);
         assertEquals("T2", ((BaseType)xPremiseType.range).name);
 
-        Answer premise2Answer = ((ApplicationRule) answer.rule).premise2Answer;
-        Judgment judgment2 = ((VariableRule) premise2Answer.rule).judgment;
+        DerivationRule premise2Rule = ((ApplicationRule) rule).premise2Rule;
+        Judgment judgment2 = ((VariableRule) premise2Rule).judgment;
 
         BaseType yPremiseTypingContext = (BaseType) judgment1.typingContext.context.get("y");
         BaseType yPremiseType = (BaseType) judgment2.type;
@@ -131,12 +130,12 @@ class TypeCheckerTest
         String program = ". |- \\lambda x. \\lambda y. (x y)[T1]: (T1 ->T2 ) -> (T1 -> T2);";
 
         TypeChecker typeChecker = new TypeChecker(program);
-        Answer answer= typeChecker.check();
+        DerivationRule rule= typeChecker.check();
 
-        assertTrue(answer.isDerivable);
+        assertTrue(rule.isDerivable);
 
-        System.out.println(answer.rule);
+        System.out.println(rule);
 
-        System.out.println(((LambdaRule)answer.rule).premiseAnswer.rule);
+        System.out.println(((LambdaRule)rule).premiseRule);
     }
 }

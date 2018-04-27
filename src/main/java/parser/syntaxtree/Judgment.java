@@ -1,6 +1,6 @@
 package parser.syntaxtree;
 
-import typechecker.Answer;
+import typechecker.DerivationRule;
 
 public class Judgment extends SystemFNode
 {
@@ -15,7 +15,7 @@ public class Judgment extends SystemFNode
         this.type = type;
     }
 
-    public Answer check()
+    public DerivationRule check()
     {
         return term.check(type, typingContext);
     }

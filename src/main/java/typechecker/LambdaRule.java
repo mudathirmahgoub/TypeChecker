@@ -4,18 +4,19 @@ import parser.syntaxtree.Judgment;
 
 public class LambdaRule extends DerivationRule
 {
-    public Answer premiseAnswer;
+    public DerivationRule premiseRule;
 
-    public LambdaRule(Judgment judgment, Answer premiseAnswer)
+    public LambdaRule(Judgment judgment, boolean isDerivable, DerivationRule premiseRule)
     {
         this.judgment = judgment;
-        this.premiseAnswer = premiseAnswer;
+        this.premiseRule = premiseRule;
+        this.isDerivable = isDerivable;
     }
 
     @Override
     public String toString()
     {
-        String premiseString =  premiseAnswer.rule.judgment.toString();
+        String premiseString =  premiseRule.judgment.toString();
 
         String conclusionString = judgment.toString();
 

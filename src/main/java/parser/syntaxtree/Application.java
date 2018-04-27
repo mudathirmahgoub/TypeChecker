@@ -1,8 +1,8 @@
 package parser.syntaxtree;
 
-import typechecker.Answer;
 import typechecker.ApplicationRule;
-import typechecker.LambdaRule;
+import typechecker.DerivationRule;
+
 
 public class Application extends Term
 {
@@ -11,21 +11,22 @@ public class Application extends Term
     public Type annotation;
 
     @Override
-    public Answer check(Type type, TypingContext typingContext)
+    public DerivationRule check(Type type, TypingContext typingContext)
     {
         // check premise1
         ArrowType arrowType = new ArrowType();
         arrowType.domain = annotation;
         arrowType.range = type;
-        Answer premise1Answer = function.check(arrowType, typingContext);
+        DerivationRule premise1Rule = function.check(arrowType, typingContext);
 
         // check premise2
-        Answer premise2Answer = argument.check(annotation, typingContext);
+        DerivationRule premise2Rule = argument.check(annotation, typingContext);
 
         Judgment judgment = new Judgment(typingContext, this, type);
-        ApplicationRule rule = new ApplicationRule(judgment, premise1Answer, premise2Answer);
-        Answer answer = new Answer(premise1Answer.isDerivable && premise2Answer.isDerivable, rule);
-        return answer;
+        boolean isDerivable = premise1Rule.isDerivable && premise2Rule.isDerivable;
+        ApplicationRule rule = new ApplicationRule(judgment, isDerivable, premise1Rule, premise2Rule);
+
+        return rule;
     }
 
     @Override

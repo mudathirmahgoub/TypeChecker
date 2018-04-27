@@ -1,5 +1,5 @@
 import org.apache.commons.cli.*;
-import typechecker.Answer;
+import typechecker.DerivationRule;
 import typechecker.TypeChecker;
 
 import java.io.File;
@@ -23,8 +23,8 @@ public class Main
                 String inputFile  = command.getOptionValue("i");
                 File file = new File(inputFile);
                 TypeChecker typeChecker = new TypeChecker(file);
-                Answer answer = typeChecker.check();
-                System.out.println(answer);
+                DerivationRule derivationRule = typeChecker.check();
+                System.out.println(derivationRule);
             }
             else
             {
