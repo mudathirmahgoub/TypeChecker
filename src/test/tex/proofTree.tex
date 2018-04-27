@@ -19,10 +19,11 @@
 \end{prooftree}
 
 \begin{prooftree}
-\AxiomC{} \UnaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash x : (T1 \rightarrow T2)$}
-\AxiomC{} \UnaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash y : T1$}
-\BinaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash (x\;y) [T1] : T2$}
-\UnaryInfC{$x: (T1 \rightarrow T2) \vdash  \lambda y. (x\;y) [T1] : (T1 \rightarrow T2)$}
-\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [T1] : ((T1 \rightarrow T2) \rightarrow (T1 \rightarrow T2))$}
+\AxiomC{} \RightLabel{var} \UnaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash x : (T1 \rightarrow T2)$}
+\AxiomC{} \RightLabel{var} \UnaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash y : T1$}
+\RightLabel{app} \BinaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash (x\;y) [T1] : T2$}
+\RightLabel{$\lambda$}\UnaryInfC{$x: (T1 \rightarrow T2) \vdash  \lambda y. (x\;y) [T1] : (T1 \rightarrow T2)$}
+\RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [T1] : ((T1 \rightarrow T2) \rightarrow (T1 \rightarrow T2))$}
 \end{prooftree}
+
 \end{document}

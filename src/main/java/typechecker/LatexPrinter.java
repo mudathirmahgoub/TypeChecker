@@ -36,7 +36,7 @@ public class LatexPrinter
     private void visit(VariableRule rule)
     {
         String conclusionString = visit(rule.judgment);
-        stringBuilder.append("\\AxiomC{} \\UnaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\AxiomC{} \\RightLabel{var} \\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(ApplicationRule rule)
@@ -47,7 +47,7 @@ public class LatexPrinter
 
         String conclusionString = visit(rule.judgment);
 
-        stringBuilder.append("\\BinaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{app} \\BinaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(LambdaRule rule)
@@ -56,7 +56,7 @@ public class LatexPrinter
 
         String conclusionString = visit(rule.judgment);
 
-        stringBuilder.append("\\UnaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{$\\lambda$}\\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private String visit(Judgment judgment)
