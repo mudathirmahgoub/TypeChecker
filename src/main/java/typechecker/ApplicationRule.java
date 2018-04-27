@@ -35,6 +35,6 @@ public class ApplicationRule extends DerivationRule
         String line = new String(new char[lineLength]).replace('\0', '-');
         String space= new String(new char[spaceLength]).replace('\0', ' ');
 
-        return premise1String + space + premise2String + "\n" + line + "\n" + conclusionString;
+        return premise1String + space + premise2String + "\n" + line + "(app)" +"\n" + conclusionString;
     }
 }

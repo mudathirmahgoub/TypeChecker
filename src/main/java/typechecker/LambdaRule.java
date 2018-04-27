@@ -24,6 +24,6 @@ public class LambdaRule extends DerivationRule
 
         String line = new String(new char[lineLength]).replace('\0', '-');
 
-        return premiseString + "\n" + line + "\n" + conclusionString;
+        return premiseString + "\n" + line +"(λ)"+ "\n" + conclusionString;
     }
 }
