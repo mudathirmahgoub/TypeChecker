@@ -5,11 +5,6 @@ import parser.syntaxtree.Judgment;
 public class VariableRule extends DerivationRule
 {
 
-    public VariableRule(boolean isDerivable)
-    {
-        this.isDerivable = isDerivable;
-    }
-
     public VariableRule(Judgment judgment, boolean isDerivable)
     {
         this.judgment = judgment;

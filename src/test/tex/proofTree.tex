@@ -1,0 +1,28 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{bussproofs}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\begin{document}
+\begin{prooftree}
+\AxiomC{A}
+\AxiomC{B}
+\AxiomC{C}
+\BinaryInfC{D}
+\BinaryInfC{E}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{} \UnaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash x : (T1 \rightarrow T2)$}
+\AxiomC{} \UnaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash y : T1$}
+\BinaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash (x\;y) [T1] : T2$}
+\UnaryInfC{$x: (T1 \rightarrow T2) \vdash  \lambda y. (x\;y) [T1] : (T1 \rightarrow T2)$}
+\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [T1] : ((T1 \rightarrow T2) \rightarrow (T1 \rightarrow T2))$}
+\end{prooftree}
+\end{document}

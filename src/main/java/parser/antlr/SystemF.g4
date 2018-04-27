@@ -41,7 +41,7 @@ SubBase : 'SubBase' ;
 
 Turnstile : '⊢' | '|-' | '\\vdash' ;
 
-EmptyContext : '.'; 
+EmptyContext : '.' | '\\cdot';
 
 ForAll : '\\forall' ;
 
