@@ -7,10 +7,23 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DemoTests
 {
     @Test
-    public void testEmptyContextVariableRule()
+    public void testSimpleSubtyping()
     {
         String program = "SubBase(bool, int);" +
                 "x : bool |- x : int;";
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+        assertTrue(rule.isDerivable);
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+
+    }
+
+    @Test
+    public void testAssociativeSubtyping()
+    {
+        String program = "SubBase(bool, int);SubBase(int, double);" +
+                "x : bool |- x : double;";
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
         DefaultPrinter printer = new DefaultPrinter();

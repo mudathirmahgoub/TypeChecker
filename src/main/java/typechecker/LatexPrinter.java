@@ -47,7 +47,7 @@ public class LatexPrinter extends AbstractPrinter
     private void visit(VariableRule rule)
     {
         String conclusionString = visit(rule.judgment);
-        stringBuilder.append("\\AxiomC{} \\RightLabel{var} \\UnaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\AxiomC{} \\RightLabel{\\scriptsize var} \\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(ApplicationRule rule)
@@ -84,7 +84,7 @@ public class LatexPrinter extends AbstractPrinter
     private void visit(SubBaseRule rule)
     {
         String conclusionString = rule.subBase.subType + " <: " + rule.subBase.superType;
-        stringBuilder.append("\\AxiomC{SubBase($" + rule.subBase.subType+ ","
+        stringBuilder.append("\\AxiomC{\\scriptsize SubBase($" + rule.subBase.subType+ ","
                 + rule.subBase.superType +")$} \\RightLabel{\\scriptsize subBase} \\UnaryInfC{$" + conclusionString + "$}\n");
     }
 

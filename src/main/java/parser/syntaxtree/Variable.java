@@ -6,7 +6,6 @@ import typechecker.SubsumptionRule;
 import typechecker.VariableRule;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Variable extends Term
@@ -53,17 +52,7 @@ public class Variable extends Term
                 }
                 else // there a subtyping path from the source to target
                 {
-                    Judgment premise1Judgment = new Judgment(judgment.typingContext,
-                            judgment.term, new BaseType(source));
-                    VariableRule premise1Rule = new VariableRule(premise1Judgment,
-                            true);
-                    SubBaseRule premise2Rule = new SubBaseRule(
-                            new SubBase(source, target), true);
-
-                    SubsumptionRule rule = new SubsumptionRule(judgment, true,
-                            premise1Rule, premise2Rule);
-
-                    return rule;
+                    return buildBaseSubtypingRules(judgment, source, target, path);
                 }
             }
 
@@ -74,6 +63,39 @@ public class Variable extends Term
         return new VariableRule(judgment, true);
     }
 
+    private DerivationRule buildBaseSubtypingRules(Judgment judgment, String source, String target, List<String> path)
+    {
+        if(path.size() == 1)
+        {
+            Judgment premise1Judgment = new Judgment(judgment.typingContext,
+                    judgment.term, new BaseType(source));
+            VariableRule premise1Rule = new VariableRule(premise1Judgment,
+                    true);
+            SubBaseRule premise2Rule = new SubBaseRule(
+                    new SubBase(source, target), true);
+
+            SubsumptionRule rule = new SubsumptionRule(judgment, true,
+                    premise1Rule, premise2Rule);
+
+            return rule;
+        }
+
+        // path size >= 2
+        String premiseTarget = path.get(1);
+        Judgment premise1Judgment = new Judgment(judgment.typingContext,
+                judgment.term, new BaseType(premiseTarget));
+        path.remove(0);
+        DerivationRule premise1Rule = buildBaseSubtypingRules(premise1Judgment,
+                source , premiseTarget, path);
+        SubBaseRule premise2Rule = new SubBaseRule(
+                new SubBase(premiseTarget, target), true);
+
+        SubsumptionRule rule = new SubsumptionRule(judgment, true,
+                premise1Rule, premise2Rule);
+
+        return rule;
+    }
+
     private List<String> searchPath(String source, String target)
     {
         if(SystemFNode.subTypes.containsKey(source))
@@ -81,7 +103,9 @@ public class Variable extends Term
             List<String> superTypes = SystemFNode.subTypes.get(source);
             if(superTypes.contains(target))
             {
-                return Arrays.asList(target);
+                List<String> path = new ArrayList<>();
+                path.add(target);
+                return path;
             }
             for (String superType: superTypes )
             {

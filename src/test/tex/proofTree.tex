@@ -33,4 +33,12 @@
 \end{prooftree}
 
 
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: bool \vdash x : bool$}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : int$}
+\AxiomC{\scriptsize SubBase($int,double)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$int <: double$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : double$}
+\end{prooftree}
+
 \end{document}
