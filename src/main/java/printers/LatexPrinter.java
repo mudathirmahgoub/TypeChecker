@@ -1,6 +1,8 @@
-package rules;
+package printers;
 
 import parser.syntaxtree.*;
+import printers.AbstractPrinter;
+import rules.*;
 
 import java.util.Map;
 
@@ -18,22 +20,22 @@ public class LatexPrinter extends AbstractPrinter
 
     private void visit(DerivationRule rule)
     {
-        if(rule instanceof  VariableRule)
+        if(rule instanceof VariableRule)
         {
             visit((VariableRule)rule);
         }
 
-        if(rule instanceof  ApplicationRule)
+        if(rule instanceof ApplicationRule)
         {
             visit((ApplicationRule)rule);
         }
 
-        if(rule instanceof  LambdaRule)
+        if(rule instanceof LambdaRule)
         {
             visit((LambdaRule)rule);
         }
 
-        if(rule instanceof  SubsumptionRule)
+        if(rule instanceof SubsumptionRule)
         {
             visit((SubsumptionRule)rule);
         }

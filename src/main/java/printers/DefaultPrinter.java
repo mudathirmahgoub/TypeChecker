@@ -1,6 +1,8 @@
-package rules;
+package printers;
 
 import parser.syntaxtree.*;
+import printers.AbstractPrinter;
+import rules.*;
 
 import java.util.*;
 
@@ -48,22 +50,22 @@ public class DefaultPrinter extends AbstractPrinter
 
     private StringNode visit(DerivationRule rule, int level)
     {
-        if(rule instanceof  VariableRule)
+        if(rule instanceof VariableRule)
         {
             return visit((VariableRule)rule, level);
         }
 
-        if(rule instanceof  ApplicationRule)
+        if(rule instanceof ApplicationRule)
         {
             return visit((ApplicationRule)rule, level);
         }
 
-        if(rule instanceof  LambdaRule)
+        if(rule instanceof LambdaRule)
         {
             return visit((LambdaRule)rule, level);
         }
 
-        if(rule instanceof  SubsumptionRule)
+        if(rule instanceof SubsumptionRule)
         {
             return visit((SubsumptionRule)rule, level);
         }

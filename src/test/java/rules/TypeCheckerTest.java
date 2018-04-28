@@ -2,6 +2,9 @@ package rules;
 
 import org.junit.jupiter.api.Test;
 import parser.syntaxtree.*;
+import printers.DefaultPrinter;
+import printers.LatexPrinter;
+import typechecker.TypeChecker;
 
 import static org.junit.jupiter.api.Assertions.*;
 

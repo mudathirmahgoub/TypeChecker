@@ -1,8 +1,10 @@
 package rules;
 
 import org.junit.jupiter.api.Test;
+import printers.LatexPrinter;
 
 import static org.junit.jupiter.api.Assertions.*;
+import typechecker.TypeChecker;
 
 public class DemoTests
 {

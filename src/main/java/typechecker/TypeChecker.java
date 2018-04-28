@@ -1,4 +1,4 @@
-package rules;
+package typechecker;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -9,6 +9,7 @@ import parser.antlr.SystemFLexer;
 import parser.antlr.SystemFParser;
 import parser.syntaxtree.Program;
 import parser.syntaxtree.SystemFNode;
+import rules.DerivationRule;
 
 import java.io.File;
 import java.io.IOException;

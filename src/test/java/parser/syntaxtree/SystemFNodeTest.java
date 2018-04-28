@@ -1,7 +1,7 @@
 package parser.syntaxtree;
 
 import org.junit.jupiter.api.Test;
-import rules.TypeChecker;
+import typechecker.TypeChecker;
 
 import static org.junit.jupiter.api.Assertions.*;
 

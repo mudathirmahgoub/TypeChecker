@@ -1,8 +1,8 @@
 import org.apache.commons.cli.*;
-import rules.DefaultPrinter;
+import printers.DefaultPrinter;
 import rules.DerivationRule;
-import rules.LatexPrinter;
-import rules.TypeChecker;
+import printers.LatexPrinter;
+import typechecker.TypeChecker;
 
 import java.io.File;
 
@@ -47,7 +47,7 @@ public class Main
         catch (ParseException exception)
         {
             HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp( "java -jar TypeChecker.jar ", options );
+            formatter.printHelp( "java -jar typechecker.TypeChecker.jar ", options );
         }
 
         catch (Exception exception)

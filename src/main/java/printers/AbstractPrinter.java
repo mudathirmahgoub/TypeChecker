@@ -1,4 +1,6 @@
-package rules;
+package printers;
+
+import rules.DerivationRule;
 
 public abstract class AbstractPrinter
 {
