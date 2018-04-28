@@ -1,4 +1,4 @@
-package typechecker;
+package rules;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;

@@ -1,6 +1,6 @@
 package parser.syntaxtree;
 
-import typechecker.DerivationRule;
+import rules.DerivationRule;
 
 import java.util.List;
 

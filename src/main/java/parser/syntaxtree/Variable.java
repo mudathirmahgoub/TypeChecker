@@ -1,6 +1,6 @@
 package parser.syntaxtree;
 
-import typechecker.*;
+import rules.*;
 
 import java.util.ArrayList;
 import java.util.List;

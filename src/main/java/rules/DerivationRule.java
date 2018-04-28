@@ -1,4 +1,4 @@
-package typechecker;
+package rules;
 
 public class DerivationRule
 {

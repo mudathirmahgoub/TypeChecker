@@ -1,10 +1,9 @@
-package typechecker;
+package rules;
 
-public class TransitivityTypeRule extends  DerivationRule
+public class TransitivityTypeRule extends SubtypeRule
 {
     public DerivationRule premise1Rule;
     public DerivationRule premise2Rule;
-    public SubtypeJudgment subtypeJudgment;
     public TransitivityTypeRule(SubtypeJudgment subtypeJudgment, boolean isDerivable,
                                 DerivationRule premise1Rule, DerivationRule premise2Rule )
     {

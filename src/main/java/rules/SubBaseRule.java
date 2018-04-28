@@ -1,8 +1,8 @@
-package typechecker;
+package rules;
 
 import parser.syntaxtree.SubBase;
 
-public class SubBaseRule extends DerivationRule
+public class SubBaseRule extends SubtypeRule
 {
     public SubBase subBase;
 

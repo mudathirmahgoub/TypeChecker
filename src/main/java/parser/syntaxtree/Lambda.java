@@ -1,7 +1,7 @@
 package parser.syntaxtree;
 
-import typechecker.DerivationRule;
-import typechecker.LambdaRule;
+import rules.DerivationRule;
+import rules.LambdaRule;
 
 public class Lambda extends Term
 {

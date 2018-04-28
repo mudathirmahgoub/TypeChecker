@@ -1,7 +1,7 @@
 package parser.syntaxtree;
 
-import typechecker.ApplicationRule;
-import typechecker.DerivationRule;
+import rules.ApplicationRule;
+import rules.DerivationRule;
 
 
 public class Application extends Term

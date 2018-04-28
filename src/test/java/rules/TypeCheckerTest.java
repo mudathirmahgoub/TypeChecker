@@ -1,4 +1,4 @@
-package typechecker;
+package rules;
 
 import org.junit.jupiter.api.Test;
 import parser.syntaxtree.*;

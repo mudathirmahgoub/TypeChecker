@@ -1,5 +1,5 @@
 package parser.syntaxtree;
-import typechecker.DerivationRule;
+import rules.DerivationRule;
 
 abstract public class Term extends SystemFNode
 {

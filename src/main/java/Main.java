@@ -1,8 +1,8 @@
 import org.apache.commons.cli.*;
-import typechecker.DefaultPrinter;
-import typechecker.DerivationRule;
-import typechecker.LatexPrinter;
-import typechecker.TypeChecker;
+import rules.DefaultPrinter;
+import rules.DerivationRule;
+import rules.LatexPrinter;
+import rules.TypeChecker;
 
 import java.io.File;
 
