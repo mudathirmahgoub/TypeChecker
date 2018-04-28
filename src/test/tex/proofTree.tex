@@ -26,4 +26,11 @@
 \RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [T1] : ((T1 \rightarrow T2) \rightarrow (T1 \rightarrow T2))$}
 \end{prooftree}
 
+\begin{prooftree}
+\AxiomC{} \RightLabel{var} \UnaryInfC{$x: bool \vdash x : bool$}
+\AxiomC{SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : int$}
+\end{prooftree}
+
+
 \end{document}

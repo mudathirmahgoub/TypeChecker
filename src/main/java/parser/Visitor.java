@@ -6,6 +6,7 @@ import parser.antlr.SystemFParser;
 import parser.syntaxtree.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Visitor extends SystemFBaseVisitor<SystemFNode>
@@ -24,6 +25,17 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
         {
             SubBase subBase = (SubBase) this.visitSubtype(context);
             program.subBases.add(subBase);
+            if(SystemFNode.subTypes.containsKey(subBase.subType))
+            {
+              List<String> superTypes = SystemFNode.subTypes.get(subBase.subType);
+              superTypes.add(subBase.superType);
+              SystemFNode.subTypes.put(subBase.subType, superTypes);
+            }
+            else
+            {
+                SystemFNode.subTypes.put(subBase.subType, Arrays.asList(subBase.superType));
+            }
+
         }
 
         // add judgment
@@ -34,11 +46,12 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
     }
 
     @Override
-    public SystemFNode visitSubtype(SystemFParser.SubtypeContext ctx) {
-        SubBase subBase = new SubBase();
-        subBase.subType = ctx.Identifier().get(0).getText();
-        subBase.superType = ctx.Identifier().get(1).getText();
-        return subBase;
+    public SystemFNode visitSubtype(SystemFParser.SubtypeContext ctx)
+    {
+
+        String subType = ctx.Identifier().get(0).getText();
+        String superType = ctx.Identifier().get(1).getText();
+        return new SubBase(subType, superType);
     }
 
     @Override
@@ -102,9 +115,8 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
 
     @Override public SystemFNode visitBaseType(SystemFParser.BaseTypeContext ctx)
     {
-        BaseType baseType = new BaseType();
-        baseType.name = ctx.Identifier().getText();
-        return baseType;
+        String name = ctx.Identifier().getText();
+        return new BaseType(name);
     }
 
     @Override

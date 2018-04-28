@@ -4,6 +4,11 @@ public class BaseType extends Type
 {
     public String name;
 
+    public BaseType(String name)
+    {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object object)
     {

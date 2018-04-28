@@ -14,4 +14,5 @@ public class Program extends SystemFNode
     {
         return judgment.check();
     }
+
 }

@@ -63,6 +63,16 @@ public class DefaultPrinter extends AbstractPrinter
             return visit((LambdaRule)rule, level);
         }
 
+        if(rule instanceof  SubsumptionRule)
+        {
+            return visit((SubsumptionRule)rule, level);
+        }
+
+        if(rule instanceof  SubBaseRule)
+        {
+            return visit((SubBaseRule)rule, level);
+        }
+
         return null;
     }
 
@@ -113,6 +123,49 @@ public class DefaultPrinter extends AbstractPrinter
 
         StringNode lineNode = new StringNode(level-1, line +"(λ)",
                 Arrays.asList(premiseNode));
+
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
+    }
+
+
+    private StringNode visit(SubBaseRule rule, int level)
+    {
+        //ToDo: fix when only subase in a line
+        String premiseString =  "SubBase(" + rule.subBase.subType + ", " +
+                rule.subBase.superType + ")\t";
+        String conclusionString = rule.subBase.subType + " <: " + rule.subBase.superType;
+        int length = Math.max(premiseString.length(), conclusionString.length() );
+
+        String line = new String(new char[length]).replace('\0', '-') + "(subBase)\t";
+
+        StringNode premise = new StringNode(level -2, premiseString,
+                new ArrayList<>());
+        StringNode child = new StringNode(level-1, line, Arrays.asList(premise));
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(child));
+        return  node;
+    }
+
+
+    private StringNode visit(SubsumptionRule rule, int level)
+    {
+        StringNode premise1Node =  visit(rule.premise1Rule, level - 2);
+
+        StringNode premise2Node =  visit(rule.premise2Rule, level - 2);
+
+        String conclusionString = rule.judgment.toString();
+
+        int minSpaceLength = 4;
+
+        int lineLength = Math.max(premise1Node.string.length() +
+                        premise2Node.string.length() + minSpaceLength,
+                conclusionString.length());
+
+        String line = new String(new char[lineLength + 4]).replace('\0', '-');
+
+        premise1Node.string += "\t\t";
+        StringNode lineNode = new StringNode(level-1, line + "(subsumption)",
+                Arrays.asList(premise2Node, premise1Node));
 
         StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
         return node;

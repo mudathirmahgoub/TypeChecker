@@ -32,6 +32,16 @@ public class LatexPrinter extends AbstractPrinter
         {
             visit((LambdaRule)rule);
         }
+
+        if(rule instanceof  SubsumptionRule)
+        {
+            visit((SubsumptionRule)rule);
+        }
+
+        if(rule instanceof  SubBaseRule)
+        {
+            visit((SubBaseRule)rule);
+        }
     }
 
     private void visit(VariableRule rule)
@@ -58,6 +68,24 @@ public class LatexPrinter extends AbstractPrinter
         String conclusionString = visit(rule.judgment);
 
         stringBuilder.append("\\RightLabel{$\\lambda$}\\UnaryInfC{$" + conclusionString + "$}\n");
+    }
+
+    private void visit(SubsumptionRule rule)
+    {
+        visit(rule.premise1Rule);
+
+        visit(rule.premise2Rule);
+
+        String conclusionString = visit(rule.judgment);
+
+        stringBuilder.append("\\RightLabel{\\scriptsize subsumption} \\BinaryInfC{$" + conclusionString + "$}\n");
+    }
+
+    private void visit(SubBaseRule rule)
+    {
+        String conclusionString = rule.subBase.subType + " <: " + rule.subBase.superType;
+        stringBuilder.append("\\AxiomC{SubBase($" + rule.subBase.subType+ ","
+                + rule.subBase.superType +")$} \\RightLabel{\\scriptsize subBase} \\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private String visit(Judgment judgment)

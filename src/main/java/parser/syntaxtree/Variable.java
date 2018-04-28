@@ -1,7 +1,13 @@
 package parser.syntaxtree;
 
 import typechecker.DerivationRule;
+import typechecker.SubBaseRule;
+import typechecker.SubsumptionRule;
 import typechecker.VariableRule;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Variable extends Term
 {
@@ -24,13 +30,71 @@ public class Variable extends Term
         }
 
         // check if the type matches the context type
-        boolean isDerivable = contextType.equals(type);
-        if(! isDerivable)
+        boolean isEqual = contextType.equals(type);
+        if(! isEqual)
         {
+            // subtyping only valid for the same type class
+            if(contextType.getClass() != type.getClass())
+            {
+                return new VariableRule(judgment, false);
+            }
+
+            // check subtyping for base types
+            if(contextType.getClass() == BaseType.class)
+            {
+                // check if there is a path from the context type to the judgment type
+                String source = ((BaseType) contextType).name;
+                String target = ((BaseType) type).name;
+                List<String> path  = searchPath(source, target);
+
+                if(path.size() == 0) // no subtyping path is found
+                {
+                    return new VariableRule(judgment, false);
+                }
+                else // there a subtyping path from the source to target
+                {
+                    Judgment premise1Judgment = new Judgment(judgment.typingContext,
+                            judgment.term, new BaseType(source));
+                    VariableRule premise1Rule = new VariableRule(premise1Judgment,
+                            true);
+                    SubBaseRule premise2Rule = new SubBaseRule(
+                            new SubBase(source, target), true);
+
+                    SubsumptionRule rule = new SubsumptionRule(judgment, true,
+                            premise1Rule, premise2Rule);
+
+                    return rule;
+                }
+            }
+
+            //ToDo: handle subtyping with arrow types
             return new VariableRule(judgment, false);
         }
 
         return new VariableRule(judgment, true);
+    }
+
+    private List<String> searchPath(String source, String target)
+    {
+        if(SystemFNode.subTypes.containsKey(source))
+        {
+            List<String> superTypes = SystemFNode.subTypes.get(source);
+            if(superTypes.contains(target))
+            {
+                return Arrays.asList(target);
+            }
+            for (String superType: superTypes )
+            {
+                List<String> path = searchPath(superType, target);
+                // a path is found
+                if (path.size() > 0)
+                {
+                    path.add(superType);
+                    return path;
+                }
+            }
+        }
+        return new ArrayList<>();
     }
 
     @Override
