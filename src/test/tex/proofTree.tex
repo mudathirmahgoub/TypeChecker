@@ -27,8 +27,8 @@
 \end{prooftree}
 
 \begin{prooftree}
-\AxiomC{} \RightLabel{var} \UnaryInfC{$x: bool \vdash x : bool$}
-\AxiomC{SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: bool \vdash x : bool$}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
 \RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : int$}
 \end{prooftree}
 
@@ -36,8 +36,18 @@
 \begin{prooftree}
 \AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: bool \vdash x : bool$}
 \AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
-\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : int$}
 \AxiomC{\scriptsize SubBase($int,double)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$int <: double$}
+\RightLabel{\scriptsize transitive} \BinaryInfC{$bool <: double$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : double$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: bool \vdash x : bool$}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\AxiomC{\scriptsize SubBase($int,quotient)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$int <: quotient$}
+\RightLabel{\scriptsize transitive} \BinaryInfC{$bool <: quotient$}
+\AxiomC{\scriptsize SubBase($quotient,double)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$quotient <: double$}
+\RightLabel{\scriptsize transitive} \BinaryInfC{$bool <: double$}
 \RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : double$}
 \end{prooftree}
 

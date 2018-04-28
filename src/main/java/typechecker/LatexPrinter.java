@@ -42,6 +42,11 @@ public class LatexPrinter extends AbstractPrinter
         {
             visit((SubBaseRule)rule);
         }
+
+        if(rule instanceof  TransitivityTypeRule)
+        {
+            visit((TransitivityTypeRule)rule);
+        }
     }
 
     private void visit(VariableRule rule)
@@ -58,7 +63,7 @@ public class LatexPrinter extends AbstractPrinter
 
         String conclusionString = visit(rule.judgment);
 
-        stringBuilder.append("\\RightLabel{app} \\BinaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{\\scriptsize app} \\BinaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(LambdaRule rule)
@@ -88,11 +93,29 @@ public class LatexPrinter extends AbstractPrinter
                 + rule.subBase.superType +")$} \\RightLabel{\\scriptsize subBase} \\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
+    private void visit(TransitivityTypeRule rule)
+    {
+        visit(rule.premise1Rule);
+
+        visit(rule.premise2Rule);
+
+        String conclusionString = visit(rule.subtypeJudgment);
+
+        stringBuilder.append("\\RightLabel{\\scriptsize transitive} \\BinaryInfC{$" + conclusionString + "$}\n");
+    }
+
     private String visit(Judgment judgment)
     {
         String string = visit(judgment.typingContext) + " \\vdash " +
                 visit(judgment.term) + " : " +
                 visit(judgment.type);
+        return string;
+    }
+
+    private String visit(SubtypeJudgment judgment)
+    {
+        String string = visit(judgment.subType) + " <: " +
+                        visit(judgment.superType);
         return string;
     }
 
