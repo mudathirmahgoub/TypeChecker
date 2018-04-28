@@ -15,7 +15,7 @@ public class Main
 
         options.addOption(Option.builder("i").longOpt("input").hasArg().required().build());
 
-        options.addOption(Option.builder("l").longOpt("latex").hasArg().build());
+        options.addOption(Option.builder("l").longOpt("latex").build());
         options.addOption(Option.builder("o").longOpt("output").hasArg().build());
 
         CommandLineParser commandLineParser = new DefaultParser();
