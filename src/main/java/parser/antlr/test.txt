@@ -1,1 +1,1 @@
-. |- x : (T1 -> T2) -> T3 ;
+. |- \lambda x. \lambda y. (x y)[T1]: (T1 ->T2 ) -> (T1 -> T2);

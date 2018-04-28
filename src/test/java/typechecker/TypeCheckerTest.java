@@ -138,6 +138,18 @@ class TypeCheckerTest
         System.out.println(latexPrinter.print(rule));
 
         DefaultPrinter defaultPrinter = new DefaultPrinter();
-        System.out.println(defaultPrinter.print(rule));
+        String print = defaultPrinter.print(rule);
+        System.out.println(print);
+
+        String results = "------------------------------------------(var)\t---------------------------------(var)\t\n" +
+                "x: (T1 â†’ T2), y: T1 âŠ¢ x : (T1 â†’ T2)\t\t\tx: (T1 â†’ T2), y: T1 âŠ¢ y : T1\t\n" +
+                "-----------------------------------------------------------------------------------(app)\n" +
+                "x: (T1 â†’ T2), y: T1 âŠ¢ (x y) [T1] : T2\n" +
+                "------------------------------------------------(Î»)\n" +
+                "x: (T1 â†’ T2) âŠ¢ Î»y. (x y) [T1] : (T1 â†’ T2)\n" +
+                "-----------------------------------------------------------(Î»)\n" +
+                "Â· âŠ¢ Î»x. Î»y. (x y) [T1] : ((T1 â†’ T2) â†’ (T1 â†’ T2))";
+
+        assertEquals(results, print);
     }
 }
