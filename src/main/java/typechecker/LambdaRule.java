@@ -2,14 +2,14 @@ package typechecker;
 
 import parser.syntaxtree.Judgment;
 
-public class LambdaRule extends DerivationRule
+public class LambdaRule extends TermRule
 {
-    public DerivationRule premiseRule;
+    public TermRule premiseRule;
 
     public LambdaRule(Judgment judgment, boolean isDerivable, DerivationRule premiseRule)
     {
         this.judgment = judgment;
-        this.premiseRule = premiseRule;
+        this.premiseRule = (TermRule) premiseRule;
         this.isDerivable = isDerivable;
     }
 

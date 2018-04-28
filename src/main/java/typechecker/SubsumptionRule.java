@@ -2,7 +2,7 @@ package typechecker;
 
 import parser.syntaxtree.Judgment;
 
-public class SubsumptionRule extends DerivationRule
+public class SubsumptionRule extends TermRule
 {
     public DerivationRule premise1Rule;
     public DerivationRule premise2Rule;

@@ -110,7 +110,7 @@ public class Variable extends Term
             String middle = path.get(1);
             SubBaseRule premise1Rule = new SubBaseRule(new SubBase(source, middle), true);
             SubBaseRule premise2Rule = new SubBaseRule(new SubBase(middle, target), true);
-            TransitivityTypeRule rule = new TransitivityTypeRule(subtypeJudgment,
+            TransitivityTypeRule rule = new TransitivityTypeRule(subtypeJudgment, true,
                     premise1Rule, premise2Rule);
             return rule;
         }
@@ -122,7 +122,7 @@ public class Variable extends Term
             path.remove(0);
             DerivationRule premise1Rule = buildTransitiveRules(source, middle,path);
             SubBaseRule premise2Rule = new SubBaseRule(new SubBase(middle, target), true);
-            TransitivityTypeRule rule = new TransitivityTypeRule(subtypeJudgment,
+            TransitivityTypeRule rule = new TransitivityTypeRule(subtypeJudgment, true,
                     premise1Rule, premise2Rule);
             return rule;
         }

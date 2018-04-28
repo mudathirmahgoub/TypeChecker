@@ -2,16 +2,16 @@ package typechecker;
 
 import parser.syntaxtree.Judgment;
 
-public class ApplicationRule extends DerivationRule
+public class ApplicationRule extends TermRule
 {
-    public DerivationRule premise1Rule;
-    public DerivationRule premise2Rule;
+    public TermRule premise1Rule;
+    public TermRule premise2Rule;
 
     public ApplicationRule(Judgment judgment, boolean isDerivable, DerivationRule premise1Rule, DerivationRule premise2Rule)
     {
         this.judgment = judgment;
-        this.premise1Rule = premise1Rule;
-        this.premise2Rule = premise2Rule;
+        this.premise1Rule = (TermRule) premise1Rule;
+        this.premise2Rule = (TermRule) premise2Rule;
         this.isDerivable = isDerivable;
     }
 

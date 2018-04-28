@@ -2,7 +2,7 @@ package typechecker;
 
 import parser.syntaxtree.Judgment;
 
-public class VariableRule extends DerivationRule
+public class VariableRule extends TermRule
 {
 
     public VariableRule(Judgment judgment, boolean isDerivable)
