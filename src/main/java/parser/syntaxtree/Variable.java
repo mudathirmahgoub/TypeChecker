@@ -27,81 +27,120 @@ public class Variable extends Term
 
         // check if the type matches the context type
         boolean isEqual = contextType.equals(type);
-        if(! isEqual)
+        if(isEqual)
         {
-            return checkSubtypingRules(type, contextType, judgment);
+            return new VariableRule(judgment, true);
         }
+        else
+        {
+            // return a subsumption rule
 
-        return new VariableRule(judgment, true);
+            Judgment premise1Judgment = new Judgment(judgment.typingContext,
+                    judgment.term, contextType);
+            VariableRule premise1Rule = new VariableRule(premise1Judgment,
+                    true);
+            SubtypeRule premise2Rule = checkSubtypingRules(contextType, type);
+
+            SubsumptionRule rule = new SubsumptionRule(judgment,
+                    premise1Rule.isDerivable && premise2Rule.isDerivable,
+                    premise1Rule, premise2Rule);
+            return rule;
+        }
     }
 
-    private DerivationRule checkSubtypingRules(Type type, Type contextType, Judgment judgment)
+    private SubtypeRule checkSubtypingRules(Type subType, Type superType)
     {
         // subtyping only valid for the same type class
-        if(contextType.getClass() != type.getClass())
+        if(subType.getClass() != superType.getClass())
         {
-            return new VariableRule(judgment, false);
+            return new InvalidTypeRule(new SubtypeJudgment(subType, superType));
         }
 
+        // if types are equal, use the reflexive rule
+
+        if(subType.equals(superType))
+        {
+            return new ReflexivityTypeRule(subType);
+        }
+
+
         // check subtyping for base types
-        if(contextType.getClass() == BaseType.class)
+        if(subType.getClass() == BaseType.class)
         {
             // check if there is a path from the context type to the judgment type
-            String source = ((BaseType) contextType).name;
-            String target = ((BaseType) type).name;
+            String source = ((BaseType) subType).name;
+            String target = ((BaseType) superType).name;
+
             List<String> path  = searchPath(source, target);
 
             if(path.size() == 0) // no subtyping path is found
             {
-                return new VariableRule(judgment, false);
+                return new InvalidTypeRule(new SubtypeJudgment(subType, superType));
             }
-            else // there a subtyping path from the source to target
+            else // there a subtyping path from the source to the target
             {
-                return buildBaseSubtypingRules(judgment, source, target, path);
+                return buildBaseSubtypingRules(source, target, path);
             }
         }
-
-        //handle subtyping with arrow types
-        if(contextType.getClass() == ArrowType.class)
+        else //handle subtyping with arrow types
         {
-            ArrowType conextArrowType = (ArrowType) contextType;
+            ArrowType source = (ArrowType) subType;
+            ArrowType target = (ArrowType) superType;
 
-            throw new UnsupportedOperationException();
-        }
-
-        return new VariableRule(judgment, false);
-    }
-
-    private DerivationRule buildBaseSubtypingRules(Judgment judgment, String source, String target, List<String> path)
-    {
-        if(path.size() == 1)
-        {
-            Judgment premise1Judgment = new Judgment(judgment.typingContext,
-                    judgment.term, new BaseType(source));
-            VariableRule premise1Rule = new VariableRule(premise1Judgment,
-                    true);
-            SubBaseRule premise2Rule = new SubBaseRule(
-                    new SubBase(source, target), true);
-
-            SubsumptionRule rule = new SubsumptionRule(judgment, true,
-                    premise1Rule, premise2Rule);
-
+            SubtypeRule rule = buildArrowSubtypingRules(source, target);
             return rule;
         }
+    }
 
-        // path size >= 2
-        Judgment premise1Judgment = new Judgment(judgment.typingContext,
-                judgment.term, new BaseType(source));
-        VariableRule premise1Rule = new VariableRule(premise1Judgment,
-                true);
-        DerivationRule premise2Rule = buildTransitiveRules(source, target, path);
-        SubsumptionRule rule = new SubsumptionRule(judgment, true,
+    private SubtypeRule buildArrowSubtypingRules(ArrowType source, ArrowType target)
+    {
+
+        SubtypeRule premise1Rule, premise2Rule ;
+
+        // check the type of the domains
+        if(source.domain.getClass() != target.domain.getClass())
+        {
+            premise1Rule = new InvalidTypeRule(new SubtypeJudgment(source.domain, target.domain));
+        }
+        else
+        {
+            // reverse the order for the domains
+            premise1Rule = checkSubtypingRules(target.domain, source.domain);
+        }
+
+        // check the type of the ranges
+        if(source.range.getClass() != target.range.getClass())
+        {
+            premise2Rule = new InvalidTypeRule(new SubtypeJudgment(source.range, target.range));
+        }
+        else
+        {
+            premise2Rule = checkSubtypingRules(source.range, target.range);
+        }
+
+        SubtypeJudgment judgment = new SubtypeJudgment(source, target);
+        ArrowTypeRule rule = new ArrowTypeRule(judgment,
+                premise1Rule.isDerivable && premise2Rule.isDerivable,
                 premise1Rule, premise2Rule);
-
         return rule;
     }
 
-    private DerivationRule buildTransitiveRules(String source, String target, List<String> path)
+
+    private SubtypeRule buildBaseSubtypingRules(String source, String target, List<String> path)
+    {
+        if(path.size() == 1)
+        {
+            // the source is a subtype of the target
+            SubBaseRule rule = new SubBaseRule(
+                    new SubBase(source, target), true);
+            return rule;
+        }
+        // path size >= 2
+        SubtypeRule rule = buildTransitiveRules(source, target, path);
+        return rule;
+    }
+
+    private SubtypeRule buildTransitiveRules(String source, String target, List<String> path)
     {
         if(path.size() == 2)
         {

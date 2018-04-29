@@ -1,12 +1,15 @@
 package rules;
 
-import parser.syntaxtree.BaseType;
+import parser.syntaxtree.Type;
 
 public class ReflexivityTypeRule extends SubtypeRule
 {
-    BaseType baseType ;
-    public ReflexivityTypeRule(BaseType baseType)
+    Type type ;
+
+    public ReflexivityTypeRule(Type type)
     {
-        this.baseType = baseType;
+        this.type = type;
+        this.isDerivable = true;
+        this.subtypeJudgment = new SubtypeJudgment(type, type);
     }
 }

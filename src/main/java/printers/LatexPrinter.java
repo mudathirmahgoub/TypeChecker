@@ -49,6 +49,44 @@ public class LatexPrinter extends AbstractPrinter
         {
             visit((TransitivityTypeRule)rule);
         }
+
+        if(rule instanceof  InvalidTypeRule)
+        {
+            visit((InvalidTypeRule)rule);
+        }
+
+        if(rule instanceof  ArrowTypeRule)
+        {
+            visit((ArrowTypeRule)rule);
+        }
+
+        if(rule instanceof  ReflexivityTypeRule)
+        {
+            visit((ReflexivityTypeRule)rule);
+        }
+    }
+
+    private void visit(ReflexivityTypeRule rule)
+    {
+        String conclusionString = visit(rule.subtypeJudgment);
+        stringBuilder.append("\\AxiomC{} \\RightLabel{\\scriptsize reflexive} \\UnaryInfC{$" + conclusionString + "$}\n");
+    }
+
+    private void visit(ArrowTypeRule rule)
+    {
+        visit(rule.premise1Rule);
+
+        visit(rule.premise2Rule);
+
+        String conclusionString = visit(rule.subtypeJudgment);
+
+        stringBuilder.append("\\RightLabel{\\scriptsize arrow} \\BinaryInfC{$" + conclusionString + "$}\n");
+    }
+
+    private void visit(InvalidTypeRule rule)
+    {
+        String conclusionString = visit(rule.subtypeJudgment);
+        stringBuilder.append("\\AxiomC{\\color{red} $\\perp$ \\color{black}} \\RightLabel{\\scriptsize \\color{red} invalid \\color{black}} \\UnaryInfC{\\color{red} $" + conclusionString + "$ \\color{black}}\n");
     }
 
     private void visit(VariableRule rule)

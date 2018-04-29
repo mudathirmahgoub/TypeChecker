@@ -6,6 +6,7 @@
 \usepackage{makeidx}
 \usepackage{graphicx}
 \usepackage{lmodern}
+\usepackage{color}
 \usepackage{bussproofs}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
@@ -26,12 +27,26 @@
 \RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [T1] : ((T1 \rightarrow T2) \rightarrow (T1 \rightarrow T2))$}
 \end{prooftree}
 
+
+\section{Direct Subtyping}
+
+\subsection{Valid}
 \begin{prooftree}
 \AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: bool \vdash x : bool$}
 \AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
 \RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : int$}
 \end{prooftree}
 
+\subsection{Invalid}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: int \vdash x : int$}
+\AxiomC{\color{red} $\perp$ \color{black}} \RightLabel{\scriptsize \color{red} invalid \color{black}} \UnaryInfC{\color{red} $int <: bool$ \color{black}}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: int \vdash x : bool$}
+\end{prooftree}
+
+
+\section{Transitive Subtyping}
 
 \begin{prooftree}
 \AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: bool \vdash x : bool$}
@@ -49,6 +64,69 @@
 \AxiomC{\scriptsize SubBase($quotient,double)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$quotient <: double$}
 \RightLabel{\scriptsize transitive} \BinaryInfC{$bool <: double$}
 \RightLabel{\scriptsize subsumption} \BinaryInfC{$x: bool \vdash x : double$}
+\end{prooftree}
+
+\section{Arrow Types}
+
+\subsection{Valid}
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (int \rightarrow bool) \vdash x : (int \rightarrow bool)$}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\RightLabel{\scriptsize arrow} \BinaryInfC{$(int \rightarrow bool) <: (bool \rightarrow int)$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (int \rightarrow bool) \vdash x : (bool \rightarrow int)$}
+\end{prooftree}
+
+\subsubsection{Reflexive}
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (int \rightarrow bool) \vdash x : (int \rightarrow bool)$}
+\AxiomC{} \RightLabel{\scriptsize reflexive} \UnaryInfC{$int <: int$}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\RightLabel{\scriptsize arrow} \BinaryInfC{$(int \rightarrow bool) <: (int \rightarrow int)$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (int \rightarrow bool) \vdash x : (int \rightarrow int)$}
+\end{prooftree}
+
+\subsubsection{Nested}
+
+\tiny
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (int \rightarrow T), y: bool \vdash x : (int \rightarrow T)$}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\AxiomC{} \RightLabel{\scriptsize reflexive} \UnaryInfC{$T <: T$}
+\RightLabel{\scriptsize arrow} \BinaryInfC{$(int \rightarrow T) <: (bool \rightarrow T)$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (int \rightarrow T), y: bool \vdash x : (bool \rightarrow T)$}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (int \rightarrow T), y: bool \vdash y : bool$}
+\RightLabel{\scriptsize app} \BinaryInfC{$x: (int \rightarrow T), y: bool \vdash (x\;y) [bool] : T$}
+\RightLabel{$\lambda$}\UnaryInfC{$x: (int \rightarrow T) \vdash  \lambda y. (x\;y) [bool] : (bool \rightarrow T)$}
+\RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [bool] : ((int \rightarrow T) \rightarrow (bool \rightarrow T))$}
+\end{prooftree}
+
+\normalsize
+
+\subsection{Invalid}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (bool \rightarrow bool) \vdash x : (bool \rightarrow bool)$}
+\AxiomC{\color{red} $\perp$ \color{black}} \RightLabel{\scriptsize \color{red} invalid \color{black}} \UnaryInfC{\color{red} $int <: bool$ \color{black}}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\RightLabel{\scriptsize arrow} \BinaryInfC{$(bool \rightarrow bool) <: (int \rightarrow int)$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (bool \rightarrow bool) \vdash x : (int \rightarrow int)$}
+\end{prooftree}
+
+\tiny
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (bool \rightarrow T), y: bool \vdash x : (bool \rightarrow T)$}
+\AxiomC{\color{red} $\perp$ \color{black}} \RightLabel{\scriptsize \color{red} invalid \color{black}} \UnaryInfC{\color{red} $int <: bool$ \color{black}}
+\AxiomC{} \RightLabel{\scriptsize reflexive} \UnaryInfC{$T <: T$}
+\RightLabel{\scriptsize arrow} \BinaryInfC{$(bool \rightarrow T) <: (int \rightarrow T)$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash x : (int \rightarrow T)$}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (bool \rightarrow T), y: bool \vdash y : bool$}
+\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
+\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash y : int$}
+\RightLabel{\scriptsize app} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash (x\;y) [int] : T$}
+\RightLabel{$\lambda$}\UnaryInfC{$x: (bool \rightarrow T) \vdash  \lambda y. (x\;y) [int] : (bool \rightarrow T)$}
+\RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [int] : ((bool \rightarrow T) \rightarrow (bool \rightarrow T))$}
 \end{prooftree}
 
 
