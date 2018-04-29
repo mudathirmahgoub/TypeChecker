@@ -11,12 +11,19 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
 \begin{document}
+
+\section{Variable Types}
+
+\subsection{Valid}
+
 \begin{prooftree}
-\AxiomC{A}
-\AxiomC{B}
-\AxiomC{C}
-\BinaryInfC{D}
-\BinaryInfC{E}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: T \vdash x : T$}
+\end{prooftree}
+
+\subsection{Invalid}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\color{red} \scriptsize invalid var} \UnaryInfC{$\cdot \vdash x : T$} \color{black} 
 \end{prooftree}
 
 \begin{prooftree}

@@ -8,6 +8,33 @@ import typechecker.TypeChecker;
 
 public class DemoTests
 {
+
+    @Test
+    public void testValidVariableRule()
+    {
+        String program = "x : T |- x : T;";
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+        assertTrue(rule.isDerivable);
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+
+    }
+
+
+    @Test
+    public void testInvalidVariableRule()
+    {
+        String program = ". |- x : T;";
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+        assertFalse(rule.isDerivable);
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+    }
+
+
     @Test
     public void testDirectSubtyping()
     {
