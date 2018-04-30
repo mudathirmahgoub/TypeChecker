@@ -41,6 +41,11 @@ public class Variable extends Term
                     return new VariableRule(judgment, false);
                 }
                 //ToDo: check forall rules
+                if(contextType.getClass() == ForAllType.class)
+                {
+                    // try for all elimination rule
+
+                }
                 throw new UnsupportedOperationException();
             }
 
