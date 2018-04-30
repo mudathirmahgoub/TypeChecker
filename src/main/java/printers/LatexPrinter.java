@@ -1,7 +1,6 @@
 package printers;
 
 import parser.syntaxtree.*;
-import printers.AbstractPrinter;
 import rules.*;
 
 import java.util.Map;
@@ -230,9 +229,9 @@ public class LatexPrinter extends AbstractPrinter
 
     private String visit(Type type)
     {
-        if(type instanceof BaseType)
+        if(type instanceof VariableType)
         {
-            return visit((BaseType)type);
+            return visit((VariableType)type);
         }
 
         if(type instanceof  ArrowType)
@@ -248,7 +247,7 @@ public class LatexPrinter extends AbstractPrinter
         return null;
     }
 
-    private String visit(BaseType type)
+    private String visit(VariableType type)
     {
         return type.name;
     }

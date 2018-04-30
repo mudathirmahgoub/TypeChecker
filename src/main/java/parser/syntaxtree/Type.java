@@ -1,5 +1,6 @@
 package parser.syntaxtree;
 
-public class Type extends SystemFNode
+public abstract class Type extends SystemFNode
 {
+    abstract public boolean isFreeType(String name);
 }

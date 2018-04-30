@@ -23,4 +23,10 @@ public class ArrowType extends Type
     {
         return "(" + domain + " → "  + range + ")";
     }
+
+    @Override
+    public boolean isFreeType(String name)
+    {
+        return domain.isFreeType(name) || range.isFreeType(name);
+    }
 }

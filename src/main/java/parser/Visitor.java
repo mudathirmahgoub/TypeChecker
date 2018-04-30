@@ -116,7 +116,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
     @Override public SystemFNode visitBaseType(SystemFParser.BaseTypeContext ctx)
     {
         String name = ctx.Identifier().getText();
-        return new BaseType(name);
+        return new VariableType(name);
     }
 
     @Override

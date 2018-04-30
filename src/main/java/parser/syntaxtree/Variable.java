@@ -65,11 +65,11 @@ public class Variable extends Term
 
 
         // check subtyping for base types
-        if(subType.getClass() == BaseType.class)
+        if(subType.getClass() == VariableType.class)
         {
             // check if there is a path from the context type to the judgment type
-            String source = ((BaseType) subType).name;
-            String target = ((BaseType) superType).name;
+            String source = ((VariableType) subType).name;
+            String target = ((VariableType) superType).name;
 
             List<String> path  = searchPath(source, target);
 
@@ -144,8 +144,8 @@ public class Variable extends Term
     {
         if(path.size() == 2)
         {
-            SubtypeJudgment subtypeJudgment = new SubtypeJudgment(new BaseType(source),
-                    new BaseType(target));
+            SubtypeJudgment subtypeJudgment = new SubtypeJudgment(new VariableType(source),
+                    new VariableType(target));
             String middle = path.get(1);
             SubBaseRule premise1Rule = new SubBaseRule(new SubBase(source, middle), true);
             SubBaseRule premise2Rule = new SubBaseRule(new SubBase(middle, target), true);
@@ -155,8 +155,8 @@ public class Variable extends Term
         }
         else
         {
-            SubtypeJudgment subtypeJudgment = new SubtypeJudgment(new BaseType(source),
-                    new BaseType(target));
+            SubtypeJudgment subtypeJudgment = new SubtypeJudgment(new VariableType(source),
+                    new VariableType(target));
             String middle = path.get(1);
             path.remove(0);
             DerivationRule premise1Rule = buildTransitiveRules(source, middle,path);

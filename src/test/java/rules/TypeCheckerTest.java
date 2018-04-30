@@ -32,10 +32,10 @@ class TypeCheckerTest
         Judgment judgment = ((VariableRule) rule).judgment;
 
         assertTrue(judgment.typingContext.context.containsKey("x"));
-        BaseType contextType = (BaseType) judgment.typingContext.context.get("x");
+        VariableType contextType = (VariableType) judgment.typingContext.context.get("x");
         assertEquals("T", contextType.name);
         assertEquals("x", ((Variable) judgment.term).name);
-        assertEquals("T", ((BaseType) judgment.type).name);
+        assertEquals("T", ((VariableType) judgment.type).name);
     }
 
     @Test
@@ -51,7 +51,7 @@ class TypeCheckerTest
         Judgment lambdaJudgment = ((LambdaRule) rule).judgment;
 
         assertTrue(lambdaJudgment.typingContext.context.containsKey("x"));
-        BaseType contextType1 = (BaseType) lambdaJudgment.typingContext.context.get("x");
+        VariableType contextType1 = (VariableType) lambdaJudgment.typingContext.context.get("x");
         assertEquals("T", contextType1.name);
         assertEquals("x", ((Lambda) lambdaJudgment.term).variable);
         Variable term = (Variable) ((Lambda) lambdaJudgment.term).term;
@@ -59,17 +59,17 @@ class TypeCheckerTest
 
         ArrowType arrowType = (ArrowType) lambdaJudgment.type;
 
-        assertEquals("T",((BaseType)arrowType.domain).name);
-        assertEquals("T",((BaseType)arrowType.range).name);
+        assertEquals("T",((VariableType)arrowType.domain).name);
+        assertEquals("T",((VariableType)arrowType.range).name);
 
         DerivationRule premiseRule = ((LambdaRule) rule).premiseRule;
         assertTrue(premiseRule.isDerivable);
         Judgment judgment = ((VariableRule) premiseRule).judgment;
         assertTrue(judgment.typingContext.context.containsKey("x"));
-        BaseType contextType2 = (BaseType) judgment.typingContext.context.get("x");
+        VariableType contextType2 = (VariableType) judgment.typingContext.context.get("x");
         assertEquals("T", contextType2.name);
         assertEquals("x", ((Variable) judgment.term).name);
-        assertEquals("T", ((BaseType) judgment.type).name);
+        assertEquals("T", ((VariableType) judgment.type).name);
     }
 
     @Test
@@ -90,18 +90,18 @@ class TypeCheckerTest
         assertTrue(applicationJudgment.typingContext.context.containsKey("y"));
 
         ArrowType xType1 = (ArrowType) applicationJudgment.typingContext.context.get("x");
-        BaseType yType = (BaseType) applicationJudgment.typingContext.context.get("y");
-        assertEquals("T1", ((BaseType)xType1.domain).name);
-        assertEquals("T2", ((BaseType)xType1.range).name);
+        VariableType yType = (VariableType) applicationJudgment.typingContext.context.get("y");
+        assertEquals("T1", ((VariableType)xType1.domain).name);
+        assertEquals("T2", ((VariableType)xType1.range).name);
         assertEquals("T1", yType.name);
         Application applicationTerm = (Application) applicationJudgment.term;
         assertEquals("x", ((Variable)applicationTerm.function).name);
         assertEquals("y", ((Variable)applicationTerm.argument).name);
-        assertEquals("T1", ((BaseType)applicationTerm.annotation).name);
+        assertEquals("T1", ((VariableType)applicationTerm.annotation).name);
 
-        BaseType baseType = (BaseType) applicationJudgment.type;
+        VariableType variableType = (VariableType) applicationJudgment.type;
 
-        assertEquals("T2",baseType.name);
+        assertEquals("T2", variableType.name);
 
         DerivationRule premise1Rule = ((ApplicationRule) rule).premise1Rule;
         assertTrue(premise1Rule.isDerivable);
@@ -110,17 +110,17 @@ class TypeCheckerTest
 
         ArrowType xPremiseTypingContext = (ArrowType) judgment1.typingContext.context.get("x");
         ArrowType xPremiseType = (ArrowType) judgment1.type;
-        assertEquals("T1", ((BaseType)xPremiseTypingContext.domain).name);
-        assertEquals("T2", ((BaseType)xPremiseTypingContext.range).name);
+        assertEquals("T1", ((VariableType)xPremiseTypingContext.domain).name);
+        assertEquals("T2", ((VariableType)xPremiseTypingContext.range).name);
         assertEquals("x", ((Variable) judgment1.term).name);
-        assertEquals("T1", ((BaseType)xPremiseType.domain).name);
-        assertEquals("T2", ((BaseType)xPremiseType.range).name);
+        assertEquals("T1", ((VariableType)xPremiseType.domain).name);
+        assertEquals("T2", ((VariableType)xPremiseType.range).name);
 
         DerivationRule premise2Rule = ((ApplicationRule) rule).premise2Rule;
         Judgment judgment2 = ((VariableRule) premise2Rule).judgment;
 
-        BaseType yPremiseTypingContext = (BaseType) judgment1.typingContext.context.get("y");
-        BaseType yPremiseType = (BaseType) judgment2.type;
+        VariableType yPremiseTypingContext = (VariableType) judgment1.typingContext.context.get("y");
+        VariableType yPremiseType = (VariableType) judgment2.type;
         assertEquals("T1", yPremiseTypingContext.name);
         assertEquals("y", ((Variable) judgment2.term).name);
         assertEquals("T1", yPremiseType.name);

@@ -36,4 +36,17 @@ public class TypingContext extends SystemFNode
             return contextString;
         }
     }
+
+    public boolean isFreeType(String name)
+    {
+        for (Map.Entry<String, Type> entry : this.context.entrySet())
+        {
+            Type type = entry.getValue();
+            if(type.isFreeType(name))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

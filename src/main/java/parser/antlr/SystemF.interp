@@ -48,7 +48,7 @@ subtype
 judgment
 typingContext
 type
-baseType
+variableType
 forAllType
 arrowType
 term

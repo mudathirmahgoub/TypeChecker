@@ -17,8 +17,8 @@ class SystemFNodeTest
         assertEquals(0, program.judgment.typingContext.context.size());
         assertEquals(Variable.class, program.judgment.term.getClass());
         assertEquals("x", ((Variable) program.judgment.term).name);
-        assertEquals(BaseType.class, program.judgment.type.getClass());
-        assertEquals("T", ((BaseType)program.judgment.type).name);
+        assertEquals(VariableType.class, program.judgment.type.getClass());
+        assertEquals("T", ((VariableType)program.judgment.type).name);
     }
 
     @Test
@@ -32,14 +32,14 @@ class SystemFNodeTest
 
         Type type = program.judgment.typingContext.context.get("x");
 
-        assertEquals(BaseType.class, type.getClass());
-        assertEquals("T", ((BaseType)type).name);
+        assertEquals(VariableType.class, type.getClass());
+        assertEquals("T", ((VariableType)type).name);
         assertTrue(program.judgment.typingContext.context.containsKey("x"));
         assertEquals(1, program.judgment.typingContext.context.size());
         assertEquals(Variable.class, program.judgment.term.getClass());
         assertEquals("x", ((Variable) program.judgment.term).name);
-        assertEquals(BaseType.class, program.judgment.type.getClass());
-        assertEquals("T", ((BaseType)program.judgment.type).name);
+        assertEquals(VariableType.class, program.judgment.type.getClass());
+        assertEquals("T", ((VariableType)program.judgment.type).name);
     }
 
     
@@ -54,10 +54,10 @@ class SystemFNodeTest
 
         ArrowType arrowType = (ArrowType)  program.judgment.type;
 
-        assertEquals(BaseType.class, arrowType.domain.getClass());
-        assertEquals("T1", ((BaseType) arrowType.domain).name);
-        assertEquals(BaseType.class, arrowType.range.getClass());
-        assertEquals("T2", ((BaseType) arrowType.range).name);
+        assertEquals(VariableType.class, arrowType.domain.getClass());
+        assertEquals("T1", ((VariableType) arrowType.domain).name);
+        assertEquals(VariableType.class, arrowType.range.getClass());
+        assertEquals("T2", ((VariableType) arrowType.range).name);
     }
 
     @Test
@@ -71,16 +71,16 @@ class SystemFNodeTest
 
         ArrowType arrowType1 = (ArrowType)  program.judgment.type;
 
-        assertEquals(BaseType.class, arrowType1.domain.getClass());
-        assertEquals("T1", ((BaseType) arrowType1.domain).name);
+        assertEquals(VariableType.class, arrowType1.domain.getClass());
+        assertEquals("T1", ((VariableType) arrowType1.domain).name);
         assertEquals(ArrowType.class, arrowType1.range.getClass());
 
         ArrowType arrowType2 = (ArrowType)  arrowType1.range;
 
-        assertEquals(BaseType.class, arrowType2.domain.getClass());
-        assertEquals("T2", ((BaseType) arrowType2.domain).name);
-        assertEquals(BaseType.class, arrowType2.range.getClass());
-        assertEquals("T3", ((BaseType) arrowType2.range).name);
+        assertEquals(VariableType.class, arrowType2.domain.getClass());
+        assertEquals("T2", ((VariableType) arrowType2.domain).name);
+        assertEquals(VariableType.class, arrowType2.range.getClass());
+        assertEquals("T3", ((VariableType) arrowType2.range).name);
     }
 
     @Test
@@ -97,13 +97,13 @@ class SystemFNodeTest
         assertEquals(ArrowType.class, arrowType1.domain.getClass());
         ArrowType arrowType2 = (ArrowType)  arrowType1.domain;
 
-        assertEquals(BaseType.class, arrowType2.domain.getClass());
-        assertEquals("T1", ((BaseType) arrowType2.domain).name);
-        assertEquals(BaseType.class, arrowType2.range.getClass());
-        assertEquals("T2", ((BaseType) arrowType2.range).name);
+        assertEquals(VariableType.class, arrowType2.domain.getClass());
+        assertEquals("T1", ((VariableType) arrowType2.domain).name);
+        assertEquals(VariableType.class, arrowType2.range.getClass());
+        assertEquals("T2", ((VariableType) arrowType2.range).name);
 
-        assertEquals(BaseType.class, arrowType1.range.getClass());
-        assertEquals("T3", ((BaseType) arrowType1.range).name);
+        assertEquals(VariableType.class, arrowType1.range.getClass());
+        assertEquals("T3", ((VariableType) arrowType1.range).name);
     }
 
     @Test
@@ -118,8 +118,8 @@ class SystemFNodeTest
         ForAllType forAllType = (ForAllType)  program.judgment.type;
 
         assertEquals("X", forAllType.typeVariable);
-        assertEquals(BaseType.class, ((BaseType)forAllType.type).getClass());
-        assertEquals("T", ((BaseType)forAllType.type).name);
+        assertEquals(VariableType.class, ((VariableType)forAllType.type).getClass());
+        assertEquals("T", ((VariableType)forAllType.type).name);
     }
 
     @Test
@@ -138,10 +138,10 @@ class SystemFNodeTest
 
         ArrowType arrowType = (ArrowType) forAllType.type;
 
-        assertEquals(BaseType.class, arrowType.domain.getClass());
-        assertEquals("T1", ((BaseType) arrowType.domain).name);
-        assertEquals(BaseType.class, arrowType.range.getClass());
-        assertEquals("T2", ((BaseType) arrowType.range).name);
+        assertEquals(VariableType.class, arrowType.domain.getClass());
+        assertEquals("T1", ((VariableType) arrowType.domain).name);
+        assertEquals(VariableType.class, arrowType.range.getClass());
+        assertEquals("T2", ((VariableType) arrowType.range).name);
     }
 
     @Test
@@ -190,11 +190,11 @@ class SystemFNodeTest
         assertEquals(Variable.class, application.argument.getClass());
         assertEquals("t2", ((Variable)application.argument).name);
 
-        assertEquals(BaseType.class, application.annotation.getClass());
-        assertEquals("T1", ((BaseType)application.annotation).name);
+        assertEquals(VariableType.class, application.annotation.getClass());
+        assertEquals("T1", ((VariableType)application.annotation).name);
 
-        assertEquals(BaseType.class, program.judgment.type.getClass());
-        assertEquals("T2", ((BaseType)program.judgment.type).name);
+        assertEquals(VariableType.class, program.judgment.type.getClass());
+        assertEquals("T2", ((VariableType)program.judgment.type).name);
     }
 
     @Test
