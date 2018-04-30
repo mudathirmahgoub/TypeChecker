@@ -260,6 +260,6 @@ public class LatexPrinter extends AbstractPrinter
 
     private String visit(ForAllType type)
     {
-        throw new UnsupportedOperationException(type.toString());
+        return "\\forall " + type.typeVariable + "." + visit(type.type);
     }
 }
