@@ -30,4 +30,16 @@ class TypingContextTest
         assertTrue(typingContext.isFreeType("Y"));
         assertTrue(typingContext.isFreeType("Z"));
     }
+
+    @Test
+    public void testFreeVariables3()
+    {
+        String program = "x: X, y: \\forall Y. (Y -> Z) -> Y |- x : X;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        TypingContext typingContext = typeChecker.getProgram().judgment.typingContext;
+        assertTrue(typingContext.isFreeType("X"));
+        assertFalse(typingContext.isFreeType("Y"));
+        assertTrue(typingContext.isFreeType("Z"));
+    }
 }

@@ -142,5 +142,40 @@
 
 \section{System F}
 
+\subsection{Variables}
+
+\subsubsection{Valid}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X.X$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall Y.Y$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.(X \rightarrow X) \vdash x : \forall Y.(Y \rightarrow Y)$}
+\end{prooftree}
+
+$Y$ is free in the context and the type:
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.(X \rightarrow Y) \vdash x : \forall Z.(Z \rightarrow Y)$}
+\end{prooftree}
+
+\subsubsection{Invalid}
+
+$Y$ is free in the context:
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\color{red} \scriptsize invalid var} \UnaryInfC{$x: \forall X.(X \rightarrow Y) \vdash x : \forall Y.(Y \rightarrow Y)$} \color{black} 
+\end{prooftree}
+
+$Y$ is free in the context, and $Z$ is free in the type: 
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\color{red} \scriptsize invalid var} \UnaryInfC{$x: \forall X.(X \rightarrow Y) \vdash x : \forall Y.(Y \rightarrow Z)$} \color{black} 
+\end{prooftree}
 
 \end{document}

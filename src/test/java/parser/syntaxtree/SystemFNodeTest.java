@@ -117,7 +117,7 @@ class SystemFNodeTest
 
         ForAllType forAllType = (ForAllType)  program.judgment.type;
 
-        assertEquals("X", forAllType.typeVariable);
+        assertEquals("X", forAllType.typeVariableName);
         assertEquals(VariableType.class, ((VariableType)forAllType.type).getClass());
         assertEquals("T", ((VariableType)forAllType.type).name);
     }
@@ -133,7 +133,7 @@ class SystemFNodeTest
 
         ForAllType forAllType = (ForAllType)  program.judgment.type;
 
-        assertEquals("X", forAllType.typeVariable);
+        assertEquals("X", forAllType.typeVariableName);
         assertEquals(ArrowType.class, forAllType.type.getClass());
 
         ArrowType arrowType = (ArrowType) forAllType.type;

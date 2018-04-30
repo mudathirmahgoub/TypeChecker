@@ -159,6 +159,99 @@ public class DemoTests
     }
 
     @Test
+    public void testSimpleForAll1()
+    {
+        String program = "x: \\forall X.X |- x: \\forall X.X;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertTrue(rule.isDerivable);
+    }
+
+    @Test
+    public void testSimpleForAll2()
+    {
+        String program = "x: \\forall X.X |- x: \\forall Y.Y;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertTrue(rule.isDerivable);
+    }
+
+    @Test
+    public void testSimpleForAll3()
+    {
+        String program = "x: \\forall X.X -> X |- x: \\forall Y.Y -> Y;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertTrue(rule.isDerivable);
+    }
+
+
+    @Test
+    public void testSimpleForAll4()
+    {
+        String program = "x: \\forall X.X -> Y |- x: \\forall Z.Z -> Y;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertTrue(rule.isDerivable);
+    }
+
+
+    @Test
+    public void testSimpleForAll5()
+    {
+        String program = "x: \\forall X.X -> Y |- x: \\forall Y.Y -> Y;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertFalse(rule.isDerivable);
+    }
+
+    @Test
+    public void testSimpleForAll6()
+    {
+        String program = "x: \\forall X.X -> Y |- x: \\forall Y.Y -> Z;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertFalse(rule.isDerivable);
+    }
+
+    @Test
+    public void testSystemFApplication()
+    {
+        String program = "x: \\forall X.X |- (x x) [\\forall X.X]: \\forall X.X;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertTrue(rule.isDerivable);
+    }
+
+    @Test
     public void testSystemF()
     {
         String program = ". |- \\lambda x. (x x) [\\forall Y.Y]: \\forall X. (\\forall Y.Y) -> X;";

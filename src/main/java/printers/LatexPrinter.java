@@ -259,6 +259,6 @@ public class LatexPrinter extends AbstractPrinter
 
     private String visit(ForAllType type)
     {
-        return "\\forall " + type.typeVariable + "." + visit(type.type);
+        return "\\forall " + type.typeVariableName + "." + visit(type.type);
     }
 }

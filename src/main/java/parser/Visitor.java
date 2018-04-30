@@ -132,7 +132,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
     public SystemFNode visitForAllType(SystemFParser.ForAllTypeContext ctx)
     {
         ForAllType forAllType = new ForAllType();
-        forAllType.typeVariable = ctx.Identifier().getText();
+        forAllType.typeVariableName = ctx.Identifier().getText();
         forAllType.type = (Type) this.visitType(ctx.type());
         return forAllType;
     }

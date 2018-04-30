@@ -33,8 +33,18 @@ public class Variable extends Term
         }
         else
         {
-            // return a subsumption rule
+            if(contextType.getClass() == ForAllType.class || type.getClass() == ForAllType.class )
+            {
+                if(contextType.getClass() == ForAllType.class && type.getClass() == ForAllType.class )
+                {
+                    // both types are ForAllType and (isEqual = false) => (isDerivable = false)
+                    return new VariableRule(judgment, false);
+                }
+                //ToDo: check forall rules
+                throw new UnsupportedOperationException();
+            }
 
+            // return a subsumption rule
             Judgment premise1Judgment = new Judgment(judgment.typingContext,
                     judgment.term, contextType);
             VariableRule premise1Rule = new VariableRule(premise1Judgment,
