@@ -1,6 +1,9 @@
 package rules;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import parser.syntaxtree.SystemFNode;
 import printers.LatexPrinter;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,6 +11,12 @@ import typechecker.TypeChecker;
 
 public class DemoTests
 {
+
+    @BeforeEach
+    public void clearTypingContext()
+    {
+        SystemFNode.subTypes.clear();
+    }
 
     @Test
     public void testValidVariableRule()
@@ -238,29 +247,29 @@ public class DemoTests
         assertFalse(rule.isDerivable);
     }
 
-    @Test
-    public void testSystemFApplication()
-    {
-        String program = "x: \\forall X.X |- (x x) [\\forall X.X]: \\forall X.X;";
-
-        TypeChecker typeChecker = new TypeChecker(program);
-        DerivationRule rule= typeChecker.check();
-
-        LatexPrinter latexPrinter = new LatexPrinter();
-        System.out.println(latexPrinter.print(rule));
-        assertTrue(rule.isDerivable);
-    }
-
-    @Test
-    public void testSystemF()
-    {
-        String program = ". |- \\lambda x. (x x) [\\forall Y.Y]: \\forall X. (\\forall Y.Y) -> X;";
-
-        TypeChecker typeChecker = new TypeChecker(program);
-        DerivationRule rule= typeChecker.check();
-
-        LatexPrinter latexPrinter = new LatexPrinter();
-        System.out.println(latexPrinter.print(rule));
-        assertFalse(rule.isDerivable);
-    }
+//    @Test
+//    public void testSystemFApplication()
+//    {
+//        String program = "x: \\forall X.X |- (x x) [\\forall X.X]: \\forall X.X;";
+//
+//        TypeChecker typeChecker = new TypeChecker(program);
+//        DerivationRule rule= typeChecker.check();
+//
+//        LatexPrinter latexPrinter = new LatexPrinter();
+//        System.out.println(latexPrinter.print(rule));
+//        assertTrue(rule.isDerivable);
+//    }
+//
+//    @Test
+//    public void testSystemF()
+//    {
+//        String program = ". |- \\lambda x. (x x) [\\forall Y.Y]: \\forall X. (\\forall Y.Y) -> X;";
+//
+//        TypeChecker typeChecker = new TypeChecker(program);
+//        DerivationRule rule= typeChecker.check();
+//
+//        LatexPrinter latexPrinter = new LatexPrinter();
+//        System.out.println(latexPrinter.print(rule));
+//        assertFalse(rule.isDerivable);
+//    }
 }

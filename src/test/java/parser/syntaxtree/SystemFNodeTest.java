@@ -1,12 +1,20 @@
 package parser.syntaxtree;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import typechecker.TypeChecker;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SystemFNodeTest
+class SystemFParsingTest
 {
+
+    @BeforeEach
+    public void clearTypingContext()
+    {
+        SystemFNode.subTypes.clear();
+    }
+
     @Test
     public void emptyContextVariableBaseType()
     {
