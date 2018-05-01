@@ -20,7 +20,7 @@ class SystemFParsingTest
     {
         String input = ". |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
         assertEquals(0, program.subBases.size());
         assertEquals(0, program.judgment.typingContext.context.size());
         assertEquals(Variable.class, program.judgment.term.getClass());
@@ -34,7 +34,7 @@ class SystemFParsingTest
     {
         String input = "x : T |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
         assertEquals(0, program.subBases.size());
         assertEquals(1, program.judgment.typingContext.context.size());
 
@@ -56,7 +56,7 @@ class SystemFParsingTest
     {
         String input = ". |- x : T1 -> T2 ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
 
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
@@ -73,7 +73,7 @@ class SystemFParsingTest
     {
         String input = ". |- x : T1 -> T2 -> T3 ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
 
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
@@ -96,7 +96,7 @@ class SystemFParsingTest
     {
         String input = ". |- x : (T1 -> T2) -> T3 ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
 
         assertEquals(ArrowType.class, program.judgment.type.getClass());
 
@@ -119,7 +119,7 @@ class SystemFParsingTest
     {
         String input = ". |- x : \\forall X. T ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
 
         assertEquals(ForAllType.class, program.judgment.type.getClass());
 
@@ -135,7 +135,7 @@ class SystemFParsingTest
     {
         String input = ". |- x : \\forall X. T1 -> T2 ;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
 
         assertEquals(ForAllType.class, program.judgment.type.getClass());
 
@@ -157,7 +157,7 @@ class SystemFParsingTest
     {
         String input = ". |- \\lambda x.x : T1 -> T2;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
         assertEquals(Lambda.class, program.judgment.term.getClass());
         Lambda lambda = (Lambda) program.judgment.term;
         assertEquals("x", lambda.variable);
@@ -170,7 +170,7 @@ class SystemFParsingTest
     {
         String input = ". |- \\lambda x. \\lambda y . x : T1 -> T2 -> T1;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
         assertEquals(Lambda.class, program.judgment.term.getClass());
 
         Lambda lambda1 = (Lambda) program.judgment.term;
@@ -188,7 +188,7 @@ class SystemFParsingTest
     {
         String input = ". |- (t1 t2) [T1]: T2;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
         assertEquals(Application.class, program.judgment.term.getClass());
         Application application = (Application) program.judgment.term;
 
@@ -210,7 +210,7 @@ class SystemFParsingTest
     {
         String input = "SubBase(bool, int);  . |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
         assertEquals(1, program.subBases.size());
 
         SubBase subBase1 = program.subBases.get(0);
@@ -223,7 +223,7 @@ class SystemFParsingTest
     {
         String input = "SubBase(bool, int); SubBase(int, bool); . |- x : T;";
         TypeChecker typeChecker = new TypeChecker(input);
-        Program program = (Program) typeChecker.getProgram();
+        Program program = typeChecker.getProgram();
         assertEquals(2, program.subBases.size());
 
         SubBase subBase1 = program.subBases.get(0);
@@ -233,5 +233,44 @@ class SystemFParsingTest
         SubBase subBase2 = program.subBases.get(1);
         assertEquals("int", subBase2.subType);
         assertEquals("bool", subBase2.superType);
+    }
+
+    @Test
+    public void eliminationAnnotation1()
+    {
+        String input = ". |- x[X] : T;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = typeChecker.getProgram();
+
+        Term term = program.judgment.term;
+        assertNotNull(term.eliminationAnnotation);
+        VariableType type = (VariableType) term.eliminationAnnotation;
+        assertEquals("X",type.name);
+    }
+
+    @Test
+    public void eliminationAnnotation2()
+    {
+        String input = ". |- (x y)[Y][X] : T;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = typeChecker.getProgram();
+
+        Term term = program.judgment.term;
+        assertNotNull(term.eliminationAnnotation);
+        VariableType type = (VariableType) term.eliminationAnnotation;
+        assertEquals("X",type.name);
+    }
+
+    @Test
+    public void eliminationAnnotation3()
+    {
+        String input = ". |- (\\lambda x. x) [X] : T;";
+        TypeChecker typeChecker = new TypeChecker(input);
+        Program program = typeChecker.getProgram();
+
+        Term term = program.judgment.term;
+        assertNotNull(term.eliminationAnnotation);
+        VariableType type = (VariableType) term.eliminationAnnotation;
+        assertEquals("X",type.name);
     }
 }

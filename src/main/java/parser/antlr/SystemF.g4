@@ -27,6 +27,9 @@ arrowType : Arrow type;
 term : variable
 	| application
 	| lambda
+	| variable typeApplication
+	| application typeApplication
+	| '(' lambda ')' typeApplication
 	;
 
 variable : Identifier ;
@@ -35,6 +38,7 @@ application : '(' term term ')' '[' type ']';
 
 lambda : Lambda Identifier '.' term;
 
+typeApplication : '[' type ']';
 // lexer rules
 
 SubBase : 'SubBase' ;
