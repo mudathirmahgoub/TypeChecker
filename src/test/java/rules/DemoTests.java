@@ -249,9 +249,23 @@ public class DemoTests
 
 
     @Test
-    public void testSystemFEliminationRule()
+    public void testSystemFEliminationRule1()
     {
         String program = "x: \\forall X.X |- x [Y]: Y;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertTrue(rule.isDerivable);
+    }
+
+
+    @Test
+    public void testSystemFEliminationRule2()
+    {
+        String program = "x: \\forall X.X |- x [Y]: Y-> Y;";
 
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
