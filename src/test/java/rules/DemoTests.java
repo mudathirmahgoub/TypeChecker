@@ -247,6 +247,7 @@ public class DemoTests
         assertFalse(rule.isDerivable);
     }
 
+
     @Test
     public void testSystemFApplication()
     {
