@@ -50,8 +50,13 @@ public class Variable extends Term
                         term.eliminationAnnotation = null;
 
                         // ToDO: review renaming here
-                        String typeVariableName = ((ForAllType) contextType).typeVariableName;
-                        Type premiseType = Type.replace(type, this.eliminationAnnotation, typeVariableName);
+                        //ToDo: choose a unique name
+                        String typeVariableName = ((ForAllType) contextType).typeVariableName + "1";
+                        ForAllType premiseType = new ForAllType();
+                        premiseType.typeVariableName = typeVariableName;
+                        premiseType.type = Type.replace(type, this.eliminationAnnotation, typeVariableName);
+                        premiseType.typeVariableName = ((ForAllType) contextType).typeVariableName + "1";
+
                         DerivationRule premiseRule = term.check(premiseType, typingContext);
                         return new ForAllElimination(judgment, premiseRule.isDerivable, premiseRule);
                     }

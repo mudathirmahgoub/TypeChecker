@@ -249,6 +249,19 @@ public class DemoTests
 
 
     @Test
+    public void testSystemFEliminationRule()
+    {
+        String program = "x: \\forall X.X |- x [Y]: Y;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertTrue(rule.isDerivable);
+    }
+
+    @Test
     public void testSystemFApplication()
     {
         String program = "x: \\forall X.X |- (x x) [\\forall X.X]: \\forall X.X;";

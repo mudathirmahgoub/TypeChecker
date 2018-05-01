@@ -63,6 +63,21 @@ public class LatexPrinter extends AbstractPrinter
         {
             visit((ReflexivityTypeRule)rule);
         }
+
+        if(rule instanceof  ForAllElimination)
+        {
+            visit((ForAllElimination)rule);
+        }
+
+    }
+
+    private void visit(ForAllElimination rule)
+    {
+        visit(rule.premiseRule);
+
+        String conclusionString = visit(rule.judgment);
+
+        stringBuilder.append("\\RightLabel{\\scriptsize elimination}\\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(ReflexivityTypeRule rule)
@@ -155,7 +170,10 @@ public class LatexPrinter extends AbstractPrinter
     private String visit(Judgment judgment)
     {
         String string = visit(judgment.typingContext) + " \\vdash " +
-                visit(judgment.term) + " : " +
+                visit(judgment.term) +
+                (judgment.term.eliminationAnnotation == null?
+                "" : "[" + visit(judgment.term.eliminationAnnotation) +"]"
+                ) + " : " +
                 visit(judgment.type);
         return string;
     }
