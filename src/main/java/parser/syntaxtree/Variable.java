@@ -44,6 +44,14 @@ public class Variable extends Term
                 if(contextType.getClass() == ForAllType.class)
                 {
                     // try for all elimination rule
+                    Term term = new Variable(this.name);
+                    term.eliminationAnnotation = null;
+                    ForAllType premiseType = new ForAllType();
+                    // ToDO: review renaming here
+                    premiseType.typeVariableName = ((ForAllType) contextType).typeVariableName;
+                    premiseType.type = type.replace(term.eliminationAnnotation, premiseType.typeVariableName);
+                    Judgment premiseJudgment = new Judgment(typingContext, term, premiseType);
+                    return new ForAllElimination(judgment, premiseJudgment, premiseType);
 
                 }
                 throw new UnsupportedOperationException();
