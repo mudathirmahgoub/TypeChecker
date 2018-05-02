@@ -61,7 +61,7 @@ public class Variable extends Term
                     }
                     else
                     {
-                        throw new UnsupportedOperationException();
+                        return new VariableRule(judgment, DerivationAnswer.Unknown);
                     }
                 }
                 else
@@ -71,7 +71,12 @@ public class Variable extends Term
                     if(typingContext.isFreeType(forAllType.typeVariableName))
                     {
                         // introduction rule requires the name of the variable type to be not free
-                        throw new UnsupportedOperationException();
+                        String newName = SystemFNode.getNewVariableTypeName();
+                        forAllType = (ForAllType) type.rename(newName, forAllType.typeVariableName);
+
+                        // check the premise rule
+                        DerivationRule premiseAnswer = this.check(forAllType, typingContext);
+                        return new RenamingRule(judgment, premiseAnswer.isDerivable, premiseAnswer);
                     }
 
                     // check forAll introduction rule

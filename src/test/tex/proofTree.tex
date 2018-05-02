@@ -8,6 +8,7 @@
 \usepackage{lmodern}
 \usepackage{color}
 \usepackage{bussproofs}
+\usepackage{lscape}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
 \begin{document}
@@ -411,5 +412,62 @@ $Y$ is free in the context, and $Z$ is free in the type:
 \AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X1.X1$}
 \RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[Y] : Y$}
 \end{prooftree}
+
+
+\subsection{Numbers}
+
+Zero
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$z: X, s: (X \rightarrow X) \vdash z : X$}
+\RightLabel{$\lambda$}\UnaryInfC{$s: (X \rightarrow X) \vdash (\lambda z. z) : (X \rightarrow X)$}
+\RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash (\lambda s. (\lambda z. z)) : ((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\RightLabel{\scriptsize introduction}\UnaryInfC{$\cdot \vdash (\lambda s. (\lambda z. z)) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\end{prooftree}
+
+Zero with free variable $X$
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$y: X, z: X2, s: (X2 \rightarrow X2) \vdash z : X2$}
+\RightLabel{$\lambda$}\UnaryInfC{$y: X, s: (X2 \rightarrow X2) \vdash (\lambda z. z) : (X2 \rightarrow X2)$}
+\RightLabel{$\lambda$}\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : ((X2 \rightarrow X2) \rightarrow (X2 \rightarrow X2))$}
+\RightLabel{\scriptsize introduction}\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : \forall X2.((X2 \rightarrow X2) \rightarrow (X2 \rightarrow X2))$}
+\RightLabel{\scriptsize renaming}\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\end{prooftree}
+
+
+Successor
+
+\fontsize{3}{4}
+\begin{landscape}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash s : (X \rightarrow X)$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash n : \forall X1.((X1 \rightarrow X1) \rightarrow (X1 \rightarrow X1))$}
+\RightLabel{\scriptsize elimination}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash n[[X]][X] : ((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash s : (X \rightarrow X)$}
+\RightLabel{\scriptsize app}
+\BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash (n[[X]]\;s) [(X \rightarrow X)] : (X \rightarrow X)$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash z : X$}
+\RightLabel{\scriptsize app}
+\BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash ((n[[X]]\;s) [(X \rightarrow X)]\;z) [X] : X$}
+\RightLabel{\scriptsize app}
+\BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X] : X$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), s: (X \rightarrow X) \vdash (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X]) : (X \rightarrow X)$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \vdash (\lambda s. (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X])) : ((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\RightLabel{\scriptsize introduction}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \vdash (\lambda s. (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X])) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$\cdot \vdash (\lambda n. (\lambda s. (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X]))) : (\forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \rightarrow \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)))$}
+\end{prooftree}
+
+
+\end{landscape}
 
 \end{document}

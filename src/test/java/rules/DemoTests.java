@@ -1,6 +1,5 @@
 package rules;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parser.syntaxtree.SystemFNode;
@@ -279,9 +278,50 @@ public class DemoTests
     }
 
     @Test
-    public void testSystemFApplication()
+    public void testSystemFEliminationRule3()
     {
         String program = "x: \\forall X.X |- (x[[(\\forall X.X) -> \\forall X.X]] x) [\\forall X.X]: \\forall X.X;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+    }
+
+    @Test
+    public void testSystemFZero()
+    {
+        String program = ". |- \\lambda s. \\lambda z. z : \\forall X. (X -> X) -> X -> X;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+    }
+
+    @Test
+    public void testSystemFZero1()
+    {
+        String program = "y: X |- \\lambda s. \\lambda z. z : \\forall X. (X -> X) -> X -> X;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+    }
+
+    @Test
+    public void testSystemFSuccessor()
+    {
+        String program = ". |- \\lambda n. \\lambda s. \\lambda z. " +
+                "(s ((n[[X]] s)[X -> X] z)[X])[X]:" +
+                "(\\forall X. (X -> X) -> X -> X) -> \\forall X. (X -> X) -> X -> X;";
 
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();

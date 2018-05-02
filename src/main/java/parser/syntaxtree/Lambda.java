@@ -1,9 +1,6 @@
 package parser.syntaxtree;
 
-import rules.DerivationAnswer;
-import rules.DerivationRule;
-import rules.ForAllIntroduction;
-import rules.LambdaRule;
+import rules.*;
 
 public class Lambda extends Term
 {
@@ -27,8 +24,18 @@ public class Lambda extends Term
                 if(!typingContext.isFreeType(forAllType.typeVariableName))
                 {
                     // check the premise rule
-                    DerivationRule premiseAnswer = term.check(forAllType.type, typingContext);
+                    DerivationRule premiseAnswer = this.check(forAllType.type, typingContext);
                     return new ForAllIntroduction(judgment, premiseAnswer.isDerivable, premiseAnswer);
+                }
+                else
+                {
+                    // rename the variable
+                    String name = SystemFNode.getNewVariableTypeName();
+                    forAllType = (ForAllType) type.rename(name, forAllType.typeVariableName);
+
+                    // check the premise rule
+                    DerivationRule premiseAnswer = this.check(forAllType, typingContext);
+                    return new RenamingRule(judgment, premiseAnswer.isDerivable, premiseAnswer);
                 }
             }
             return new LambdaRule(judgment,DerivationAnswer.No, null);

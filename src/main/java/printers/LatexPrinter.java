@@ -69,6 +69,35 @@ public class LatexPrinter extends AbstractPrinter
             visit((ForAllElimination)rule);
         }
 
+        if(rule instanceof  ForAllIntroduction)
+        {
+            visit((ForAllIntroduction)rule);
+        }
+
+        if(rule instanceof  RenamingRule)
+        {
+            visit((RenamingRule)rule);
+        }
+    }
+
+    private void visit(RenamingRule rule)
+    {
+        visit(rule.premiseRule);
+
+        String conclusionString = visit(rule.judgment);
+
+        stringBuilder.append("\\RightLabel{\\scriptsize renaming}\n" +
+                "\\UnaryInfC{$" + conclusionString + "$}\n");
+    }
+
+    private void visit(ForAllIntroduction rule)
+    {
+        visit(rule.premiseRule);
+
+        String conclusionString = visit(rule.judgment);
+
+        stringBuilder.append("\\RightLabel{\\scriptsize introduction}\n" +
+                "\\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(ForAllElimination rule)
@@ -77,13 +106,15 @@ public class LatexPrinter extends AbstractPrinter
 
         String conclusionString = visit(rule.judgment);
 
-        stringBuilder.append("\\RightLabel{\\scriptsize elimination}\\UnaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{\\scriptsize elimination}\n" +
+                "\\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(ReflexivityTypeRule rule)
     {
         String conclusionString = visit(rule.subtypeJudgment);
-        stringBuilder.append("\\AxiomC{} \\RightLabel{\\scriptsize reflexive} \\UnaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\AxiomC{} \\RightLabel{\\scriptsize reflexive}\n" +
+                " \\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(ArrowTypeRule rule)
@@ -94,13 +125,16 @@ public class LatexPrinter extends AbstractPrinter
 
         String conclusionString = visit(rule.subtypeJudgment);
 
-        stringBuilder.append("\\RightLabel{\\scriptsize arrow} \\BinaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{\\scriptsize arrow}\n" +
+                "\\BinaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(InvalidTypeRule rule)
     {
         String conclusionString = visit(rule.subtypeJudgment);
-        stringBuilder.append("\\AxiomC{\\color{red} $\\perp$ \\color{black}} \\RightLabel{\\scriptsize \\color{red} invalid \\color{black}} \\UnaryInfC{\\color{red} $" + conclusionString + "$ \\color{black}}\n");
+        stringBuilder.append("\\AxiomC{\\color{red} $\\perp$ \\color{black}} \n" +
+                "\\RightLabel{\\scriptsize \\color{red} invalid \\color{black}}\n" +
+                "\\UnaryInfC{\\color{red} $" + conclusionString + "$ \\color{black}}\n");
     }
 
     private void visit(VariableRule rule)
@@ -108,20 +142,22 @@ public class LatexPrinter extends AbstractPrinter
         String conclusionString = visit(rule.judgment);
         if(rule.isDerivable == DerivationAnswer.Yes)
         {
-            stringBuilder.append("\\AxiomC{} \\RightLabel{\\scriptsize var} \\UnaryInfC{$" +
-                    conclusionString + "$}\n");
+            stringBuilder.append("\\AxiomC{} \\RightLabel{\\scriptsize var}\n" +
+                    "\\UnaryInfC{$" + conclusionString + "$}\n");
         }
         else
         {
             if(rule.isDerivable == DerivationAnswer.No)
             {
-                stringBuilder.append("\\AxiomC{} \\RightLabel{\\color{red} \\scriptsize invalid var} \\UnaryInfC{$" +
-                        conclusionString + "$ \\color{black}}  \n");
+                stringBuilder.append("\\AxiomC{}\n" +
+                        "\\RightLabel{\\color{red} \\scriptsize invalid var}\n" +
+                        "\\UnaryInfC{$" + conclusionString + "$ \\color{black}}  \n");
             }
             else
             {
-                stringBuilder.append("\\AxiomC{} \\RightLabel{\\color{blue} \\scriptsize invalid var} \\UnaryInfC{$" +
-                        conclusionString + "$ \\color{black}}  \n");
+                stringBuilder.append("\\AxiomC{}\n" +
+                        "\\RightLabel{\\color{blue} \\scriptsize unknown}\n" +
+                        "\\UnaryInfC{$" + conclusionString + "$ \\color{black}}  \n");
             }
         }
     }
@@ -134,7 +170,8 @@ public class LatexPrinter extends AbstractPrinter
 
         String conclusionString = visit(rule.judgment);
 
-        stringBuilder.append("\\RightLabel{\\scriptsize app} \\BinaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{\\scriptsize app}\n" +
+                "\\BinaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(LambdaRule rule)
@@ -143,7 +180,8 @@ public class LatexPrinter extends AbstractPrinter
 
         String conclusionString = visit(rule.judgment);
 
-        stringBuilder.append("\\RightLabel{$\\lambda$}\\UnaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{$\\lambda$}\n" +
+                "\\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(SubsumptionRule rule)
@@ -154,14 +192,17 @@ public class LatexPrinter extends AbstractPrinter
 
         String conclusionString = visit(rule.judgment);
 
-        stringBuilder.append("\\RightLabel{\\scriptsize subsumption} \\BinaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{\\scriptsize subsumption}\n" +
+                "\\BinaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(SubBaseRule rule)
     {
         String conclusionString = rule.subBase.subType + " <: " + rule.subBase.superType;
-        stringBuilder.append("\\AxiomC{\\scriptsize SubBase($" + rule.subBase.subType+ ","
-                + rule.subBase.superType +")$} \\RightLabel{\\scriptsize subBase} \\UnaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\AxiomC{\\scriptsize $SubBase(" + rule.subBase.subType+ ","
+                + rule.subBase.superType +")$}\n" +
+                "\\RightLabel{\\scriptsize subBase}\n" +
+                "\\UnaryInfC{$" + conclusionString + "$}\n");
     }
 
     private void visit(TransitivityTypeRule rule)
@@ -172,7 +213,8 @@ public class LatexPrinter extends AbstractPrinter
 
         String conclusionString = visit(rule.subtypeJudgment);
 
-        stringBuilder.append("\\RightLabel{\\scriptsize transitive} \\BinaryInfC{$" + conclusionString + "$}\n");
+        stringBuilder.append("\\RightLabel{\\scriptsize transitive}\n" +
+                "\\BinaryInfC{$" + conclusionString + "$}\n");
     }
 
     private String visit(Judgment judgment)
