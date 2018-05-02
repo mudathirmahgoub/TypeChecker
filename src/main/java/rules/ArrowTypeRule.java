@@ -4,7 +4,7 @@ public class ArrowTypeRule extends SubtypeRule
 {
     public DerivationRule premise1Rule;
     public DerivationRule premise2Rule;
-    public ArrowTypeRule(SubtypeJudgment subtypeJudgment, boolean isDerivable,
+    public ArrowTypeRule(SubtypeJudgment subtypeJudgment, DerivationAnswer isDerivable,
                                 DerivationRule premise1Rule, DerivationRule premise2Rule )
     {
         this.subtypeJudgment = subtypeJudgment;

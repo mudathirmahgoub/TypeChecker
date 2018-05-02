@@ -22,14 +22,14 @@ public class Variable extends Term
         // the variable is not declared in the context
         if(contextType == null)
         {
-            return new VariableRule(judgment, false);
+            return new VariableRule(judgment, DerivationAnswer.No);
         }
 
         // check if the type matches the context type
         boolean isEqual = contextType.equals(type);
         if(isEqual)
         {
-            return new VariableRule(judgment, true);
+            return new VariableRule(judgment, DerivationAnswer.Yes);
         }
         else
         {
@@ -38,7 +38,7 @@ public class Variable extends Term
                 if(contextType.getClass() == ForAllType.class && type.getClass() == ForAllType.class )
                 {
                     // both types are ForAllType and (isEqual = false) => (isDerivable = false)
-                    return new VariableRule(judgment, false);
+                    return new VariableRule(judgment, DerivationAnswer.No);
                 }
 
                 if(contextType.getClass() == ForAllType.class)
@@ -91,12 +91,14 @@ public class Variable extends Term
             Judgment premise1Judgment = new Judgment(judgment.typingContext,
                     judgment.term, contextType);
             VariableRule premise1Rule = new VariableRule(premise1Judgment,
-                    true);
+                    DerivationAnswer.Yes);
             SubtypeRule premise2Rule = checkSubtypingRules(contextType, type);
 
+            DerivationAnswer answer = DerivationRule.getAnswer(premise1Rule.isDerivable,
+                    premise2Rule.isDerivable);
+
             SubsumptionRule rule = new SubsumptionRule(judgment,
-                    premise1Rule.isDerivable && premise2Rule.isDerivable,
-                    premise1Rule, premise2Rule);
+                     answer,  premise1Rule, premise2Rule);
             return rule;
         }
     }
@@ -172,9 +174,12 @@ public class Variable extends Term
         }
 
         SubtypeJudgment judgment = new SubtypeJudgment(source, target);
+
+        DerivationAnswer answer = DerivationRule.getAnswer(premise1Rule.isDerivable,
+                premise2Rule.isDerivable);
+
         ArrowTypeRule rule = new ArrowTypeRule(judgment,
-                premise1Rule.isDerivable && premise2Rule.isDerivable,
-                premise1Rule, premise2Rule);
+                answer, premise1Rule, premise2Rule);
         return rule;
     }
 
@@ -185,7 +190,7 @@ public class Variable extends Term
         {
             // the source is a subtype of the target
             SubBaseRule rule = new SubBaseRule(
-                    new SubBase(source, target), true);
+                    new SubBase(source, target), DerivationAnswer.Yes);
             return rule;
         }
         // path size >= 2
@@ -200,10 +205,12 @@ public class Variable extends Term
             SubtypeJudgment subtypeJudgment = new SubtypeJudgment(new VariableType(source),
                     new VariableType(target));
             String middle = path.get(1);
-            SubBaseRule premise1Rule = new SubBaseRule(new SubBase(source, middle), true);
-            SubBaseRule premise2Rule = new SubBaseRule(new SubBase(middle, target), true);
-            TransitivityTypeRule rule = new TransitivityTypeRule(subtypeJudgment, true,
-                    premise1Rule, premise2Rule);
+            SubBaseRule premise1Rule = new SubBaseRule(new SubBase(source, middle),
+                    DerivationAnswer.Yes);
+            SubBaseRule premise2Rule = new SubBaseRule(new SubBase(middle, target),
+                    DerivationAnswer.Yes);
+            TransitivityTypeRule rule = new TransitivityTypeRule(subtypeJudgment,
+                    DerivationAnswer.Yes, premise1Rule, premise2Rule);
             return rule;
         }
         else
@@ -213,9 +220,10 @@ public class Variable extends Term
             String middle = path.get(1);
             path.remove(0);
             DerivationRule premise1Rule = buildTransitiveRules(source, middle,path);
-            SubBaseRule premise2Rule = new SubBaseRule(new SubBase(middle, target), true);
-            TransitivityTypeRule rule = new TransitivityTypeRule(subtypeJudgment, true,
-                    premise1Rule, premise2Rule);
+            SubBaseRule premise2Rule = new SubBaseRule(new SubBase(middle, target),
+                    DerivationAnswer.Yes);
+            TransitivityTypeRule rule = new TransitivityTypeRule(subtypeJudgment,
+                    DerivationAnswer.Yes, premise1Rule, premise2Rule);
             return rule;
         }
     }

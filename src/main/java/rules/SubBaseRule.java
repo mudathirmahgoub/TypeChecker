@@ -6,7 +6,7 @@ public class SubBaseRule extends SubtypeRule
 {
     public SubBase subBase;
 
-    public SubBaseRule(SubBase subBase, boolean isDerivable)
+    public SubBaseRule(SubBase subBase, DerivationAnswer isDerivable)
     {
         this.subBase = subBase;
         this.isDerivable = isDerivable;

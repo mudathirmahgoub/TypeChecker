@@ -7,7 +7,7 @@ public class ApplicationRule extends TermRule
     public TermRule premise1Rule;
     public TermRule premise2Rule;
 
-    public ApplicationRule(Judgment judgment, boolean isDerivable, DerivationRule premise1Rule, DerivationRule premise2Rule)
+    public ApplicationRule(Judgment judgment, DerivationAnswer isDerivable, DerivationRule premise1Rule, DerivationRule premise2Rule)
     {
         this.judgment = judgment;
         this.premise1Rule = (TermRule) premise1Rule;

@@ -1,6 +1,7 @@
 package parser.syntaxtree;
 
 import rules.ApplicationRule;
+import rules.DerivationAnswer;
 import rules.DerivationRule;
 
 
@@ -23,8 +24,10 @@ public class Application extends Term
         DerivationRule premise2Rule = argument.check(annotation, typingContext);
 
         Judgment judgment = new Judgment(typingContext, this, type);
-        boolean isDerivable = premise1Rule.isDerivable && premise2Rule.isDerivable;
-        ApplicationRule rule = new ApplicationRule(judgment, isDerivable, premise1Rule, premise2Rule);
+        DerivationAnswer answer = DerivationRule.getAnswer(premise1Rule.isDerivable,
+                premise2Rule.isDerivable);
+
+        ApplicationRule rule = new ApplicationRule(judgment, answer, premise1Rule, premise2Rule);
 
         return rule;
     }

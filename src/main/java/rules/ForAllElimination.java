@@ -6,7 +6,7 @@ public class ForAllElimination extends TermRule
 {
     public TermRule premiseRule;
 
-    public ForAllElimination(Judgment judgment, boolean isDerivable, DerivationRule premiseRule)
+    public ForAllElimination(Judgment judgment, DerivationAnswer isDerivable, DerivationRule premiseRule)
     {
         this.judgment = judgment;
         this.premiseRule = (TermRule) premiseRule;

@@ -25,7 +25,7 @@ public class DemoTests
         String program = "x : T |- x : T;";
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
@@ -39,7 +39,7 @@ public class DemoTests
         String program = ". |- x : T;";
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
-        assertFalse(rule.isDerivable);
+        assertEquals(DerivationAnswer.No, rule.isDerivable);
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
     }
@@ -52,7 +52,7 @@ public class DemoTests
                 "x : bool |- x : int;";
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
 
@@ -65,7 +65,7 @@ public class DemoTests
                 "x : int |- x : bool;";
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
-        assertFalse(rule.isDerivable);
+        assertEquals(DerivationAnswer.No, rule.isDerivable);
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
     }
@@ -78,7 +78,7 @@ public class DemoTests
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
 
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
@@ -92,7 +92,7 @@ public class DemoTests
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
 
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
@@ -109,7 +109,7 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
 
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
     @Test
@@ -123,7 +123,7 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
 
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
     @Test
@@ -151,7 +151,7 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
 
-        assertFalse(rule.isDerivable);
+        assertEquals(DerivationAnswer.No, rule.isDerivable);
     }
 
     @Test
@@ -165,7 +165,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertFalse(rule.isDerivable);
+        assertEquals(DerivationAnswer.No, rule.isDerivable);
     }
 
     @Test
@@ -178,7 +178,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
     @Test
@@ -191,7 +191,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
     @Test
@@ -204,7 +204,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
 
@@ -218,7 +218,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
 
@@ -232,7 +232,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertFalse(rule.isDerivable);
+        assertEquals(DerivationAnswer.No, rule.isDerivable);
     }
 
     @Test
@@ -245,7 +245,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertFalse(rule.isDerivable);
+        assertEquals(DerivationAnswer.No, rule.isDerivable);
     }
 
 
@@ -259,7 +259,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
 
@@ -271,7 +271,7 @@ public class DemoTests
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
 
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
@@ -288,7 +288,7 @@ public class DemoTests
 
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-        assertTrue(rule.isDerivable);
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 //
 //    @Test
@@ -301,6 +301,6 @@ public class DemoTests
 //
 //        LatexPrinter latexPrinter = new LatexPrinter();
 //        System.out.println(latexPrinter.print(rule));
-//        assertFalse(rule.isDerivable);
+//        assertEquals(DerivationAnswer.No, rule.isDerivable);
 //    }
 }

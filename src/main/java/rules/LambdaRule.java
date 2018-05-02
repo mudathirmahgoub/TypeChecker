@@ -6,7 +6,7 @@ public class LambdaRule extends TermRule
 {
     public TermRule premiseRule;
 
-    public LambdaRule(Judgment judgment, boolean isDerivable, DerivationRule premiseRule)
+    public LambdaRule(Judgment judgment, DerivationAnswer isDerivable, DerivationRule premiseRule)
     {
         this.judgment = judgment;
         this.premiseRule = (TermRule) premiseRule;

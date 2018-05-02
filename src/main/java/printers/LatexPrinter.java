@@ -106,15 +106,23 @@ public class LatexPrinter extends AbstractPrinter
     private void visit(VariableRule rule)
     {
         String conclusionString = visit(rule.judgment);
-        if(rule.isDerivable)
+        if(rule.isDerivable == DerivationAnswer.Yes)
         {
             stringBuilder.append("\\AxiomC{} \\RightLabel{\\scriptsize var} \\UnaryInfC{$" +
                     conclusionString + "$}\n");
         }
         else
         {
-            stringBuilder.append("\\AxiomC{} \\RightLabel{\\color{red} \\scriptsize invalid var} \\UnaryInfC{$" +
-                    conclusionString + "$ \\color{black}}  \n");
+            if(rule.isDerivable == DerivationAnswer.No)
+            {
+                stringBuilder.append("\\AxiomC{} \\RightLabel{\\color{red} \\scriptsize invalid var} \\UnaryInfC{$" +
+                        conclusionString + "$ \\color{black}}  \n");
+            }
+            else
+            {
+                stringBuilder.append("\\AxiomC{} \\RightLabel{\\color{blue} \\scriptsize invalid var} \\UnaryInfC{$" +
+                        conclusionString + "$ \\color{black}}  \n");
+            }
         }
     }
 

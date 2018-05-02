@@ -1,5 +1,6 @@
 package parser.syntaxtree;
 
+import rules.DerivationAnswer;
 import rules.DerivationRule;
 import rules.ForAllIntroduction;
 import rules.LambdaRule;
@@ -30,7 +31,7 @@ public class Lambda extends Term
                     return new ForAllIntroduction(judgment, premiseAnswer.isDerivable, premiseAnswer);
                 }
             }
-            return new LambdaRule(judgment,false, null);
+            return new LambdaRule(judgment,DerivationAnswer.No, null);
         }
 
         ArrowType arrowType = (ArrowType) type;
