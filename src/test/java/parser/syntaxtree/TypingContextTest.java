@@ -57,20 +57,20 @@ class TypingContextTest
         String program = "x: X, y: \\forall Y. (Y -> Z) -> Y |- x : X;";
 
         TypeChecker typeChecker = new TypeChecker(program);
-        assertEquals("X1", SystemFNode.getNewVariableTypeName());
-        assertEquals("X2", SystemFNode.getNewVariableTypeName());
-        assertEquals("X3", SystemFNode.getNewVariableTypeName());
+        assertEquals("X_1", SystemFNode.getNewVariableTypeName());
+        assertEquals("X_2", SystemFNode.getNewVariableTypeName());
+        assertEquals("X_3", SystemFNode.getNewVariableTypeName());
     }
 
     @Test
     public void testGetNewVariable2()
     {
-        String program = "x: X1, y: \\forall Y. (Y -> X2) -> Y |- x : X3;";
+        String program = "x: X_1, y: \\forall Y. (Y -> X_2) -> Y |- x : X_3;";
 
         TypeChecker typeChecker = new TypeChecker(program);
-        assertEquals("X4", SystemFNode.getNewVariableTypeName());
-        assertEquals("X5", SystemFNode.getNewVariableTypeName());
-        assertEquals("X6", SystemFNode.getNewVariableTypeName());
+        assertEquals("X_4", SystemFNode.getNewVariableTypeName());
+        assertEquals("X_5", SystemFNode.getNewVariableTypeName());
+        assertEquals("X_6", SystemFNode.getNewVariableTypeName());
     }
 
 }

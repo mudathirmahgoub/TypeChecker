@@ -304,7 +304,7 @@ public class DemoTests
     }
 
     @Test
-    public void testSystemFZero1()
+    public void testSystemFZeroWithFreeVariableX()
     {
         String program = "y: X |- \\lambda s. \\lambda z. z : \\forall X. (X -> X) -> X -> X;";
 

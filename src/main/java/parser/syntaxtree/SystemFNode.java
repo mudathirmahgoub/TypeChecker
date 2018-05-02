@@ -12,7 +12,7 @@ abstract public class SystemFNode
 
     public static String getNewVariableTypeName()
     {
-        String name = "X";
+        String name = "X_";
         int index = 1;
         while(variableTypeNames.contains(name + index))
         {

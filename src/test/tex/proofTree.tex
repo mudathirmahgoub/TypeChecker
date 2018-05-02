@@ -427,12 +427,18 @@ Zero
 Zero with free variable $X$
 
 \begin{prooftree}
-\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$y: X, z: X2, s: (X2 \rightarrow X2) \vdash z : X2$}
-\RightLabel{$\lambda$}\UnaryInfC{$y: X, s: (X2 \rightarrow X2) \vdash (\lambda z. z) : (X2 \rightarrow X2)$}
-\RightLabel{$\lambda$}\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : ((X2 \rightarrow X2) \rightarrow (X2 \rightarrow X2))$}
-\RightLabel{\scriptsize introduction}\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : \forall X2.((X2 \rightarrow X2) \rightarrow (X2 \rightarrow X2))$}
-\RightLabel{\scriptsize renaming}\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$y: X, z: X_2, s: (X_2 \rightarrow X_2) \vdash z : X_2$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$y: X, s: (X_2 \rightarrow X_2) \vdash (\lambda z. z) : (X_2 \rightarrow X_2)$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : ((X_2 \rightarrow X_2) \rightarrow (X_2 \rightarrow X_2))$}
+\RightLabel{\scriptsize introduction}
+\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : \forall X_2.((X_2 \rightarrow X_2) \rightarrow (X_2 \rightarrow X_2))$}
+\RightLabel{\scriptsize renaming}
+\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
 \end{prooftree}
+
 
 \begin{landscape}
 
