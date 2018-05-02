@@ -69,8 +69,8 @@ public class ForAllType extends Type
         if(this.typeVariableName.equals(newName))
         {
             // rename the type variable
-            //ToDo: find a unique name
-            ForAllType renamedType = this.rename(this.typeVariableName + "1");
+            String variableTypeName = SystemFNode.getNewVariableTypeName();
+            ForAllType renamedType = this.rename(variableTypeName);
             renamedType.type = renamedType.type.rename(oldName, newName);
             return renamedType;
         }

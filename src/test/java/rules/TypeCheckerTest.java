@@ -1,5 +1,6 @@
 package rules;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parser.syntaxtree.*;
 import printers.DefaultPrinter;
@@ -10,6 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TypeCheckerTest
 {
+    @BeforeEach
+    public void clearTypingContext()
+    {
+        SystemFNode.subTypes.clear();
+        SystemFNode.variableTypeNames.clear();
+    }
+
     @Test
     public void testEmptyContextVariableRule()
     {

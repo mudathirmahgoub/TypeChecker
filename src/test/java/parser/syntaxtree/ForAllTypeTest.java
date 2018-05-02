@@ -1,5 +1,6 @@
 package parser.syntaxtree;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import typechecker.TypeChecker;
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,6 +8,13 @@ import org.junit.jupiter.api.function.Executable;
 
 class ForAllTypeTest
 {
+    @BeforeEach
+    public void clearTypingContext()
+    {
+        SystemFNode.subTypes.clear();
+        SystemFNode.variableTypeNames.clear();
+    }
+
     @Test
     public void testRenaming1()
     {
@@ -29,7 +37,7 @@ class ForAllTypeTest
         ForAllType oldType = (ForAllType) type;
         ForAllType newType = oldType.rename("Z");
 
-        assertEquals("∀Z. (Z → Y)", newType.toString());
+        assertEquals("∀Z. (Z -> Y)", newType.toString());
     }
     @Test
     public void testRenamingFreeVariable()

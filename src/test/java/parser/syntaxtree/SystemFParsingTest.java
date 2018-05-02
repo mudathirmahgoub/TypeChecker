@@ -6,13 +6,14 @@ import typechecker.TypeChecker;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SystemFParsingTest
+public class SystemFParsingTest
 {
 
     @BeforeEach
     public void clearTypingContext()
     {
         SystemFNode.subTypes.clear();
+        SystemFNode.variableTypeNames.clear();
     }
 
     @Test

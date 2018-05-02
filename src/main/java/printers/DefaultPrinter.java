@@ -94,7 +94,7 @@ public class DefaultPrinter extends AbstractPrinter
 
         StringNode premise2Node =  visit(rule.premise2Rule, level - 2);
 
-        String conclusionString = rule.judgment.toString();
+        String conclusionString = visit(rule.judgment);
 
         int minSpaceLength = 4;
 
@@ -116,7 +116,7 @@ public class DefaultPrinter extends AbstractPrinter
     {
         StringNode premiseNode =  visit(rule.premiseRule, level - 2);
 
-        String conclusionString = rule.judgment.toString();
+        String conclusionString = visit(rule.judgment);
 
         int lineLength = Math.max(premiseNode.string.length(), conclusionString.length());
 
@@ -154,7 +154,7 @@ public class DefaultPrinter extends AbstractPrinter
 
         StringNode premise2Node =  visit(rule.premise2Rule, level - 2);
 
-        String conclusionString = rule.judgment.toString();
+        String conclusionString = visit(rule.judgment);
 
         int minSpaceLength = 4;
 

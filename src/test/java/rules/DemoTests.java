@@ -16,6 +16,7 @@ public class DemoTests
     public void clearTypingContext()
     {
         SystemFNode.subTypes.clear();
+        SystemFNode.variableTypeNames.clear();
     }
 
     @Test
