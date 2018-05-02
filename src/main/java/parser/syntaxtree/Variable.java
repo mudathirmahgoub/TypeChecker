@@ -40,9 +40,10 @@ public class Variable extends Term
                     // both types are ForAllType and (isEqual = false) => (isDerivable = false)
                     return new VariableRule(judgment, false);
                 }
-                //ToDo: check forall rules
+
                 if(contextType.getClass() == ForAllType.class)
                 {
+                    //check forall elimination rule
                     if(this.eliminationAnnotation != null)
                     {
                         // try for all elimination rule
@@ -58,9 +59,32 @@ public class Variable extends Term
                         DerivationRule premiseRule = term.check(premiseType, typingContext);
                         return new ForAllElimination(judgment, premiseRule.isDerivable, premiseRule);
                     }
-
+                    else
+                    {
+                        throw new UnsupportedOperationException();
+                    }
                 }
-                throw new UnsupportedOperationException();
+                else
+                {
+                    ForAllType forAllType = (ForAllType) type;
+
+                    if(typingContext.isFreeType(forAllType.typeVariableName))
+                    {
+                        // introduction rule requires the name of the variable type to be not free
+                        throw new UnsupportedOperationException();
+                    }
+
+                    // check forAll introduction rule
+                    // try for all elimination rule
+                    Term term = new Variable(this.name);
+                    term.eliminationAnnotation = this.eliminationAnnotation;
+
+                    Type premiseType = forAllType.type;
+
+                    DerivationRule premiseRule = term.check(premiseType, typingContext);
+                    return new ForAllIntroduction(judgment, premiseRule.isDerivable, premiseRule);
+                }
+
             }
 
             // return a subsumption rule

@@ -38,7 +38,7 @@ application : '(' term term ')' '[' type ']';
 
 lambda : Lambda Identifier '.' term;
 
-typeApplication : '[' type ']';
+typeApplication : '[[' type ']]';
 // lexer rules
 
 SubBase : 'SubBase' ;

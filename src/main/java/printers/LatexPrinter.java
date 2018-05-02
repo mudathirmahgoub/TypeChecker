@@ -228,21 +228,27 @@ public class LatexPrinter extends AbstractPrinter
         return null;
     }
 
-    private String visit(Variable variable)
+    private String visit(Variable term)
     {
-        return  variable.name;
+        return  term.name +
+                (term.eliminationAnnotation == null? "":
+                        "[[" + visit(term.eliminationAnnotation) + "]]");
     }
 
-    private String visit(Application application)
+    private String visit(Application term)
     {
-        return "(" + visit(application.function) + "\\;"  +
-                visit(application.argument) + ") [" +
-                visit(application.annotation) + "]";
+        return "(" + visit(term.function) + "\\;"  +
+                visit(term.argument) + ") [" +
+                visit(term.annotation) + "]" +
+                (term.eliminationAnnotation == null? "":
+                        "[[" + visit(term.eliminationAnnotation) + "]]");
     }
 
-    private String visit(Lambda lambda)
+    private String visit(Lambda term)
     {
-        return  " \\lambda " + lambda.variable + ". " + visit(lambda.term);
+        return  "(\\lambda " + term.variable + ". " + visit(term.term)+ ")"+
+        (term.eliminationAnnotation == null? "":
+                "[[" + visit(term.eliminationAnnotation) + "]]");
     }
 
     private String visit(Type type)

@@ -17,9 +17,10 @@ public class SystemFParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, SubBase=8, Turnstile=9, 
-		EmptyContext=10, ForAll=11, Arrow=12, Lambda=13, Identifier=14, IdentifierLetter=15, 
-		Digit=16, LineComment=17, WhiteSpace=18, AnyCharacter=19;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
+		SubBase=10, Turnstile=11, EmptyContext=12, ForAll=13, Arrow=14, Lambda=15, 
+		Identifier=16, IdentifierLetter=17, Digit=18, LineComment=19, WhiteSpace=20, 
+		AnyCharacter=21;
 	public static final int
 		RULE_systemF = 0, RULE_subtype = 1, RULE_judgment = 2, RULE_typingContext = 3, 
 		RULE_type = 4, RULE_variableType = 5, RULE_forAllType = 6, RULE_arrowType = 7, 
@@ -32,13 +33,13 @@ public class SystemFParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'('", "','", "')'", "';'", "':'", "'['", "']'", "'SubBase'", null, 
-		"'.'", "'\\forall'"
+		null, "'('", "','", "')'", "';'", "':'", "'['", "']'", "'[['", "']]'", 
+		"'SubBase'", null, "'.'", "'\\forall'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, "SubBase", "Turnstile", 
-		"EmptyContext", "ForAll", "Arrow", "Lambda", "Identifier", "IdentifierLetter", 
-		"Digit", "LineComment", "WhiteSpace", "AnyCharacter"
+		null, null, null, null, null, null, null, null, null, null, "SubBase", 
+		"Turnstile", "EmptyContext", "ForAll", "Arrow", "Lambda", "Identifier", 
+		"IdentifierLetter", "Digit", "LineComment", "WhiteSpace", "AnyCharacter"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -906,11 +907,11 @@ public class SystemFParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(125);
-			match(T__5);
+			match(T__7);
 			setState(126);
 			type();
 			setState(127);
-			match(T__6);
+			match(T__8);
 			}
 		}
 		catch (RecognitionException re) {
@@ -925,7 +926,7 @@ public class SystemFParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\25\u0084\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\27\u0084\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\7\2\36\n\2\f\2\16\2!\13\2\3\2\3\2"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3"+
@@ -938,24 +939,24 @@ public class SystemFParser extends Parser {
 		"A\3\2\2\2\nT\3\2\2\2\fV\3\2\2\2\16X\3\2\2\2\20]\3\2\2\2\22n\3\2\2\2\24"+
 		"p\3\2\2\2\26r\3\2\2\2\30z\3\2\2\2\32\177\3\2\2\2\34\36\5\4\3\2\35\34\3"+
 		"\2\2\2\36!\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \"\3\2\2\2!\37\3\2\2\2\""+
-		"#\5\6\4\2#\3\3\2\2\2$%\7\n\2\2%&\7\3\2\2&\'\7\20\2\2\'(\7\4\2\2()\7\20"+
-		"\2\2)*\7\5\2\2*+\7\6\2\2+\5\3\2\2\2,-\5\b\5\2-.\7\13\2\2./\5\22\n\2/\60"+
-		"\7\7\2\2\60\61\5\n\6\2\61\62\7\6\2\2\62\7\3\2\2\2\63B\7\f\2\2\64\65\7"+
-		"\20\2\2\65\66\7\7\2\2\66\67\5\n\6\2\67>\3\2\2\289\7\4\2\29:\7\20\2\2:"+
+		"#\5\6\4\2#\3\3\2\2\2$%\7\f\2\2%&\7\3\2\2&\'\7\22\2\2\'(\7\4\2\2()\7\22"+
+		"\2\2)*\7\5\2\2*+\7\6\2\2+\5\3\2\2\2,-\5\b\5\2-.\7\r\2\2./\5\22\n\2/\60"+
+		"\7\7\2\2\60\61\5\n\6\2\61\62\7\6\2\2\62\7\3\2\2\2\63B\7\16\2\2\64\65\7"+
+		"\22\2\2\65\66\7\7\2\2\66\67\5\n\6\2\67>\3\2\2\289\7\4\2\29:\7\22\2\2:"+
 		";\7\7\2\2;=\5\n\6\2<8\3\2\2\2=@\3\2\2\2><\3\2\2\2>?\3\2\2\2?B\3\2\2\2"+
 		"@>\3\2\2\2A\63\3\2\2\2A\64\3\2\2\2B\t\3\2\2\2CU\5\f\7\2DE\5\f\7\2EF\5"+
 		"\20\t\2FU\3\2\2\2GU\5\16\b\2HI\5\16\b\2IJ\5\20\t\2JU\3\2\2\2KL\7\3\2\2"+
 		"LM\5\n\6\2MN\7\5\2\2NU\3\2\2\2OP\7\3\2\2PQ\5\n\6\2QR\7\5\2\2RS\5\20\t"+
 		"\2SU\3\2\2\2TC\3\2\2\2TD\3\2\2\2TG\3\2\2\2TH\3\2\2\2TK\3\2\2\2TO\3\2\2"+
-		"\2U\13\3\2\2\2VW\7\20\2\2W\r\3\2\2\2XY\7\r\2\2YZ\7\20\2\2Z[\7\f\2\2[\\"+
-		"\5\n\6\2\\\17\3\2\2\2]^\7\16\2\2^_\5\n\6\2_\21\3\2\2\2`o\5\24\13\2ao\5"+
-		"\26\f\2bo\5\30\r\2cd\5\24\13\2de\5\32\16\2eo\3\2\2\2fg\5\26\f\2gh\5\32"+
-		"\16\2ho\3\2\2\2ij\7\3\2\2jk\5\30\r\2kl\7\5\2\2lm\5\32\16\2mo\3\2\2\2n"+
-		"`\3\2\2\2na\3\2\2\2nb\3\2\2\2nc\3\2\2\2nf\3\2\2\2ni\3\2\2\2o\23\3\2\2"+
-		"\2pq\7\20\2\2q\25\3\2\2\2rs\7\3\2\2st\5\22\n\2tu\5\22\n\2uv\7\5\2\2vw"+
-		"\7\b\2\2wx\5\n\6\2xy\7\t\2\2y\27\3\2\2\2z{\7\17\2\2{|\7\20\2\2|}\7\f\2"+
-		"\2}~\5\22\n\2~\31\3\2\2\2\177\u0080\7\b\2\2\u0080\u0081\5\n\6\2\u0081"+
-		"\u0082\7\t\2\2\u0082\33\3\2\2\2\7\37>ATn";
+		"\2U\13\3\2\2\2VW\7\22\2\2W\r\3\2\2\2XY\7\17\2\2YZ\7\22\2\2Z[\7\16\2\2"+
+		"[\\\5\n\6\2\\\17\3\2\2\2]^\7\20\2\2^_\5\n\6\2_\21\3\2\2\2`o\5\24\13\2"+
+		"ao\5\26\f\2bo\5\30\r\2cd\5\24\13\2de\5\32\16\2eo\3\2\2\2fg\5\26\f\2gh"+
+		"\5\32\16\2ho\3\2\2\2ij\7\3\2\2jk\5\30\r\2kl\7\5\2\2lm\5\32\16\2mo\3\2"+
+		"\2\2n`\3\2\2\2na\3\2\2\2nb\3\2\2\2nc\3\2\2\2nf\3\2\2\2ni\3\2\2\2o\23\3"+
+		"\2\2\2pq\7\22\2\2q\25\3\2\2\2rs\7\3\2\2st\5\22\n\2tu\5\22\n\2uv\7\5\2"+
+		"\2vw\7\b\2\2wx\5\n\6\2xy\7\t\2\2y\27\3\2\2\2z{\7\21\2\2{|\7\22\2\2|}\7"+
+		"\16\2\2}~\5\22\n\2~\31\3\2\2\2\177\u0080\7\n\2\2\u0080\u0081\5\n\6\2\u0081"+
+		"\u0082\7\13\2\2\u0082\33\3\2\2\2\7\37>ATn";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

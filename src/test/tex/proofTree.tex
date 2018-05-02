@@ -382,6 +382,15 @@ $Y$ is free in the context and the type:
 \RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[(Y \rightarrow Y)] : (Y \rightarrow Y)$}
 \end{prooftree}
 
+\tiny
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X1.X1$}
+\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[[(\forall X.X \rightarrow \forall X.X)]][(\forall X.X \rightarrow \forall X.X)] : (\forall X.X \rightarrow \forall X.X)$}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X.X$}
+\RightLabel{\scriptsize app} \BinaryInfC{$x: \forall X.X \vdash (x[[(\forall X.X \rightarrow \forall X.X)]]\;x) [\forall X.X] : \forall X.X$}
+\end{prooftree}
+
+\normalsize
 
 \subsubsection{Invalid}
 

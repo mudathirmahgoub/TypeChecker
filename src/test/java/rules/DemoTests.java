@@ -252,7 +252,7 @@ public class DemoTests
     @Test
     public void testSystemFEliminationRule1()
     {
-        String program = "x: \\forall X.X |- x [Y]: Y;";
+        String program = "x: \\forall X.X |- x [[Y]]: Y;";
 
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
@@ -266,7 +266,7 @@ public class DemoTests
     @Test
     public void testSystemFEliminationRule2()
     {
-        String program = "x: \\forall X.X |- x [Y->Y]: Y-> Y;";
+        String program = "x: \\forall X.X |- x [[Y->Y]]: Y-> Y;";
 
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();
@@ -281,7 +281,7 @@ public class DemoTests
     @Test
     public void testSystemFApplication()
     {
-        String program = "x: \\forall X.X |- (x x) [\\forall X.X]: \\forall X.X;";
+        String program = "x: \\forall X.X |- (x[[(\\forall X.X) -> \\forall X.X]] x) [\\forall X.X]: \\forall X.X;";
 
         TypeChecker typeChecker = new TypeChecker(program);
         DerivationRule rule= typeChecker.check();

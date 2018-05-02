@@ -24,6 +24,6 @@ public class ForAllIntroduction extends TermRule
 
         String line = new String(new char[lineLength]).replace('\0', '-');
 
-        return premiseString + "\n" + line +"(forall Intro)"+ "\n" + conclusionString;
+        return premiseString + "\n" + line +"(introduction)"+ "\n" + conclusionString;
     }
 }

@@ -239,7 +239,7 @@ public class SystemFParsingTest
     @Test
     public void eliminationAnnotation1()
     {
-        String input = ". |- x[X] : T;";
+        String input = ". |- x[[X]] : T;";
         TypeChecker typeChecker = new TypeChecker(input);
         Program program = typeChecker.getProgram();
 
@@ -252,7 +252,7 @@ public class SystemFParsingTest
     @Test
     public void eliminationAnnotation2()
     {
-        String input = ". |- (x y)[Y][X] : T;";
+        String input = ". |- (x y)[Y][[X]] : T;";
         TypeChecker typeChecker = new TypeChecker(input);
         Program program = typeChecker.getProgram();
 
@@ -265,7 +265,7 @@ public class SystemFParsingTest
     @Test
     public void eliminationAnnotation3()
     {
-        String input = ". |- (\\lambda x. x) [X] : T;";
+        String input = ". |- (\\lambda x. x) [[X]] : T;";
         TypeChecker typeChecker = new TypeChecker(input);
         Program program = typeChecker.getProgram();
 
