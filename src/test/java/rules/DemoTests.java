@@ -317,7 +317,22 @@ public class DemoTests
     }
 
     @Test
-    public void testSystemFSuccessor()
+    public void testSystemFSuccessorMissingAnnotation()
+    {
+        String program = ". |- \\lambda n. \\lambda s. \\lambda z. " +
+                "(s ((n s)[X -> X] z)[X])[X]:" +
+                "(\\forall X. (X -> X) -> X -> X) -> \\forall X. (X -> X) -> X -> X;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertEquals(DerivationAnswer.Unknown, rule.isDerivable);
+    }
+
+    @Test
+    public void testSystemFSuccessorWellAnnotated()
     {
         String program = ". |- \\lambda n. \\lambda s. \\lambda z. " +
                 "(s ((n[[X]] s)[X -> X] z)[X])[X]:" +

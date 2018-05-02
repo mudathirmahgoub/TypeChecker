@@ -434,39 +434,69 @@ Zero with free variable $X$
 \RightLabel{\scriptsize renaming}\UnaryInfC{$y: X \vdash (\lambda s. (\lambda z. z)) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
 \end{prooftree}
 
-
-Successor
-
-\fontsize{3}{4}
 \begin{landscape}
 
+Successor missing annotation
+\fontsize{3}{4}
 \begin{prooftree}
-\AxiomC{} \RightLabel{\scriptsize var}
+\AxiomC{} \RightLabel{\tiny var}
 \UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash s : (X \rightarrow X)$}
-\AxiomC{} \RightLabel{\scriptsize var}
-\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash n : \forall X1.((X1 \rightarrow X1) \rightarrow (X1 \rightarrow X1))$}
-\RightLabel{\scriptsize elimination}
-\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash n[[X]][X] : ((X \rightarrow X) \rightarrow (X \rightarrow X))$}
-\AxiomC{} \RightLabel{\scriptsize var}
+\AxiomC{}
+\RightLabel{\color{blue} \tiny unknown}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash n : ((X \rightarrow X) \rightarrow (X \rightarrow X))$ \color{black}}  
+\AxiomC{} \RightLabel{\tiny var}
 \UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash s : (X \rightarrow X)$}
-\RightLabel{\scriptsize app}
-\BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash (n[[X]]\;s) [(X \rightarrow X)] : (X \rightarrow X)$}
-\AxiomC{} \RightLabel{\scriptsize var}
+\RightLabel{\tiny app}
+\BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash (n\;s) [(X \rightarrow X)] : (X \rightarrow X)$}
+\AxiomC{} \RightLabel{\tiny var}
 \UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash z : X$}
-\RightLabel{\scriptsize app}
+\RightLabel{\tiny app}
+\BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash ((n\;s) [(X \rightarrow X)]\;z) [X] : X$}
+\RightLabel{\tiny app}
+\BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash (s\;((n\;s) [(X \rightarrow X)]\;z) [X]) [X] : X$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), s: (X \rightarrow X) \vdash (\lambda z. (s\;((n\;s) [(X \rightarrow X)]\;z) [X]) [X]) : (X \rightarrow X)$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \vdash (\lambda s. (\lambda z. (s\;((n\;s) [(X \rightarrow X)]\;z) [X]) [X])) : ((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\RightLabel{\tiny introduction}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \vdash (\lambda s. (\lambda z. (s\;((n\;s) [(X \rightarrow X)]\;z) [X]) [X])) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$\cdot \vdash (\lambda n. (\lambda s. (\lambda z. (s\;((n\;s) [(X \rightarrow X)]\;z) [X]) [X]))) : (\forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \rightarrow \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)))$}
+\end{prooftree}
+
+\normalsize
+Successor well annotated
+
+\fontsize{3}{4}
+
+
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\tiny var}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash s : (X \rightarrow X)$}
+\AxiomC{} \RightLabel{\tiny var}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash n : \forall X1.((X1 \rightarrow X1) \rightarrow (X1 \rightarrow X1))$}
+\RightLabel{\tiny elimination}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash n[[X]][X] : ((X \rightarrow X) \rightarrow (X \rightarrow X))$}
+\AxiomC{} \RightLabel{\tiny var}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash s : (X \rightarrow X)$}
+\RightLabel{\tiny app}
+\BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash (n[[X]]\;s) [(X \rightarrow X)] : (X \rightarrow X)$}
+\AxiomC{} \RightLabel{\tiny var}
+\UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash z : X$}
+\RightLabel{\tiny app}
 \BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash ((n[[X]]\;s) [(X \rightarrow X)]\;z) [X] : X$}
-\RightLabel{\scriptsize app}
+\RightLabel{\tiny app}
 \BinaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), z: X, s: (X \rightarrow X) \vdash (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X] : X$}
 \RightLabel{$\lambda$}
 \UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)), s: (X \rightarrow X) \vdash (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X]) : (X \rightarrow X)$}
 \RightLabel{$\lambda$}
 \UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \vdash (\lambda s. (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X])) : ((X \rightarrow X) \rightarrow (X \rightarrow X))$}
-\RightLabel{\scriptsize introduction}
+\RightLabel{\tiny introduction}
 \UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \vdash (\lambda s. (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X])) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
 \RightLabel{$\lambda$}
 \UnaryInfC{$\cdot \vdash (\lambda n. (\lambda s. (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X]))) : (\forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \rightarrow \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)))$}
 \end{prooftree}
-
 
 \end{landscape}
 
