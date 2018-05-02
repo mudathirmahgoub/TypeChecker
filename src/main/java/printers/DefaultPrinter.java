@@ -28,8 +28,6 @@ public class DefaultPrinter extends AbstractPrinter
         LinkedList<StringNode> queue = new LinkedList<>();
 
         String string = "";
-        StringBuilder builder = new StringBuilder();
-
         queue.add(root);
         int level = 0;
         // bfs
@@ -44,7 +42,7 @@ public class DefaultPrinter extends AbstractPrinter
             string =  node.string + string;
             queue.addAll(node.children);
         }
-        return string;
+        return rule.isDerivable + "\n" + string;
     }
 
     private StringNode visit(DerivationRule rule, int level)

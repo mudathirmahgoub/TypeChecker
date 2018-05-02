@@ -181,18 +181,18 @@
 \RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (bool \rightarrow bool) \vdash x : (int \rightarrow int)$}
 \end{prooftree}
 
-\tiny
+\fontsize{4.2}{4}
 
 \begin{prooftree}
-\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (bool \rightarrow T), y: bool \vdash x : (bool \rightarrow T)$}
-\AxiomC{\color{red} $\perp$ \color{black}} \RightLabel{\scriptsize \color{red} invalid \color{black}} \UnaryInfC{\color{red} $int <: bool$ \color{black}}
-\AxiomC{} \RightLabel{\scriptsize reflexive} \UnaryInfC{$T <: T$}
-\RightLabel{\scriptsize arrow} \BinaryInfC{$(bool \rightarrow T) <: (int \rightarrow T)$}
-\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash x : (int \rightarrow T)$}
-\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: (bool \rightarrow T), y: bool \vdash y : bool$}
-\AxiomC{\scriptsize SubBase($bool,int)$} \RightLabel{\scriptsize subBase} \UnaryInfC{$bool <: int$}
-\RightLabel{\scriptsize subsumption} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash y : int$}
-\RightLabel{\scriptsize app} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash (x\;y) [int] : T$}
+\AxiomC{} \RightLabel{\tiny var} \UnaryInfC{$x: (bool \rightarrow T), y: bool \vdash x : (bool \rightarrow T)$}
+\AxiomC{\color{red} $\perp$ \color{black}} \RightLabel{\tiny \color{red} invalid \color{black}} \UnaryInfC{\color{red} $int <: bool$ \color{black}}
+\AxiomC{} \RightLabel{\tiny reflexive} \UnaryInfC{$T <: T$}
+\RightLabel{\tiny arrow} \BinaryInfC{$(bool \rightarrow T) <: (int \rightarrow T)$}
+\RightLabel{\tiny subsumption} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash x : (int \rightarrow T)$}
+\AxiomC{} \RightLabel{\tiny var} \UnaryInfC{$x: (bool \rightarrow T), y: bool \vdash y : bool$}
+\AxiomC{\tiny SubBase($bool,int)$} \RightLabel{\tiny subBase} \UnaryInfC{$bool <: int$}
+\RightLabel{\tiny subsumption} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash y : int$}
+\RightLabel{\tiny app} \BinaryInfC{$x: (bool \rightarrow T), y: bool \vdash (x\;y) [int] : T$}
 \RightLabel{$\lambda$}\UnaryInfC{$x: (bool \rightarrow T) \vdash  \lambda y. (x\;y) [int] : (bool \rightarrow T)$}
 \RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [int] : ((bool \rightarrow T) \rightarrow (bool \rightarrow T))$}
 \end{prooftree}

@@ -14,7 +14,7 @@ public class LatexPrinter extends AbstractPrinter
     public String print(DerivationRule rule)
     {
         visit(rule);
-        return "\\begin{prooftree}\n" +   stringBuilder + "\\end{prooftree}";
+        return rule.isDerivable + "\n \\begin{prooftree}\n" +   stringBuilder + "\\end{prooftree}";
     }
 
     private void visit(DerivationRule rule)

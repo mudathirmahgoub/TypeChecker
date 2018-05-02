@@ -345,17 +345,5 @@ public class DemoTests
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
-//
-//    @Test
-//    public void testSystemF()
-//    {
-//        String program = ". |- \\lambda x. (x x) [\\forall Y.Y]: \\forall X. (\\forall Y.Y) -> X;";
-//
-//        TypeChecker typeChecker = new TypeChecker(program);
-//        DerivationRule rule= typeChecker.check();
-//
-//        LatexPrinter latexPrinter = new LatexPrinter();
-//        System.out.println(latexPrinter.print(rule));
-//        assertEquals(DerivationAnswer.No, rule.isDerivable);
-//    }
+
 }

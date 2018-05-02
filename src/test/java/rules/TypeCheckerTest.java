@@ -152,7 +152,8 @@ class TypeCheckerTest
         String print = defaultPrinter.print(rule);
         System.out.println(print);
 
-        String results = "------------------------------------(var)\t-----------------------------(var)\t\n" +
+        String results = "Yes\n" +
+                "------------------------------------(var)\t-----------------------------(var)\t\n" +
                 "x: (T1 → T2), y: T1 ⊢ x : (T1 → T2)\t\t\tx: (T1 → T2), y: T1 ⊢ y : T1\t\n" +
                 "-------------------------------------------------------------------------(app)\n" +
                 "x: (T1 → T2), y: T1 ⊢ (x y) [T1] : T2\n" +
