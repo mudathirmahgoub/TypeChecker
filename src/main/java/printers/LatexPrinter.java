@@ -114,7 +114,7 @@ public class LatexPrinter extends AbstractPrinter
         else
         {
             stringBuilder.append("\\AxiomC{} \\RightLabel{\\color{red} \\scriptsize invalid var} \\UnaryInfC{$" +
-                    conclusionString + "$} \\color{black} \n");
+                    conclusionString + "$ \\color{black}}  \n");
         }
     }
 

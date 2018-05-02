@@ -8,6 +8,11 @@ import parser.Visitor;
 import parser.antlr.SystemFLexer;
 import parser.antlr.SystemFParser;
 
+import java.io.UnsupportedEncodingException;
+
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 public abstract class Type extends SystemFNode
 {
     abstract public boolean isFreeType(String name);
