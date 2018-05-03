@@ -157,7 +157,8 @@ The annotation $[T]$ in the application term $(t_1 t_2)[T]$ is used to remove th
 \begin{prooftree}
 \AxiomC{$T'_1 <: T_1$} 
 \AxiomC{$T_2 <: T'_2$}
- \RightLabel{\scriptsize arrow} \BinaryInfC{$T_1 \rightarrow T_2 <: T2_1 \rightarrow T'_2$}
+\RightLabel{\scriptsize arrow} 
+\BinaryInfC{$T_1 \rightarrow T_2 <: T'_1 \rightarrow T'_2$}
 \end{prooftree}
 
 \item 
@@ -453,7 +454,7 @@ Therefore in the following example, using the subsumption rule first would fail 
 \RightLabel{\scriptsize var} 
 \UnaryInfC{$\Gamma, x: bool \vdash x:  bool$} 
 \AxiomC{$SubBase(bool, int)$} 
-\RightLabel{\scriptsize suBase} 
+\RightLabel{\scriptsize subBase} 
 \UnaryInfC{$bool <: int$}
 \RightLabel{\scriptsize subsumption} 
 \BinaryInfC{$\Gamma, x: bool  \vdash x:  int$} 
@@ -551,13 +552,13 @@ Here are some examples tested by the \textbf{TypeChecker}. A red rule in the der
 
 \begin{prooftree}
 \AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X1.X1$}
-\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[Y] : Y$}
+\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[[Y]]: Y$}
 \end{prooftree}
 
 \item Elimination annotation with arrow
 \begin{prooftree}
 \AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X1.X1$}
-\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[(Y \rightarrow Y)] : (Y \rightarrow Y)$}
+\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[[(Y \rightarrow Y)]] : (Y \rightarrow Y)$}
 \end{prooftree}
 
 \item Nested elimination annotation
@@ -734,15 +735,4 @@ Successor well annotated
 
 
 \end{landscape}
-
-\begin{prooftree}
-\AxiomC{} \RightLabel{\scriptsize var}
-\UnaryInfC{$x: bool \vdash x : bool$}
-\AxiomC{\scriptsize $SubBase(bool,int)$}
-\RightLabel{\scriptsize subBase}
-\UnaryInfC{$bool <: int$}
-\RightLabel{\scriptsize subsumption}
-\BinaryInfC{$x: bool \vdash x : int$}
-\end{prooftree}
-
 \end{document}
