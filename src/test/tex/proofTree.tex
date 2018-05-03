@@ -9,11 +9,42 @@
 \usepackage{color}
 \usepackage{bussproofs}
 \usepackage{lscape}
+\usepackage{listings}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
+\author{Mudathir Mahgoub}
+\title{Type checker for System F}
 \begin{document}
 
-\section{Rules}
+\maketitle
+
+\section {Project Problem}
+
+This project is a type checker for annotated simple typed lambda calculus and system F. It supports subtyping for simple types. In general, a type checker would decide whether $\Gamma \vdash t: T$ is derivable: can the term $t$ be assigned the type $T$ under the typing context $\Gamma$?
+
+Section \ref{sec:software} describes the software and its architecture. Section \ref{sec:simple} describes the rules used for simple types and provides some examples. It also explains how subsumption rule can be delayed until variable terms are generated, and provides a proof for correctness. Section \ref{sec:simple} describes the rules used for system F and provides some examples.
+
+\section{Software description} \label{sec:software}
+
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.25,keepaspectratio=true]{./typechecker.png}
+ % gantt_chart.png: 0x0 pixel, 0dpi, nanxnan cm, bb=
+ \caption{Project architecture.}
+ \label{fig:gantt_chart}
+\end{figure}
+
+The project is implemented using Java and the executable is a jar file (TypeChecker.jar). The program receives as an input a text file containing subtypes definitions and a judgment to be checked. For testing JUnit5 was used to test the program directly without files. Below is an example of an input:
+
+\begin{lstlisting}
+SubBase(bool, int);
+. |- \lambda x. \lambda y. (x y)[bool]: (int ->T) -> (bool -> T);
+\end{lstlisting}
+
+\section{Simple types} \label{sec:simple}
+
+\section{Rules} 
 
 \begin{enumerate}
 
@@ -344,9 +375,7 @@ Therefore in the following example, using the subsumption rule first would fail 
 \end{enumerate}
 
 
-
-
-\section{System F}
+\section{System F} \label{sec:systemF}
 
 \subsection{Variables}
 

@@ -49,7 +49,7 @@ EmptyContext : '.';
 
 ForAll : '\\forall' ;
 
-Arrow : '→' | '->' | '\\rightarrow';
+Arrow : '→' | '->' | '\\rightarrow' | '\\u2192';
 
 Lambda : 'λ' | '\\lambda' ;
 
@@ -59,8 +59,6 @@ IdentifierLetter : 'a'..'z'|'A'..'Z'|'_' ;
 
 Digit : '0'..'9' ;
 
-LineComment : '%' .*? '\n' -> skip ;
-
-WhiteSpace : [ \t\r]+ -> skip ;
+WhiteSpace : [ \t\r\n]+ -> skip ;
 
 AnyCharacter : . ;

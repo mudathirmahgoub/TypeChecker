@@ -21,7 +21,7 @@ public class TypeChecker
     public TypeChecker(File file) throws IOException
     {
         CharStream charStream = CharStreams.fromFileName(file.getAbsolutePath(),
-                Charset.forName("windows-1252"));
+                Charset.forName("UTF-8"));
         parseProgram(charStream);
     }
 

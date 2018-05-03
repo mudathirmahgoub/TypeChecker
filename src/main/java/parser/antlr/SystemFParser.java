@@ -19,8 +19,7 @@ public class SystemFParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		SubBase=10, Turnstile=11, EmptyContext=12, ForAll=13, Arrow=14, Lambda=15, 
-		Identifier=16, IdentifierLetter=17, Digit=18, LineComment=19, WhiteSpace=20, 
-		AnyCharacter=21;
+		Identifier=16, IdentifierLetter=17, Digit=18, WhiteSpace=19, AnyCharacter=20;
 	public static final int
 		RULE_systemF = 0, RULE_subtype = 1, RULE_judgment = 2, RULE_typingContext = 3, 
 		RULE_type = 4, RULE_variableType = 5, RULE_forAllType = 6, RULE_arrowType = 7, 
@@ -39,7 +38,7 @@ public class SystemFParser extends Parser {
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, null, null, null, null, null, null, null, "SubBase", 
 		"Turnstile", "EmptyContext", "ForAll", "Arrow", "Lambda", "Identifier", 
-		"IdentifierLetter", "Digit", "LineComment", "WhiteSpace", "AnyCharacter"
+		"IdentifierLetter", "Digit", "WhiteSpace", "AnyCharacter"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -926,7 +925,7 @@ public class SystemFParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\27\u0084\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\26\u0084\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\7\2\36\n\2\f\2\16\2!\13\2\3\2\3\2"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3"+
