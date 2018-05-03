@@ -220,10 +220,7 @@ public class LatexPrinter extends AbstractPrinter
     private String visit(Judgment judgment)
     {
         String string = visit(judgment.typingContext) + " \\vdash " +
-                visit(judgment.term) +
-                (judgment.term.eliminationAnnotation == null?
-                "" : "[" + visit(judgment.term.eliminationAnnotation) +"]"
-                ) + " : " +
+                visit(judgment.term) + " : " +
                 visit(judgment.type);
         return string;
     }

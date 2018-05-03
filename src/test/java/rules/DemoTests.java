@@ -346,4 +346,30 @@ public class DemoTests
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
     }
 
+
+    @Test
+    public void testIntroductionApplication()
+    {
+        String program = "x: T_1 -> T_2, y : T_1 |- (x y) [T_1]: \\forall X. T_2;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+    }
+
+    @Test
+    public void testEliminationApplication()
+    {
+        String program = "x: T_1 -> \\forall X. T_2, y : T_1 |- (x y) [T_1][[Y]]: T_2;";
+
+        TypeChecker typeChecker = new TypeChecker(program);
+        DerivationRule rule= typeChecker.check();
+
+        LatexPrinter latexPrinter = new LatexPrinter();
+        System.out.println(latexPrinter.print(rule));
+        assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+    }
 }

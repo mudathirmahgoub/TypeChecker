@@ -571,6 +571,77 @@ Here are some examples tested by the \textbf{TypeChecker}. A red rule in the der
 
 \normalsize
 
+\item Application or introduction non-determinism: The \textbf{TypeChecker} attempts applications first. When it fails, it backtracks and attempts the introduction rule as shown in the next example. 
+\tiny
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash x : (T_1 \rightarrow T_2)$}
+\AxiomC{} \RightLabel{\scriptsize reflexive}
+ \UnaryInfC{$T_1 <: T_1$}
+\AxiomC{\color{red} $\perp$ \color{black}} 
+\RightLabel{\scriptsize \color{red} invalid \color{black}}
+\UnaryInfC{\color{red} $T_2 <: \forall X.T_2$ \color{black}}
+\RightLabel{\scriptsize arrow}
+\BinaryInfC{$(T_1 \rightarrow T_2) <: (T_1 \rightarrow \forall X.T_2)$}
+\RightLabel{\scriptsize subsumption}
+\BinaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash x : (T_1 \rightarrow \forall X.T_2)$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash y : T_1$}
+\RightLabel{\scriptsize app}
+\BinaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash (x\;y) [T_1] : \forall X.T_2$}
+\end{prooftree}
+
+\normalsize
+\item Introduction branch
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash x : (T_1 \rightarrow T_2)$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash y : T_1$}
+\RightLabel{\scriptsize app}
+\BinaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash (x\;y) [T_1] : T_2$}
+\RightLabel{\scriptsize introduction}
+\UnaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash (x\;y) [T_1] : \forall X.T_2$}
+\end{prooftree}
+
+
+\item Application or elimination non-determinism 
+\tiny
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (T_1 \rightarrow \forall X.T_2), y: T_1 \vdash x : (T_1 \rightarrow \forall X.T_2)$}
+\AxiomC{} \RightLabel{\scriptsize reflexive}
+ \UnaryInfC{$T_1 <: T_1$}
+\AxiomC{\color{red} $\perp$ \color{black}} 
+\RightLabel{\scriptsize \color{red} invalid \color{black}}
+\UnaryInfC{\color{red} $\forall X.T_2 <: T_2$ \color{black}}
+\RightLabel{\scriptsize arrow}
+\BinaryInfC{$(T_1 \rightarrow \forall X.T_2) <: (T_1 \rightarrow T_2)$}
+\RightLabel{\scriptsize subsumption}
+\BinaryInfC{$x: (T_1 \rightarrow \forall X.T_2), y: T_1 \vdash x : (T_1 \rightarrow T_2)$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (T_1 \rightarrow \forall X.T_2), y: T_1 \vdash y : T_1$}
+\RightLabel{\scriptsize app}
+\BinaryInfC{$x: (T_1 \rightarrow \forall X.T_2), y: T_1 \vdash (x\;y) [T_1][[Y]] : T_2$}
+\end{prooftree}
+
+\normalsize
+
+\item Elimination branch
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (T_1 \rightarrow \forall X.T_2), y: T_1 \vdash x : (T_1 \rightarrow \forall X_1.T_2)$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (T_1 \rightarrow \forall X.T_2), y: T_1 \vdash y : T_1$}
+\RightLabel{\scriptsize app}
+\BinaryInfC{$x: (T_1 \rightarrow \forall X.T_2), y: T_1 \vdash (x\;y) [T_1] : \forall X_1.T_2$}
+\RightLabel{\scriptsize elimination}
+\UnaryInfC{$x: (T_1 \rightarrow \forall X.T_2), y: T_1 \vdash (x\;y) [T_1][[Y]] : T_2$}
+\end{prooftree}
+
+\normalsize
 
 \item Zero
 
