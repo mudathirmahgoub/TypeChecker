@@ -37,10 +37,41 @@ Section \ref{sec:software} describes the software and its architecture. Section 
 
 The project is implemented using Java and the executable is a jar file (TypeChecker.jar). The program receives as an input a text file containing subtypes definitions and a judgment to be checked. For testing JUnit5 was used to test the program directly without files. Below is an example of an input:
 
-\begin{lstlisting}
+%\lstset{captionpos=b, caption{test.txt}}
+\lstset{language=C,caption={test.txt},label=DescriptiveLabel}
+
+\begin{lstlisting}  
 SubBase(bool, int);
 . |- \lambda x. \lambda y. (x y)[bool]: (int ->T) -> (bool -> T);
 \end{lstlisting}
+
+\tiny
+\begin{lstlisting}  
+Yes
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (int \rightarrow T), y: bool \vdash x : (int \rightarrow T)$}
+\AxiomC{\scriptsize $SubBase(bool,int)$}
+\RightLabel{\scriptsize subBase}
+\UnaryInfC{$bool <: int$}
+\AxiomC{} \RightLabel{\scriptsize reflexive}
+\UnaryInfC{$T <: T$}
+\RightLabel{\scriptsize arrow}
+\BinaryInfC{$(int \rightarrow T) <: (bool \rightarrow T)$}
+\RightLabel{\scriptsize subsumption}
+\BinaryInfC{$x: (int \rightarrow T), y: bool \vdash x : (bool \rightarrow T)$}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: (int \rightarrow T), y: bool \vdash y : bool$}
+\RightLabel{\scriptsize app}
+\BinaryInfC{$x: (int \rightarrow T), y: bool \vdash (x\;y) [bool] : T$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$x: (int \rightarrow T) \vdash (\lambda y. (x\;y) [bool]) : (bool \rightarrow T)$}
+\RightLabel{$\lambda$}
+\UnaryInfC{$\cdot \vdash (\lambda x. (\lambda y. (x\;y) [bool])) : ((int \rightarrow T) \rightarrow (bool \rightarrow T))$}
+\end{prooftree}
+\end{lstlisting}
+
+\normalsize
 
 \section{Simple types} \label{sec:simple}
 

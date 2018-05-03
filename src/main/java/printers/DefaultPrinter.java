@@ -81,7 +81,10 @@ public class DefaultPrinter extends AbstractPrinter
 
         String line = new String(new char[conclusionString.length()]).replace('\0', '-') + "(var)\t";
 
-        StringNode child = new StringNode(level-1, line, new ArrayList<>());
+        String premise = new String(new char[conclusionString.length()]).replace('\0', ' ') + "     \t";
+
+        StringNode premiseNode = new StringNode(level -2, premise, new ArrayList<>());
+        StringNode child = new StringNode(level-1, line, Arrays.asList(premiseNode));
         StringNode node = new StringNode(level, conclusionString, Arrays.asList(child));
         return  node;
     }

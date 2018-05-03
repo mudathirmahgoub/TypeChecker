@@ -3,6 +3,7 @@ package rules;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parser.syntaxtree.SystemFNode;
+import printers.DefaultPrinter;
 import printers.LatexPrinter;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -54,7 +55,6 @@ public class DemoTests
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
-
     }
 
     @Test
