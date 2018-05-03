@@ -161,7 +161,7 @@ t::= x \;|\; (t_1 t_2)\color{blue}[T]\color{black}\;|\; \lambda x.t
 \begin{prooftree}
 \AxiomC{$T'_1 <: T_1$} 
 \AxiomC{$T_2 <: T'_2$}
- \RightLabel{\scriptsize arrow} \BinaryInfC{$T_1 \rightarrow T_2 <: T2_1 \rightarrow T'_2$}
+ \RightLabel{\scriptsize arrow} \BinaryInfC{$T_1 \rightarrow T_2 <: T'_1 \rightarrow T'_2$}
 \end{prooftree}
 
 
@@ -277,6 +277,7 @@ Case $t=t_1 t_2$: assume $T_2 <: T'_2$ and the following derivation:
 
 Alternatively
 
+\scriptsize
 \begin{prooftree}
 \AxiomC{\color{blue} $\Gamma \vdash t_1 : T_1 \rightarrow T_2$ \color{black}} 
 \AxiomC{} 
@@ -383,7 +384,7 @@ x: int \vdash x: double \Rightarrow x:bool \vdash x: double,\;\;\; bool <: int <
 \RightLabel{\scriptsize var} 
 \UnaryInfC{$\Gamma, x: bool \vdash x:  bool$} 
 \AxiomC{$SubBase(bool, int)$} 
-\RightLabel{\scriptsize suBase} 
+\RightLabel{\scriptsize subBase} 
 \UnaryInfC{$bool <: int$}
 \RightLabel{\scriptsize subsumption} 
 \BinaryInfC{$\Gamma, x: bool  \vdash x:  int$} 
@@ -481,13 +482,13 @@ T &::= X \; | T_1 \rightarrow T_2 \; | \; \forall X. T
 \item Elimination annotation
 \begin{prooftree}
 \AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X1.\; \color{blue} X1$ \color{black}}
-\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x \color{blue}[Y] \color{black} : Y$}
+\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x \color{blue}[[Y]] \color{black} : Y$}
 \end{prooftree}
 
 \item Elimination annotation with arrow
 \begin{prooftree}
 \AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X1. \; \color{blue}X1\color{black}$ }
-\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash  x\color{blue}[(Y \rightarrow Y)] \color{black} : (Y \rightarrow Y)$}
+\RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash  x\color{blue}[[(Y \rightarrow Y)]] \color{black} : (Y \rightarrow Y)$}
 \end{prooftree}
 \end{itemize}
 \end{frame}

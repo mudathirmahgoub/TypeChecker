@@ -728,9 +728,21 @@ Successor well annotated
 \RightLabel{\tiny introduction}
 \UnaryInfC{$n: \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \vdash (\lambda s. (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X])) : \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X))$}
 \RightLabel{$\lambda$}
-\UnaryInfC{$\cdot \vdash (\lambda n. (\lambda s. (\lambda z. (s\;((n[[X]]\;s) [(X \rightarrow X)]\;z) [X]) [X]))) : (\forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \rightarrow \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)))$}
+\UnaryInfC{$\cdot \vdash (\lambda n. (\lambda s. (\lambda z. (s\;((n \color{blue}[[X]] \color{black}\;s) [(X \rightarrow X)]\;z) [X]) [X]))) : (\forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)) \rightarrow \forall X.((X \rightarrow X) \rightarrow (X \rightarrow X)))$}
 \end{prooftree}
 
+
+
 \end{landscape}
+
+\begin{prooftree}
+\AxiomC{} \RightLabel{\scriptsize var}
+\UnaryInfC{$x: bool \vdash x : bool$}
+\AxiomC{\scriptsize $SubBase(bool,int)$}
+\RightLabel{\scriptsize subBase}
+\UnaryInfC{$bool <: int$}
+\RightLabel{\scriptsize subsumption}
+\BinaryInfC{$x: bool \vdash x : int$}
+\end{prooftree}
 
 \end{document}
