@@ -13,6 +13,6 @@ class MainTest
     @Test
     public void test()
     {
-        Main.main(new String[]{"-i", "src/main/test/java/test.txt"});
+        Main.main(new String[]{"-i", "src/test/java/test.txt"});
     }
 }
