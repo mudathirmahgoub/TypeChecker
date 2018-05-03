@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{lmodern}
 \usepackage{color}
+\usepackage{xcolor}
 \usepackage{bussproofs}
 \usepackage{lscape}
 \usepackage{listings}
@@ -37,41 +38,46 @@ Section \ref{sec:software} describes the software and its architecture. Section 
 
 The project is implemented using Java and the executable is a jar file (TypeChecker.jar). The program receives as an input a text file containing subtypes definitions and a judgment to be checked. For testing JUnit5 was used to test the program directly without files. Below is an example of an input:
 
-%\lstset{captionpos=b, caption{test.txt}}
-\lstset{language=C,caption={test.txt},label=DescriptiveLabel}
+\definecolor{light-gray}{gray}{0.95}
+
+\lstset{caption={test.txt},backgroundcolor= \color{light-gray}}
 
 \begin{lstlisting}  
 SubBase(bool, int);
 . |- \lambda x. \lambda y. (x y)[bool]: (int ->T) -> (bool -> T);
 \end{lstlisting}
 
-\tiny
+Here is the output of the default printer.
+
+\lstset{caption={java -jar TypeChecker.jar -i test.txt}}
+
 \begin{lstlisting}  
 Yes
-\begin{prooftree}
+                                SubBase(bool, int)
+-------------------(var)        -------------------(subBase)
+x: bool ? x : bool                      bool <: int
+--------------------------------------(subsumption)
+x: bool ? x : int
+
+\end{lstlisting}
+
+Here is the output of the latex printer
+
+\lstset{caption={java -jar TypeChecker.jar -i test.txt -latex}}
+
+\begin{lstlisting} 
+Yes
+ \begin{prooftree}
 \AxiomC{} \RightLabel{\scriptsize var}
-\UnaryInfC{$x: (int \rightarrow T), y: bool \vdash x : (int \rightarrow T)$}
+\UnaryInfC{$x: bool \vdash x : bool$}
 \AxiomC{\scriptsize $SubBase(bool,int)$}
 \RightLabel{\scriptsize subBase}
 \UnaryInfC{$bool <: int$}
-\AxiomC{} \RightLabel{\scriptsize reflexive}
-\UnaryInfC{$T <: T$}
-\RightLabel{\scriptsize arrow}
-\BinaryInfC{$(int \rightarrow T) <: (bool \rightarrow T)$}
 \RightLabel{\scriptsize subsumption}
-\BinaryInfC{$x: (int \rightarrow T), y: bool \vdash x : (bool \rightarrow T)$}
-\AxiomC{} \RightLabel{\scriptsize var}
-\UnaryInfC{$x: (int \rightarrow T), y: bool \vdash y : bool$}
-\RightLabel{\scriptsize app}
-\BinaryInfC{$x: (int \rightarrow T), y: bool \vdash (x\;y) [bool] : T$}
-\RightLabel{$\lambda$}
-\UnaryInfC{$x: (int \rightarrow T) \vdash (\lambda y. (x\;y) [bool]) : (bool \rightarrow T)$}
-\RightLabel{$\lambda$}
-\UnaryInfC{$\cdot \vdash (\lambda x. (\lambda y. (x\;y) [bool])) : ((int \rightarrow T) \rightarrow (bool \rightarrow T))$}
+\BinaryInfC{$x: bool \vdash x : int$}
 \end{prooftree}
-\end{lstlisting}
 
-\normalsize
+\end{lstlisting} 
 
 \section{Simple types} \label{sec:simple}
 
