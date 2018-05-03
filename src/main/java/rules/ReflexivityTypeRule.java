@@ -9,7 +9,7 @@ public class ReflexivityTypeRule extends SubtypeRule
     public ReflexivityTypeRule(Type type)
     {
         this.type = type;
-        this.isDerivable = true;
+        this.isDerivable = DerivationAnswer.Yes;
         this.subtypeJudgment = new SubtypeJudgment(type, type);
     }
 }

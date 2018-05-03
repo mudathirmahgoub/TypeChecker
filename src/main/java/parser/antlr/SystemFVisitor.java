@@ -41,11 +41,11 @@ public interface SystemFVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(SystemFParser.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SystemFParser#baseType}.
+	 * Visit a parse tree produced by {@link SystemFParser#variableType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBaseType(SystemFParser.BaseTypeContext ctx);
+	T visitVariableType(SystemFParser.VariableTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SystemFParser#forAllType}.
 	 * @param ctx the parse tree
@@ -82,4 +82,10 @@ public interface SystemFVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLambda(SystemFParser.LambdaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SystemFParser#typeApplication}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeApplication(SystemFParser.TypeApplicationContext ctx);
 }

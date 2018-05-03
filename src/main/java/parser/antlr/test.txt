@@ -1,1 +1,1 @@
-. |- \lambda x. \lambda y. (x y)[T1]: (T1 ->T2 ) -> (T1 -> T2);
+x: \forall X.X |- (x[[\forall X.X -> \forall X.X]] x) [\forall X.X]: \forall X.X;

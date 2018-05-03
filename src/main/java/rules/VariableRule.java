@@ -5,7 +5,7 @@ import parser.syntaxtree.Judgment;
 public class VariableRule extends TermRule
 {
 
-    public VariableRule(Judgment judgment, boolean isDerivable)
+    public VariableRule(Judgment judgment, DerivationAnswer isDerivable)
     {
         this.judgment = judgment;
         this.isDerivable = isDerivable;

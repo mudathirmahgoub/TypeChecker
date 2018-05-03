@@ -17,26 +17,28 @@ public class SystemFParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, SubBase=8, Turnstile=9, 
-		EmptyContext=10, ForAll=11, Arrow=12, Lambda=13, Identifier=14, IdentifierLetter=15, 
-		Digit=16, LineComment=17, WhiteSpace=18, AnyCharacter=19;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
+		SubBase=10, Turnstile=11, EmptyContext=12, ForAll=13, Arrow=14, Lambda=15, 
+		Identifier=16, IdentifierLetter=17, Digit=18, WhiteSpace=19, AnyCharacter=20;
 	public static final int
 		RULE_systemF = 0, RULE_subtype = 1, RULE_judgment = 2, RULE_typingContext = 3, 
-		RULE_type = 4, RULE_baseType = 5, RULE_forAllType = 6, RULE_arrowType = 7, 
-		RULE_term = 8, RULE_variable = 9, RULE_application = 10, RULE_lambda = 11;
+		RULE_type = 4, RULE_variableType = 5, RULE_forAllType = 6, RULE_arrowType = 7, 
+		RULE_term = 8, RULE_variable = 9, RULE_application = 10, RULE_lambda = 11, 
+		RULE_typeApplication = 12;
 	public static final String[] ruleNames = {
-		"systemF", "subtype", "judgment", "typingContext", "type", "baseType", 
-		"forAllType", "arrowType", "term", "variable", "application", "lambda"
+		"systemF", "subtype", "judgment", "typingContext", "type", "variableType", 
+		"forAllType", "arrowType", "term", "variable", "application", "lambda", 
+		"typeApplication"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'('", "','", "')'", "';'", "':'", "'['", "']'", "'SubBase'", null, 
-		"'.'", "'\\forall'"
+		null, "'('", "','", "')'", "';'", "':'", "'['", "']'", "'[['", "']]'", 
+		"'SubBase'", null, "'.'", "'\\forall'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, "SubBase", "Turnstile", 
-		"EmptyContext", "ForAll", "Arrow", "Lambda", "Identifier", "IdentifierLetter", 
-		"Digit", "LineComment", "WhiteSpace", "AnyCharacter"
+		null, null, null, null, null, null, null, null, null, null, "SubBase", 
+		"Turnstile", "EmptyContext", "ForAll", "Arrow", "Lambda", "Identifier", 
+		"IdentifierLetter", "Digit", "WhiteSpace", "AnyCharacter"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -123,21 +125,21 @@ public class SystemFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(27);
+			setState(29);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==SubBase) {
 				{
 				{
-				setState(24);
+				setState(26);
 				subtype();
 				}
 				}
-				setState(29);
+				setState(31);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(30);
+			setState(32);
 			judgment();
 			}
 		}
@@ -183,19 +185,19 @@ public class SystemFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(32);
-			match(SubBase);
-			setState(33);
-			match(T__0);
 			setState(34);
-			match(Identifier);
+			match(SubBase);
 			setState(35);
-			match(T__1);
+			match(T__0);
 			setState(36);
 			match(Identifier);
 			setState(37);
-			match(T__2);
+			match(T__1);
 			setState(38);
+			match(Identifier);
+			setState(39);
+			match(T__2);
+			setState(40);
 			match(T__3);
 			}
 		}
@@ -246,17 +248,17 @@ public class SystemFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
-			typingContext();
-			setState(41);
-			match(Turnstile);
 			setState(42);
-			term();
+			typingContext();
 			setState(43);
-			match(T__4);
+			match(Turnstile);
 			setState(44);
-			type();
+			term();
 			setState(45);
+			match(T__4);
+			setState(46);
+			type();
+			setState(47);
 			match(T__3);
 			}
 		}
@@ -307,13 +309,13 @@ public class SystemFParser extends Parser {
 		enterRule(_localctx, 6, RULE_typingContext);
 		int _la;
 		try {
-			setState(61);
+			setState(63);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case EmptyContext:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(47);
+				setState(49);
 				match(EmptyContext);
 				}
 				break;
@@ -321,30 +323,30 @@ public class SystemFParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(48);
-				match(Identifier);
-				setState(49);
-				match(T__4);
 				setState(50);
+				match(Identifier);
+				setState(51);
+				match(T__4);
+				setState(52);
 				type();
 				}
-				setState(58);
+				setState(60);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__1) {
 					{
 					{
-					setState(52);
-					match(T__1);
-					setState(53);
-					match(Identifier);
 					setState(54);
-					match(T__4);
+					match(T__1);
 					setState(55);
+					match(Identifier);
+					setState(56);
+					match(T__4);
+					setState(57);
 					type();
 					}
 					}
-					setState(60);
+					setState(62);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -366,8 +368,8 @@ public class SystemFParser extends Parser {
 	}
 
 	public static class TypeContext extends ParserRuleContext {
-		public BaseTypeContext baseType() {
-			return getRuleContext(BaseTypeContext.class,0);
+		public VariableTypeContext variableType() {
+			return getRuleContext(VariableTypeContext.class,0);
 		}
 		public ArrowTypeContext arrowType() {
 			return getRuleContext(ArrowTypeContext.class,0);
@@ -401,62 +403,62 @@ public class SystemFParser extends Parser {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_type);
 		try {
-			setState(80);
+			setState(82);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(63);
-				baseType();
+				setState(65);
+				variableType();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(64);
-				baseType();
-				setState(65);
+				setState(66);
+				variableType();
+				setState(67);
 				arrowType();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(67);
+				setState(69);
 				forAllType();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(68);
+				setState(70);
 				forAllType();
-				setState(69);
+				setState(71);
 				arrowType();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(71);
-				match(T__0);
-				setState(72);
-				type();
 				setState(73);
+				match(T__0);
+				setState(74);
+				type();
+				setState(75);
 				match(T__2);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(75);
-				match(T__0);
-				setState(76);
-				type();
 				setState(77);
-				match(T__2);
+				match(T__0);
 				setState(78);
+				type();
+				setState(79);
+				match(T__2);
+				setState(80);
 				arrowType();
 				}
 				break;
@@ -473,34 +475,34 @@ public class SystemFParser extends Parser {
 		return _localctx;
 	}
 
-	public static class BaseTypeContext extends ParserRuleContext {
+	public static class VariableTypeContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(SystemFParser.Identifier, 0); }
-		public BaseTypeContext(ParserRuleContext parent, int invokingState) {
+		public VariableTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_baseType; }
+		@Override public int getRuleIndex() { return RULE_variableType; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SystemFListener ) ((SystemFListener)listener).enterBaseType(this);
+			if ( listener instanceof SystemFListener ) ((SystemFListener)listener).enterVariableType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SystemFListener ) ((SystemFListener)listener).exitBaseType(this);
+			if ( listener instanceof SystemFListener ) ((SystemFListener)listener).exitVariableType(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SystemFVisitor ) return ((SystemFVisitor<? extends T>)visitor).visitBaseType(this);
+			if ( visitor instanceof SystemFVisitor ) return ((SystemFVisitor<? extends T>)visitor).visitVariableType(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final BaseTypeContext baseType() throws RecognitionException {
-		BaseTypeContext _localctx = new BaseTypeContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_baseType);
+	public final VariableTypeContext variableType() throws RecognitionException {
+		VariableTypeContext _localctx = new VariableTypeContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_variableType);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(82);
+			setState(84);
 			match(Identifier);
 			}
 		}
@@ -546,13 +548,13 @@ public class SystemFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(84);
-			match(ForAll);
-			setState(85);
-			match(Identifier);
 			setState(86);
-			match(EmptyContext);
+			match(ForAll);
 			setState(87);
+			match(Identifier);
+			setState(88);
+			match(EmptyContext);
+			setState(89);
 			type();
 			}
 		}
@@ -597,9 +599,9 @@ public class SystemFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(89);
+			setState(91);
 			match(Arrow);
-			setState(90);
+			setState(92);
 			type();
 			}
 		}
@@ -624,6 +626,9 @@ public class SystemFParser extends Parser {
 		public LambdaContext lambda() {
 			return getRuleContext(LambdaContext.class,0);
 		}
+		public TypeApplicationContext typeApplication() {
+			return getRuleContext(TypeApplicationContext.class,0);
+		}
 		public TermContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -647,32 +652,61 @@ public class SystemFParser extends Parser {
 		TermContext _localctx = new TermContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_term);
 		try {
-			setState(95);
+			setState(108);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case Identifier:
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(92);
+				setState(94);
 				variable();
 				}
 				break;
-			case T__0:
+			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(93);
+				setState(95);
 				application();
 				}
 				break;
-			case Lambda:
+			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(94);
+				setState(96);
 				lambda();
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(97);
+				variable();
+				setState(98);
+				typeApplication();
+				}
+				break;
+			case 5:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(100);
+				application();
+				setState(101);
+				typeApplication();
+				}
+				break;
+			case 6:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(103);
+				match(T__0);
+				setState(104);
+				lambda();
+				setState(105);
+				match(T__2);
+				setState(106);
+				typeApplication();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -713,7 +747,7 @@ public class SystemFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(97);
+			setState(110);
 			match(Identifier);
 			}
 		}
@@ -763,19 +797,19 @@ public class SystemFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(99);
+			setState(112);
 			match(T__0);
-			setState(100);
+			setState(113);
 			term();
-			setState(101);
+			setState(114);
 			term();
-			setState(102);
+			setState(115);
 			match(T__2);
-			setState(103);
+			setState(116);
 			match(T__5);
-			setState(104);
+			setState(117);
 			type();
-			setState(105);
+			setState(118);
 			match(T__6);
 			}
 		}
@@ -821,13 +855,13 @@ public class SystemFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(107);
+			setState(120);
 			match(Lambda);
-			setState(108);
+			setState(121);
 			match(Identifier);
-			setState(109);
+			setState(122);
 			match(EmptyContext);
-			setState(110);
+			setState(123);
 			term();
 			}
 		}
@@ -842,33 +876,86 @@ public class SystemFParser extends Parser {
 		return _localctx;
 	}
 
+	public static class TypeApplicationContext extends ParserRuleContext {
+		public TypeContext type() {
+			return getRuleContext(TypeContext.class,0);
+		}
+		public TypeApplicationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_typeApplication; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SystemFListener ) ((SystemFListener)listener).enterTypeApplication(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SystemFListener ) ((SystemFListener)listener).exitTypeApplication(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SystemFVisitor ) return ((SystemFVisitor<? extends T>)visitor).visitTypeApplication(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TypeApplicationContext typeApplication() throws RecognitionException {
+		TypeApplicationContext _localctx = new TypeApplicationContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_typeApplication);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(125);
+			match(T__7);
+			setState(126);
+			type();
+			setState(127);
+			match(T__8);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\25s\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\4\r\t\r\3\2\7\2\34\n\2\f\2\16\2\37\13\2\3\2\3\2\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3"+
-		"\5\3\5\3\5\7\5;\n\5\f\5\16\5>\13\5\5\5@\n\5\3\6\3\6\3\6\3\6\3\6\3\6\3"+
-		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6S\n\6\3\7\3\7\3\b\3\b\3"+
-		"\b\3\b\3\b\3\t\3\t\3\t\3\n\3\n\3\n\5\nb\n\n\3\13\3\13\3\f\3\f\3\f\3\f"+
-		"\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24"+
-		"\26\30\2\2\2p\2\35\3\2\2\2\4\"\3\2\2\2\6*\3\2\2\2\b?\3\2\2\2\nR\3\2\2"+
-		"\2\fT\3\2\2\2\16V\3\2\2\2\20[\3\2\2\2\22a\3\2\2\2\24c\3\2\2\2\26e\3\2"+
-		"\2\2\30m\3\2\2\2\32\34\5\4\3\2\33\32\3\2\2\2\34\37\3\2\2\2\35\33\3\2\2"+
-		"\2\35\36\3\2\2\2\36 \3\2\2\2\37\35\3\2\2\2 !\5\6\4\2!\3\3\2\2\2\"#\7\n"+
-		"\2\2#$\7\3\2\2$%\7\20\2\2%&\7\4\2\2&\'\7\20\2\2\'(\7\5\2\2()\7\6\2\2)"+
-		"\5\3\2\2\2*+\5\b\5\2+,\7\13\2\2,-\5\22\n\2-.\7\7\2\2./\5\n\6\2/\60\7\6"+
-		"\2\2\60\7\3\2\2\2\61@\7\f\2\2\62\63\7\20\2\2\63\64\7\7\2\2\64\65\5\n\6"+
-		"\2\65<\3\2\2\2\66\67\7\4\2\2\678\7\20\2\289\7\7\2\29;\5\n\6\2:\66\3\2"+
-		"\2\2;>\3\2\2\2<:\3\2\2\2<=\3\2\2\2=@\3\2\2\2><\3\2\2\2?\61\3\2\2\2?\62"+
-		"\3\2\2\2@\t\3\2\2\2AS\5\f\7\2BC\5\f\7\2CD\5\20\t\2DS\3\2\2\2ES\5\16\b"+
-		"\2FG\5\16\b\2GH\5\20\t\2HS\3\2\2\2IJ\7\3\2\2JK\5\n\6\2KL\7\5\2\2LS\3\2"+
-		"\2\2MN\7\3\2\2NO\5\n\6\2OP\7\5\2\2PQ\5\20\t\2QS\3\2\2\2RA\3\2\2\2RB\3"+
-		"\2\2\2RE\3\2\2\2RF\3\2\2\2RI\3\2\2\2RM\3\2\2\2S\13\3\2\2\2TU\7\20\2\2"+
-		"U\r\3\2\2\2VW\7\r\2\2WX\7\20\2\2XY\7\f\2\2YZ\5\n\6\2Z\17\3\2\2\2[\\\7"+
-		"\16\2\2\\]\5\n\6\2]\21\3\2\2\2^b\5\24\13\2_b\5\26\f\2`b\5\30\r\2a^\3\2"+
-		"\2\2a_\3\2\2\2a`\3\2\2\2b\23\3\2\2\2cd\7\20\2\2d\25\3\2\2\2ef\7\3\2\2"+
-		"fg\5\22\n\2gh\5\22\n\2hi\7\5\2\2ij\7\b\2\2jk\5\n\6\2kl\7\t\2\2l\27\3\2"+
-		"\2\2mn\7\17\2\2no\7\20\2\2op\7\f\2\2pq\5\22\n\2q\31\3\2\2\2\7\35<?Ra";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\26\u0084\4\2\t\2"+
+		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\7\2\36\n\2\f\2\16\2!\13\2\3\2\3\2"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3"+
+		"\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5=\n\5\f\5\16\5@\13\5\5\5B\n\5\3\6\3\6\3"+
+		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6U\n\6\3"+
+		"\7\3\7\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n"+
+		"\3\n\3\n\3\n\3\n\3\n\3\n\5\no\n\n\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3"+
+		"\f\3\f\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\2\2\17\2\4\6\b\n\f"+
+		"\16\20\22\24\26\30\32\2\2\2\u0083\2\37\3\2\2\2\4$\3\2\2\2\6,\3\2\2\2\b"+
+		"A\3\2\2\2\nT\3\2\2\2\fV\3\2\2\2\16X\3\2\2\2\20]\3\2\2\2\22n\3\2\2\2\24"+
+		"p\3\2\2\2\26r\3\2\2\2\30z\3\2\2\2\32\177\3\2\2\2\34\36\5\4\3\2\35\34\3"+
+		"\2\2\2\36!\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \"\3\2\2\2!\37\3\2\2\2\""+
+		"#\5\6\4\2#\3\3\2\2\2$%\7\f\2\2%&\7\3\2\2&\'\7\22\2\2\'(\7\4\2\2()\7\22"+
+		"\2\2)*\7\5\2\2*+\7\6\2\2+\5\3\2\2\2,-\5\b\5\2-.\7\r\2\2./\5\22\n\2/\60"+
+		"\7\7\2\2\60\61\5\n\6\2\61\62\7\6\2\2\62\7\3\2\2\2\63B\7\16\2\2\64\65\7"+
+		"\22\2\2\65\66\7\7\2\2\66\67\5\n\6\2\67>\3\2\2\289\7\4\2\29:\7\22\2\2:"+
+		";\7\7\2\2;=\5\n\6\2<8\3\2\2\2=@\3\2\2\2><\3\2\2\2>?\3\2\2\2?B\3\2\2\2"+
+		"@>\3\2\2\2A\63\3\2\2\2A\64\3\2\2\2B\t\3\2\2\2CU\5\f\7\2DE\5\f\7\2EF\5"+
+		"\20\t\2FU\3\2\2\2GU\5\16\b\2HI\5\16\b\2IJ\5\20\t\2JU\3\2\2\2KL\7\3\2\2"+
+		"LM\5\n\6\2MN\7\5\2\2NU\3\2\2\2OP\7\3\2\2PQ\5\n\6\2QR\7\5\2\2RS\5\20\t"+
+		"\2SU\3\2\2\2TC\3\2\2\2TD\3\2\2\2TG\3\2\2\2TH\3\2\2\2TK\3\2\2\2TO\3\2\2"+
+		"\2U\13\3\2\2\2VW\7\22\2\2W\r\3\2\2\2XY\7\17\2\2YZ\7\22\2\2Z[\7\16\2\2"+
+		"[\\\5\n\6\2\\\17\3\2\2\2]^\7\20\2\2^_\5\n\6\2_\21\3\2\2\2`o\5\24\13\2"+
+		"ao\5\26\f\2bo\5\30\r\2cd\5\24\13\2de\5\32\16\2eo\3\2\2\2fg\5\26\f\2gh"+
+		"\5\32\16\2ho\3\2\2\2ij\7\3\2\2jk\5\30\r\2kl\7\5\2\2lm\5\32\16\2mo\3\2"+
+		"\2\2n`\3\2\2\2na\3\2\2\2nb\3\2\2\2nc\3\2\2\2nf\3\2\2\2ni\3\2\2\2o\23\3"+
+		"\2\2\2pq\7\22\2\2q\25\3\2\2\2rs\7\3\2\2st\5\22\n\2tu\5\22\n\2uv\7\5\2"+
+		"\2vw\7\b\2\2wx\5\n\6\2xy\7\t\2\2y\27\3\2\2\2z{\7\21\2\2{|\7\22\2\2|}\7"+
+		"\16\2\2}~\5\22\n\2~\31\3\2\2\2\177\u0080\7\n\2\2\u0080\u0081\5\n\6\2\u0081"+
+		"\u0082\7\13\2\2\u0082\33\3\2\2\2\7\37>ATn";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

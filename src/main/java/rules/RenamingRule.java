@@ -2,11 +2,11 @@ package rules;
 
 import parser.syntaxtree.Judgment;
 
-public class LambdaRule extends TermRule
+public class RenamingRule extends TermRule
 {
     public TermRule premiseRule;
 
-    public LambdaRule(Judgment judgment, DerivationAnswer isDerivable, DerivationRule premiseRule)
+    public RenamingRule(Judgment judgment, DerivationAnswer isDerivable, DerivationRule premiseRule)
     {
         this.judgment = judgment;
         this.premiseRule = (TermRule) premiseRule;
@@ -24,6 +24,6 @@ public class LambdaRule extends TermRule
 
         String line = new String(new char[lineLength]).replace('\0', '-');
 
-        return premiseString + "\n" + line +"(λ)"+ "\n" + conclusionString;
+        return premiseString + "\n" + line +"(renaming)"+ "\n" + conclusionString;
     }
 }

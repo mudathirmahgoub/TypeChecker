@@ -1,7 +1,6 @@
 package printers;
 
 import parser.syntaxtree.*;
-import printers.AbstractPrinter;
 import rules.*;
 
 import java.util.*;
@@ -29,8 +28,6 @@ public class DefaultPrinter extends AbstractPrinter
         LinkedList<StringNode> queue = new LinkedList<>();
 
         String string = "";
-        StringBuilder builder = new StringBuilder();
-
         queue.add(root);
         int level = 0;
         // bfs
@@ -45,7 +42,7 @@ public class DefaultPrinter extends AbstractPrinter
             string =  node.string + string;
             queue.addAll(node.children);
         }
-        return string;
+        return rule.isDerivable + "\n" + string;
     }
 
     private StringNode visit(DerivationRule rule, int level)
@@ -84,7 +81,10 @@ public class DefaultPrinter extends AbstractPrinter
 
         String line = new String(new char[conclusionString.length()]).replace('\0', '-') + "(var)\t";
 
-        StringNode child = new StringNode(level-1, line, new ArrayList<>());
+        String premise = new String(new char[conclusionString.length()]).replace('\0', ' ') + "     \t";
+
+        StringNode premiseNode = new StringNode(level -2, premise, new ArrayList<>());
+        StringNode child = new StringNode(level-1, line, Arrays.asList(premiseNode));
         StringNode node = new StringNode(level, conclusionString, Arrays.asList(child));
         return  node;
     }
@@ -95,7 +95,7 @@ public class DefaultPrinter extends AbstractPrinter
 
         StringNode premise2Node =  visit(rule.premise2Rule, level - 2);
 
-        String conclusionString = rule.judgment.toString();
+        String conclusionString = visit(rule.judgment);
 
         int minSpaceLength = 4;
 
@@ -117,7 +117,7 @@ public class DefaultPrinter extends AbstractPrinter
     {
         StringNode premiseNode =  visit(rule.premiseRule, level - 2);
 
-        String conclusionString = rule.judgment.toString();
+        String conclusionString = visit(rule.judgment);
 
         int lineLength = Math.max(premiseNode.string.length(), conclusionString.length());
 
@@ -155,7 +155,7 @@ public class DefaultPrinter extends AbstractPrinter
 
         StringNode premise2Node =  visit(rule.premise2Rule, level - 2);
 
-        String conclusionString = rule.judgment.toString();
+        String conclusionString = visit(rule.judgment);
 
         int minSpaceLength = 4;
 
@@ -243,9 +243,9 @@ public class DefaultPrinter extends AbstractPrinter
 
     private String visit(Type type)
     {
-        if(type instanceof BaseType)
+        if(type instanceof VariableType)
         {
-            return visit((BaseType)type);
+            return visit((VariableType)type);
         }
 
         if(type instanceof  ArrowType)
@@ -261,7 +261,7 @@ public class DefaultPrinter extends AbstractPrinter
         return null;
     }
 
-    private String visit(BaseType type)
+    private String visit(VariableType type)
     {
         return type.name;
     }

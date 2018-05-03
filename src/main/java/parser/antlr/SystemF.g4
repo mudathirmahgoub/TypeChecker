@@ -10,15 +10,15 @@ judgment : typingContext Turnstile term ':' type ';' ;
 
 typingContext : EmptyContext |  (Identifier ':' type) (',' Identifier ':' type)* ;
 
-type :  baseType
-        | baseType arrowType
+type :  variableType
+        | variableType arrowType
         | forAllType
         | forAllType arrowType
         | '(' type ')'
         | '(' type ')' arrowType;
 
 
-baseType : Identifier;
+variableType : Identifier;
 
 forAllType : ForAll Identifier '.' type;
 
@@ -27,6 +27,9 @@ arrowType : Arrow type;
 term : variable
 	| application
 	| lambda
+	| variable typeApplication
+	| application typeApplication
+	| '(' lambda ')' typeApplication
 	;
 
 variable : Identifier ;
@@ -35,17 +38,18 @@ application : '(' term term ')' '[' type ']';
 
 lambda : Lambda Identifier '.' term;
 
+typeApplication : '[[' type ']]';
 // lexer rules
 
 SubBase : 'SubBase' ;
 
 Turnstile : '⊢' | '|-' | '\\vdash' ;
 
-EmptyContext : '.' | '\\cdot';
+EmptyContext : '.';
 
 ForAll : '\\forall' ;
 
-Arrow : '→' | '->' | '\\rightarrow';
+Arrow : '→' | '->' | '\\rightarrow' | '\\u2192';
 
 Lambda : 'λ' | '\\lambda' ;
 
@@ -55,8 +59,6 @@ IdentifierLetter : 'a'..'z'|'A'..'Z'|'_' ;
 
 Digit : '0'..'9' ;
 
-LineComment : '%' .*? '\n' -> skip ;
-
-WhiteSpace : [ \t\r]+ -> skip ;
+WhiteSpace : [ \t\r\n]+ -> skip ;
 
 AnyCharacter : . ;

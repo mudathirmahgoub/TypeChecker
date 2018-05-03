@@ -76,13 +76,13 @@ public class SystemFBaseListener implements SystemFListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBaseType(SystemFParser.BaseTypeContext ctx) { }
+	@Override public void enterVariableType(SystemFParser.VariableTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBaseType(SystemFParser.BaseTypeContext ctx) { }
+	@Override public void exitVariableType(SystemFParser.VariableTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -155,6 +155,18 @@ public class SystemFBaseListener implements SystemFListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLambda(SystemFParser.LambdaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTypeApplication(SystemFParser.TypeApplicationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypeApplication(SystemFParser.TypeApplicationContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

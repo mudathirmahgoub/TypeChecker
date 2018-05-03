@@ -88,9 +88,9 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
     {
         Type type = null;
 
-        if(ctx.baseType() != null)
+        if(ctx.variableType() != null)
         {
-            type = (Type) this.visitBaseType(ctx.baseType());
+            type = (Type) this.visitVariableType(ctx.variableType());
         }
 
         if(ctx.forAllType() != null)
@@ -113,10 +113,11 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
         return type;
     }
 
-    @Override public SystemFNode visitBaseType(SystemFParser.BaseTypeContext ctx)
+    @Override public SystemFNode visitVariableType(SystemFParser.VariableTypeContext ctx)
     {
         String name = ctx.Identifier().getText();
-        return new BaseType(name);
+        SystemFNode.variableTypeNames.add(name);
+        return new VariableType(name);
     }
 
     @Override
@@ -132,7 +133,7 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
     public SystemFNode visitForAllType(SystemFParser.ForAllTypeContext ctx)
     {
         ForAllType forAllType = new ForAllType();
-        forAllType.typeVariable = ctx.Identifier().getText();
+        forAllType.typeVariableName = ctx.Identifier().getText();
         forAllType.type = (Type) this.visitType(ctx.type());
         return forAllType;
     }
@@ -140,7 +141,28 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
     @Override
     public SystemFNode visitTerm(SystemFParser.TermContext ctx)
     {
-        return super.visitTerm(ctx);
+        Term term = null;
+        if(ctx.variable() != null)
+        {
+            term = (Term) this.visitVariable(ctx.variable());
+        }
+
+        if(ctx.application() != null)
+        {
+            term = (Term) this.visitApplication(ctx.application());
+        }
+
+        if(ctx.lambda() != null)
+        {
+            term = (Term) this.visitLambda(ctx.lambda());
+        }
+
+        if(ctx.typeApplication() != null)
+        {
+            Type type = (Type) this.visitTypeApplication(ctx.typeApplication());
+            term.eliminationAnnotation = type;
+        }
+        return term;
     }
 
     @Override
@@ -168,5 +190,11 @@ public class Visitor extends SystemFBaseVisitor<SystemFNode>
         application.annotation = (Type) this.visitType(ctx.type());
 
         return application;
+    }
+
+    @Override
+    public SystemFNode visitTypeApplication(SystemFParser.TypeApplicationContext ctx)
+    {
+        return this.visitType(ctx.type());
     }
 }

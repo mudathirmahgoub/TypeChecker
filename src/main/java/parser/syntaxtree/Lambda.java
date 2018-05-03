@@ -1,7 +1,6 @@
 package parser.syntaxtree;
 
-import rules.DerivationRule;
-import rules.LambdaRule;
+import rules.*;
 
 public class Lambda extends Term
 {
@@ -17,7 +16,29 @@ public class Lambda extends Term
         // for a lambda term, the type should be an arrow type
         if(ArrowType.class != type.getClass())
         {
-            return new LambdaRule(judgment,false, null);
+            // check if the type is ForAllType
+            if(ForAllType.class == type.getClass())
+            {
+                ForAllType forAllType = (ForAllType) type;
+                // check if the type variable is not free in the typing context
+                if(!typingContext.isFreeType(forAllType.typeVariableName))
+                {
+                    // check the premise rule
+                    DerivationRule premiseAnswer = this.check(forAllType.type, typingContext);
+                    return new ForAllIntroduction(judgment, premiseAnswer.isDerivable, premiseAnswer);
+                }
+                else
+                {
+                    // rename the variable
+                    String name = SystemFNode.getNewVariableTypeName();
+                    forAllType = (ForAllType) type.rename(name, forAllType.typeVariableName);
+
+                    // check the premise rule
+                    DerivationRule premiseAnswer = this.check(forAllType, typingContext);
+                    return new RenamingRule(judgment, premiseAnswer.isDerivable, premiseAnswer);
+                }
+            }
+            return new LambdaRule(judgment,DerivationAnswer.No, null);
         }
 
         ArrowType arrowType = (ArrowType) type;

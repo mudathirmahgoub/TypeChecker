@@ -58,15 +58,15 @@ public interface SystemFListener extends ParseTreeListener {
 	 */
 	void exitType(SystemFParser.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SystemFParser#baseType}.
+	 * Enter a parse tree produced by {@link SystemFParser#variableType}.
 	 * @param ctx the parse tree
 	 */
-	void enterBaseType(SystemFParser.BaseTypeContext ctx);
+	void enterVariableType(SystemFParser.VariableTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SystemFParser#baseType}.
+	 * Exit a parse tree produced by {@link SystemFParser#variableType}.
 	 * @param ctx the parse tree
 	 */
-	void exitBaseType(SystemFParser.BaseTypeContext ctx);
+	void exitVariableType(SystemFParser.VariableTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SystemFParser#forAllType}.
 	 * @param ctx the parse tree
@@ -127,4 +127,14 @@ public interface SystemFListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLambda(SystemFParser.LambdaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SystemFParser#typeApplication}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeApplication(SystemFParser.TypeApplicationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SystemFParser#typeApplication}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeApplication(SystemFParser.TypeApplicationContext ctx);
 }

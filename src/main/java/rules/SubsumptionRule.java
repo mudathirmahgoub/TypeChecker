@@ -7,7 +7,7 @@ public class SubsumptionRule extends TermRule
     public DerivationRule premise1Rule;
     public DerivationRule premise2Rule;
 
-    public SubsumptionRule(Judgment judgment, boolean isDerivable, DerivationRule premise1Rule, DerivationRule premise2Rule)
+    public SubsumptionRule(Judgment judgment, DerivationAnswer isDerivable, DerivationRule premise1Rule, DerivationRule premise2Rule)
     {
         this.judgment = judgment;
         this.premise1Rule = premise1Rule;

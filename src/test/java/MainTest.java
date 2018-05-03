@@ -11,8 +11,8 @@ class MainTest
     }
 
     @Test
-    public void test1()
+    public void test()
     {
-        Main.main(new String[]{"-i", "src/test/java/test1.txt"});
+        Main.main(new String[]{"-i", "src/test/java/test.txt"});
     }
 }
