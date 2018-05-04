@@ -1,0 +1,13 @@
+; This example illustrates basic arithmetic and
+; uninterpreted functions
+
+(declare-fun a () Int)
+(declare-fun b () Int)
+(assert (not (= (mod a 2) 0)))
+(assert (<= b -6))
+(assert (= (+ (* 2 a) (* 2 b)) 17))
+(check-sat)
+(get-model)
+
+
+unsat Z3(10, 10): ERROR: model is not available

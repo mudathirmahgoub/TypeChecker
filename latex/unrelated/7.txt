@@ -1,0 +1,13 @@
+; This example illustrates basic arithmetic and
+; uninterpreted functions
+
+(declare-fun a () Int)
+(declare-fun b () Int)
+(assert (= (mod a 2) 0))
+(assert (<= (+ a b) -3))
+(assert (> (-(* 2 b) a) -7))
+(assert (not (= (+ a (* 2 b)) 11)))
+(check-sat)
+(get-model)
+
+sat (model (define-fun b () Int (- 3)) (define-fun a () Int 0) )
