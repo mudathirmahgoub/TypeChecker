@@ -12,6 +12,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{bm}
 \usepackage{booktabs}
+\usepackage{float}
 \usepackage{listings}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Mudathir Mahgoub \\ 0119655301}
@@ -114,22 +115,75 @@ int function_to_test(int x, int y) {
 
 \color{blue}
 
+As shown in the following figure, the inputs that trigger the bug are $x=5, y = 2$ and $x = 6, y = 3$.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.30,keepaspectratio=true]{./paths.png}
+\end{figure}
 \color{black}
 
 \item Please show all the path constraints resulting due to the symbolic execution on the following program.
 
 \color{blue}
-\begin{figure}[h]
- \centering
- \includegraphics[scale=.25,keepaspectratio=true]{./paths.png}
-\end{figure}
+The paths are shown in the figure above:
+
+\begin{enumerate}
+\item $(a\%2 \neq 0) \wedge (b \leq -6) \wedge (2a + 2b \neq 17)$
+\item $(a\%2 \neq 0) \wedge (b \leq -6) \wedge (2a + 2b = 17)$
+\item $(a\%2 \neq 0) \wedge (b > -6) \wedge (2a + b \neq 12)$
+\item $(a\%2 \neq 0) \wedge (b > -6) \wedge (2a + b = 12)$
+
+\item $(a\%2 = 0) \wedge (a + b \leq -3) \wedge (2b - a \leq -7) \wedge (a + 3b \neq 15)$
+\item $(a\%2 = 0) \wedge (a + b \leq -3) \wedge (2b - a \leq -7) \wedge (a + 3b = 15)$
+\item $(a\%2 = 0) \wedge (a + b \leq -3) \wedge (2b - a > -7) \wedge (a + 2b \neq 11)$
+\item $(a\%2 = 0) \wedge (a + b \leq -3) \wedge (2b - a > -7) \wedge (a + 2b = 11)$
+
+\item $(a\%2 = 0) \wedge (a + b > -3) \wedge (6 \leq a) \wedge (a + 3b \neq 15)$ \label{example}
+\item $(a\%2 = 0) \wedge (a + b > -3) \wedge (6 \leq a) \wedge (a + 3b = 15)$
+\item $(a\%2 = 0) \wedge (a + b > -3) \wedge (6 > a) \wedge (a + 2b \neq 11)$
+\item $(a\%2 = 0) \wedge (a + b > -3) \wedge (6 > a) \wedge (a + 2b = 11)$
+
+\end{enumerate}
+
 \color{black}
 
 \item Additionally, assume that you would like the symbolic execution to identify whether the function has any ``divide by zero" exceptions. How would you modify the symbolic execution to identify such cases?
- \color{black}
+
+
+\color{blue}
+Only line 20 uses integer division, therefore we need to ensure the denominator $x$ in $(t+x+y)/x$  to be non zero. To achieve that we can imagine we have an assertion $assert (x \; != 0) $ before line 21. Assuming the path constraint until line 21 is $C$ and the symbolic value of $x$ is $x'$, then if the formula $C \wedge (x' == 0)$ is sat, then there is a ``divide by zero" exception. If the formula is unsat, then this exception wouldn't be thrown. 
+
+
+Paths that already proved to be unsat or fail some assertions could be excluded.
+
+
+\color{black}
 
 \item Provide the modified path constraints due to the additional divide by zero checking.
+
 \color{blue}
+The following picture shows the paths with division by zero. Note that paths already proved to be unsat or fail the assertion in line 18 are excluded because the execution would not reach line 21.  As shown in the figure, the inputs $x=-2, y = -1$, $x = 6, y = -1$, or $x=0, y = -1$ throw ``divide by zero exception".
+
+\color{blue}
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.30,keepaspectratio=true]{./zero.png}
+\end{figure}
+
+Below are the constraints that checks when $x = 0$: 
+
+\begin{enumerate}
+\item $(a\%2 \neq 0) \wedge (b \leq -6) \wedge (2a + 2b \neq 17) \wedge (a = 0)$ 
+\item $(a\%2 \neq 0) \wedge (b > -6) \wedge (2a + b \neq 12) \wedge (a = 0)$
+\item $(a\%2 = 0) \wedge (a + b \leq -3) \wedge (2b - a \leq -7) \wedge (a + 3b \neq 15) \wedge (b + 1 = 0)$
+\item $(a\%2 = 0) \wedge (a + b \leq -3) \wedge (2b - a > -7) \wedge (a + 2b \neq 11)\wedge (b + 1 = 0)$
+\item $(a\%2 = 0) \wedge (a + b > -3) \wedge (6 \leq a) \wedge (a + 3b \neq 15) \wedge (b + 1 = 0)$
+\item $(a\%2 = 0) \wedge (a + b > -3) \wedge (6 > a) \wedge (a + 2b \neq 11) \wedge (b + 1 = 0)$
+
+
+\end{enumerate}
+
 
 \color{black}
 
@@ -137,6 +191,20 @@ int function_to_test(int x, int y) {
 while answering sub-question (a) described above.
 
 \color{blue}
+Concolic execution assigns random values to the input variables $x$ and $y$. Initially concolic execution starts with an empty path. Then based on the concrete random inputs, the execution traverses the code, and whenever it encounters a branch, it adds the corresponding condition to the path as a conjunction. When it finishes, the path obtained is the path of the random input. To explore other paths, the last condition in the path can be negated and the path formula can be passed to the SMT solver to get an input for that path. 
+To explore parent branches, the last condition can be removed and the process can be repeated by negating the last condition in the parent path constraint. 
+
+For example, if the random input is $x = 6, y = 0$, then the concolic execution would get the following constraint:
+\begin{align*}
+(a\%2 = 0) \wedge (a + b > -3) \wedge (6 \leq a) \wedge (a + 3b \neq 15)
+\end{align*}
+
+Negating the last condition would generate this formula
+\begin{align*}
+(a\%2 = 0) \wedge (a + b > -3) \wedge (6 \leq a) \wedge (a + 3b = 15)
+\end{align*}
+
+The SMT solver would return the input $x = 6, y = 3$ which hits the bug. 
 
 \color{black}
 
