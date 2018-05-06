@@ -31,7 +31,10 @@ explain the confused deputy problem in your own words. Give an example of a web
 attack that occurs as the browser acts as the confused deputy.
 
 \color{blue}
+XSS enables an adversary to inject malicious script into the dom of a website that is passed to the client. 
+That script can hijack the browser cookies including authentication tokens which may be sent to the adversary. CSRF on the other hand doesn't steal browser cookies, but tricks the browser into sending new  requests to different websites (like facebook) using the authentication cookies for that website. If the user is already authenticated, the browser can't distinguish this forged request from a valid one and would supply the required cookies with the request. If the victim website is vulnerable, the request would be accepted as a valid one and the request would be served. For example if the forged request is changing the password and the server accepts that request, then the adversary has succeeded in gaining access to the victim account. 
 
+Confused deputy problem is when a program with higher permissions is tricked to perform actions that require higher permission for users with lower permissions. CSRF is an example where the browser is the confused deputy. The browser keeps track of authentication cookies for websites where the user is logged in, and supplies these cookies when the user accesses these websites. The CSRF attack exploits this feature by tricking the browser to send these cookies in forged requests (e.g. links or Ajax request) and the browser can't distinguish these forged requests from real ones. 
 \color{black}
 
 \item Explain the ``Spectre attack" in your own words and identify the goal of
@@ -68,6 +71,14 @@ attack. Describe the different defenses (e.g., Canary, ASLR) that can thwart the
 
 
 \color{blue}
+Buffer overflow attack is writing more data into a buffer in a way that exceeds its boundaries to cause the running software to crash or behave unexpectedly. The objective of the attacker can just be the crash itself, or  the execution to jump to an address that contains malicious code. 
+
+Canary token or a security token is a random number that is generated and stored in the stack before a function is called and should not change when the function returns. If the token is changed after the function returns, then memory corruption is detected and perhaps caused by buffer overflow. The program can then log the event and exit. Canary tokens enable detecting buffer overflow, but decrease the performance because of the security tokens management overhead.
+
+Address Space Layout Randomization is another way to defend against buffer overflow attacks which rely on fixed addresses in the stack and the heap of a program, or fixed addresses of shared libraries. ASLR avoids this by randomizing the addresses of the heap, stack and shared libraries. This address randomization makes it difficult for injected code by buffer overflow attack to execute. Since there is limited amount of memory locations, an adversary can use brute force to detect the random address.  For system libraries, the ASLR can be applied only once when the operating system starts up. The addresses remain fixed until next reboot, and if an adversary discovers the address of a system library, that address wouldn't not change until the system is rebooted. Also ASLR is not supported by older operating systems or can be disabled by the user.
+
+
+In Java, buffer overflow doesn't happen with the code run by the java virtual machine, because it uses managed memory model and checks arrays accesses to be within the boundaries of the array, or throws an exception otherwise. However, the java virtual machine itself or  the use of Java native interface (JNI) may be vulnerable to buffer overflow attack. 
 
 \color{black}
 
