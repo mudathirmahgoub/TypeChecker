@@ -72,14 +72,194 @@ public class DefaultPrinter extends AbstractPrinter
             return visit((SubBaseRule)rule, level);
         }
 
+        if(rule instanceof  TransitivityTypeRule)
+        {
+            return visit((TransitivityTypeRule)rule, level);
+        }
+
+        if(rule instanceof  InvalidTypeRule)
+        {
+            return visit((InvalidTypeRule)rule, level);
+        }
+
+        if(rule instanceof  ArrowTypeRule)
+        {
+            return visit((ArrowTypeRule)rule, level);
+        }
+
+        if(rule instanceof  ReflexivityTypeRule)
+        {
+            return visit((ReflexivityTypeRule)rule, level);
+        }
+
+        if(rule instanceof  ForAllElimination)
+        {
+            return visit((ForAllElimination)rule, level);
+        }
+
+        if(rule instanceof  ForAllIntroduction)
+        {
+            return visit((ForAllIntroduction)rule, level);
+        }
+
+        if(rule instanceof  RenamingRule)
+        {
+            return visit((RenamingRule)rule, level);
+        }
+
         return null;
+    }
+
+    private StringNode visit(RenamingRule rule, int level)
+    {
+        StringNode premiseNode =  visit(rule.premiseRule, level - 2);
+
+        String conclusionString = visit(rule.judgment);
+
+        int lineLength = Math.max(premiseNode.string.length(), conclusionString.length());
+
+        String line = new String(new char[lineLength]).replace('\0', '-');
+
+        StringNode lineNode = new StringNode(level-1, line +"(renaming)",
+                Arrays.asList(premiseNode));
+
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
+    }
+
+    private StringNode visit(ForAllIntroduction rule, int level)
+    {
+        StringNode premiseNode =  visit(rule.premiseRule, level - 2);
+
+        String conclusionString = visit(rule.judgment);
+
+        int lineLength = Math.max(premiseNode.string.length(), conclusionString.length());
+
+        String line = new String(new char[lineLength]).replace('\0', '-');
+
+        StringNode lineNode = new StringNode(level-1, line +"(introduction)",
+                Arrays.asList(premiseNode));
+
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
+    }
+
+    private StringNode visit(ForAllElimination rule, int level)
+    {
+        StringNode premiseNode =  visit(rule.premiseRule, level - 2);
+
+        String conclusionString = visit(rule.judgment);
+
+        int lineLength = Math.max(premiseNode.string.length(), conclusionString.length());
+
+        String line = new String(new char[lineLength]).replace('\0', '-');
+
+        StringNode lineNode = new StringNode(level-1, line +"(elimination)",
+                Arrays.asList(premiseNode));
+
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
+    }
+
+    private StringNode visit(ReflexivityTypeRule rule, int level)
+    {
+        String conclusionString = visit(rule.subtypeJudgment) + "\t";
+
+        String line = new String(new char[conclusionString.length()]).replace('\0', '-') + "(reflexive)\t";
+
+        String premise = new String(new char[conclusionString.length()]).replace('\0', ' ') + "     \t";
+
+        StringNode premiseNode = new StringNode(level -2, premise, new ArrayList<>());
+        StringNode child = new StringNode(level-1, line, Arrays.asList(premiseNode));
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(child));
+        return  node;
+    }
+
+    private StringNode visit(ArrowTypeRule rule, int level)
+    {
+        StringNode premise1Node =  visit(rule.premise1Rule, level - 2);
+
+        StringNode premise2Node =  visit(rule.premise2Rule, level - 2);
+
+        String conclusionString = visit(rule.subtypeJudgment);
+
+        int minSpaceLength = 4;
+
+        int lineLength = Math.max(premise1Node.string.length() +
+                        premise2Node.string.length() + minSpaceLength,
+                conclusionString.length());
+
+        String line = new String(new char[lineLength + 4]).replace('\0', '-');
+
+        premise1Node.string += "\t\t";
+        StringNode lineNode = new StringNode(level-1, line + "(arrow)",
+                Arrays.asList(premise2Node, premise1Node));
+
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
+    }
+
+    private StringNode visit(InvalidTypeRule rule, int level)
+    {
+        StringNode premiseNode =  new StringNode(level -2, "false", new ArrayList<>());
+
+        String conclusionString = visit(rule.subtypeJudgment);
+
+        int lineLength = Math.max(premiseNode.string.length(), conclusionString.length());
+
+        String line = new String(new char[lineLength]).replace('\0', '-');
+
+        StringNode lineNode = new StringNode(level-1, line +"(\\invalid)",
+                Arrays.asList(premiseNode));
+
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
+    }
+
+    private StringNode visit(TransitivityTypeRule rule, int level)
+    {
+        StringNode premise1Node =  visit(rule.premise1Rule, level - 2);
+
+        StringNode premise2Node =  visit(rule.premise2Rule, level - 2);
+
+        String conclusionString = visit(rule.subtypeJudgment);
+
+        int minSpaceLength = 4;
+
+        int lineLength = Math.max(premise1Node.string.length() +
+                        premise2Node.string.length() + minSpaceLength,
+                conclusionString.length());
+
+        String line = new String(new char[lineLength + 4]).replace('\0', '-');
+
+        premise1Node.string += "\t\t";
+        StringNode lineNode = new StringNode(level-1, line + "(transitive)",
+                Arrays.asList(premise2Node, premise1Node));
+
+        StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
+        return node;
     }
 
     private StringNode visit(VariableRule rule, int level)
     {
         String conclusionString = visit(rule.judgment) + "\t";
 
-        String line = new String(new char[conclusionString.length()]).replace('\0', '-') + "(var)\t";
+        String ruleName = "";
+        if(rule.isDerivable == DerivationAnswer.Yes)
+        {
+            ruleName = "(var)\t";
+        }
+        else
+        {
+            if (rule.isDerivable == DerivationAnswer.No)
+            {
+                ruleName = "(invalid var)\t";
+            } else
+            {
+                ruleName = "(unknown)\t";
+            }
+        }
+        String line = new String(new char[conclusionString.length()]).replace('\0', '-') + ruleName;
 
         String premise = new String(new char[conclusionString.length()]).replace('\0', ' ') + "     \t";
 
@@ -173,6 +353,13 @@ public class DefaultPrinter extends AbstractPrinter
         return node;
     }
 
+    private String visit(SubtypeJudgment judgment)
+    {
+        String string = visit(judgment.subType) + " <: " +
+                visit(judgment.superType);
+        return string;
+    }
+
     private String visit(Judgment judgment)
     {
           String string = visit(judgment.typingContext) + " |- " +
@@ -224,9 +411,11 @@ public class DefaultPrinter extends AbstractPrinter
         return null;
     }
 
-    private String visit(Variable variable)
+    private String visit(Variable term)
     {
-        return  variable.name;
+        return  term.name +
+                (term.eliminationAnnotation == null? "":
+                        "[[" + visit(term.eliminationAnnotation) + "]]");
     }
 
     private String visit(Application application)
@@ -273,6 +462,6 @@ public class DefaultPrinter extends AbstractPrinter
 
     private String visit(ForAllType type)
     {
-        throw new UnsupportedOperationException(type.toString());
+        return "\\forall " + type.typeVariableName + "." + visit(type.type);
     }
 }

@@ -15,4 +15,10 @@ for default printing or
 ```
 java -jar TypeChecker.jar -i test.txt -latex
 ``` 
-for latex printing
+for latex printing.
+
+To store the result in a file use the command
+```
+java -jar TypeChecker.jar -i test.txt -o output.txt 
+```
+

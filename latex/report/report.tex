@@ -49,7 +49,7 @@ The project is implemented using Java and the executable is a jar file (target/T
 mvn install
 \end{lstlisting}  
 
-The program receives as an input a text file containing subtypes definitions and a judgment to be checked. For testing, \textbf{JUnit5} was used to test the program directly without files. The input is passed to the \textbf{Parser} which uses the ANTLR library to parse the input into an abstract syntax tree. This abstract syntax tree is consumed by the \textbf{Type Checker} which uses the rules in sections \ref{sec:simple} and \ref{sec:systemF} to build a derivation tree and determine the answer of the type checking. The answer can be \textbf{Yes}, \textbf{No}, or \textbf{Unknown}. Finally the derivation tree can be printed using the \textbf{Default Printer} or the \textbf{Latex Printer}.
+The program receives as an input a text file containing subtypes definitions and a judgment to be checked. For testing, \textbf{JUnit5} was used to test the program with 59 unit tests. The unit tests are located inside (src/test/java). The input (from file or unit test) is passed to the \textbf{Parser} which uses the ANTLR library to parse the input into an abstract syntax tree. This abstract syntax tree is consumed by the \textbf{Type Checker} which uses the rules in sections \ref{sec:simple} and \ref{sec:systemF} to build a derivation tree and determine the answer of the type checking. The answer can be \textbf{Yes}, \textbf{No}, or \textbf{Unknown}. Finally the derivation tree can be printed using the \textbf{Default Printer} or the \textbf{Latex Printer}.
 
 
 Here is an example of an input:
@@ -70,10 +70,10 @@ Here is the output of the default printer:
 \begin{lstlisting}  
 Yes
                                 SubBase(bool, int)
--------------------(var)        -------------------(subBase)
-x: bool ? x : bool                      bool <: int
---------------------------------------(subsumption)
-x: bool ? x : int
+--------------------(var)       -------------------(subBase)
+x: bool |- x : bool                     bool <: int
+---------------------------------------(subsumption)
+x: bool |- x : int
 
 \end{lstlisting}
 
@@ -94,6 +94,7 @@ Yes
 \end{prooftree}
 
 \end{lstlisting} 
+
 
 The following sections focus on terms and rules used in the \textbf{Type Checker}. 
 
@@ -197,11 +198,11 @@ Here are some examples tested by the \textbf{TypeChecker}. A red rule in the der
 \item \textbf{Lambda \& application rules}
 
 \begin{prooftree}
-\AxiomC{} \RightLabel{var} \UnaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash x : (T1 \rightarrow T2)$}
-\AxiomC{} \RightLabel{var} \UnaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash y : T1$}
-\RightLabel{app} \BinaryInfC{$x: (T1 \rightarrow T2), y: T1 \vdash (x\;y) [T1] : T2$}
-\RightLabel{$\lambda$}\UnaryInfC{$x: (T1 \rightarrow T2) \vdash  \lambda y. (x\;y) [T1] : (T1 \rightarrow T2)$}
-\RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [T1] : ((T1 \rightarrow T2) \rightarrow (T1 \rightarrow T2))$}
+\AxiomC{} \RightLabel{var} \UnaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash x : (T_1 \rightarrow T_2)$}
+\AxiomC{} \RightLabel{var} \UnaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash y : T_1$}
+\RightLabel{app} \BinaryInfC{$x: (T_1 \rightarrow T_2), y: T_1 \vdash (x\;y) [T_1] : T_2$}
+\RightLabel{$\lambda$}\UnaryInfC{$x: (T_1 \rightarrow T_2) \vdash  \lambda y. (x\;y) [T_1] : (T_1 \rightarrow T_2)$}
+\RightLabel{$\lambda$}\UnaryInfC{$\cdot \vdash  \lambda x.  \lambda y. (x\;y) [T_1] : ((T_1 \rightarrow T_2) \rightarrow (T_1 \rightarrow T_2))$}
 \end{prooftree}
 
 
@@ -551,13 +552,13 @@ Here are some examples tested by the \textbf{TypeChecker}. A red rule in the der
 \item Elimination annotation
 
 \begin{prooftree}
-\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X1.X1$}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X_1.X_1$}
 \RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[[Y]]: Y$}
 \end{prooftree}
 
 \item Elimination annotation with arrow
 \begin{prooftree}
-\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X1.X1$}
+\AxiomC{} \RightLabel{\scriptsize var} \UnaryInfC{$x: \forall X.X \vdash x : \forall X_1.X_1$}
 \RightLabel{\scriptsize elimination}\UnaryInfC{$x: \forall X.X \vdash x[[(Y \rightarrow Y)]] : (Y \rightarrow Y)$}
 \end{prooftree}
 

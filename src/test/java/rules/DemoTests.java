@@ -178,6 +178,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
     @Test
@@ -191,6 +194,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
     @Test
@@ -204,6 +210,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
 
@@ -218,6 +227,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
 
@@ -232,6 +244,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.No, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
     @Test
@@ -245,6 +260,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.No, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
 
@@ -259,6 +277,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
 
@@ -275,6 +296,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
 
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
+
     }
 
     @Test
@@ -288,6 +312,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
     @Test
@@ -301,6 +328,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
     @Test
@@ -314,6 +344,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
     @Test
@@ -329,6 +362,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Unknown, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
     @Test
@@ -344,6 +380,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
 
@@ -358,6 +397,9 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 
     @Test
@@ -371,5 +413,8 @@ public class DemoTests
         LatexPrinter latexPrinter = new LatexPrinter();
         System.out.println(latexPrinter.print(rule));
         assertEquals(DerivationAnswer.Yes, rule.isDerivable);
+
+        DefaultPrinter defaultPrinter = new DefaultPrinter();
+        System.out.println(defaultPrinter.print(rule));
     }
 }
