@@ -5,6 +5,7 @@ import printers.LatexPrinter;
 import typechecker.TypeChecker;
 
 import java.io.File;
+import java.util.Formatter;
 
 public class Main
 {
@@ -28,15 +29,26 @@ public class Main
                 File file = new File(inputFile);
                 TypeChecker typeChecker = new TypeChecker(file);
                 DerivationRule derivationRule = typeChecker.check();
+                String result ;
                 if(command.hasOption("l"))
                 {
                     LatexPrinter printer = new LatexPrinter();
-                    System.out.println(printer.print(derivationRule));
+                    result = printer.print(derivationRule);
+                    System.out.println(result);
                 }
                 else
                 {
                     DefaultPrinter printer = new DefaultPrinter();
-                    System.out.println(printer.print(derivationRule));
+                    result = printer.print(derivationRule);
+                    System.out.println(result);
+                }
+
+                if(command.hasOption("o"))
+                {
+                    File outputFile = new File(command.getOptionValue("o"));
+                    Formatter formatter = new Formatter(outputFile);
+                    formatter.format("%s", result);
+                    formatter.close();
                 }
             }
             else

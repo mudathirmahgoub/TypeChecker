@@ -123,7 +123,7 @@ public class DefaultPrinter extends AbstractPrinter
 
         String line = new String(new char[lineLength]).replace('\0', '-');
 
-        StringNode lineNode = new StringNode(level-1, line +"(λ)",
+        StringNode lineNode = new StringNode(level-1, line +"(\\lambda)",
                 Arrays.asList(premiseNode));
 
         StringNode node = new StringNode(level, conclusionString, Arrays.asList(lineNode));
@@ -175,7 +175,7 @@ public class DefaultPrinter extends AbstractPrinter
 
     private String visit(Judgment judgment)
     {
-          String string = visit(judgment.typingContext) + " ⊢ " +
+          String string = visit(judgment.typingContext) + " |- " +
                           visit(judgment.term) + " : " +
                           visit(judgment.type);
           return string;
@@ -238,7 +238,7 @@ public class DefaultPrinter extends AbstractPrinter
 
     private String visit(Lambda lambda)
     {
-        return  "λ" + lambda.variable + ". " + visit(lambda.term);
+        return  "\\lambda" + lambda.variable + ". " + visit(lambda.term);
     }
 
     private String visit(Type type)
@@ -268,7 +268,7 @@ public class DefaultPrinter extends AbstractPrinter
 
     private String visit(ArrowType type)
     {
-        return "(" + visit(type.domain) + " → "  + visit(type.range) + ")";
+        return "(" + visit(type.domain) + " -> "  + visit(type.range) + ")";
     }
 
     private String visit(ForAllType type)
